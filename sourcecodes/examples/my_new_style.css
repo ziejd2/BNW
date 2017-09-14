@@ -1,0 +1,155 @@
+* {
+padding: 0;
+margin: 0;
+}
+html, body {
+height: 100%;
+}
+
+body {
+  margin:0px;
+  font-family: Georgia, "Times New Roman",
+        Times, serif;
+  color: #33339F;
+  background-color: white;
+  padding-bottom:0px; 
+
+}
+
+
+
+.td_title
+{
+        padding: 0;
+        margin: 0;
+        font-family:Arial;
+        font-size:24pt;
+        HRIZONTAL-ALIGN: center;
+        color:#FFFFFF;
+        font-weight:bold;
+        //FONT-STYLE: italic;
+        background-color: #33339F;
+        text-align:center
+
+}
+
+
+
+#outer {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 9em;
+  left: 12em;
+  text-align:left;
+  background:white;
+  min-width:50%;
+  min-hieght:50%;
+  max-width:70%;
+
+}
+
+#outernew {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 9em;
+  left: 12em;
+  text-align:left;
+  background:white;
+  min-width:50%;
+  min-hieght:50%;
+  max-width:60%;
+
+}
+
+#outernewnew {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 12em;
+  left: 25em;
+  text-align:left;
+  background:white;
+  min-width:50%;
+  min-hieght:50%;
+  max-width:60%;
+
+}
+
+
+
+ul.navbar {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  /*position: relative;*/
+  float: top;
+  /*margin-top: 20px;*/
+  top: 9em;
+  left: 1em;
+  width: 9em }
+
+ul.navbar2 {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  /*position: absolute;*/
+  float:top;
+  top: 9em;
+  left: 1em;
+  width: 9em }
+
+ul.listbar {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  }
+
+
+
+h1 {
+  font-family: Helvetica, Geneva, Arial,
+        SunSans-Regular, sans-serif }
+ul.navbar li {
+/*  background: #D0A9F5; */
+  background: #33339F;
+  margin: 0.5em 0;
+  padding: 0.3em;
+  border-right: 1em solid black }
+ul.navbar a {
+  text-decoration: none 
+}
+ul.navbar a:link {
+ color: white; }
+ul.navbar a:visited {
+ color: white; }
+
+ul.navbar2 li {
+/*  background: #D0A9F5; */
+  background: black;
+  margin: 0.5em 0;
+  padding: 0.3em;
+  border-right: 1em solid #33339F;
+  color: white }
+ul.navbar2 a {
+  text-decoration: none 
+}
+ul.navbar2 a:link {
+ color: white; }
+ul.navbar2 a:visited {
+ color: white; }
+
+a:link {
+  color: black; }
+a:hover {
+	color: black;
+	}
+a:visited {
+  color: black; }
+address {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: thin dotted }
+

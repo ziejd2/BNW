@@ -1,0 +1,15 @@
+Voltage_at_plug	0.3315	0.3153	0.3532
+Spark_quality	0.3266	0.3334	0.3400
+Car_cranks	0.4960	0.5040
+Car_starts	0.5158	0.4842
+Spark_plugs	0.3160	0.3260	0.3580
+Distributer	0.5030	0.4970
+Spark_timing	0.3210	0.3440	0.3350
+Alternator	0.5060	0.4940
+Charging_system	0.5040	0.4960
+Battery_voltage	0.3072	0.3486	0.3442
+Headlights	0.3130	0.3420	0.3450
+Battery_age	0.3460	0.6000	0.0540
+Main_fuse	0.5100	0.4900
+Starter_system	0.5238	0.4762
+Starter_motor	0.5070	0.4930

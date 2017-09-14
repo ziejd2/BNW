@@ -1,0 +1,11 @@
+digraph G {
+size="10,10";  ratio = fill;
+node [shape=square,width=1.5];
+Geno1 -> Trait2;
+Geno2 -> Trait3;
+Geno2 -> Trait4;
+Geno2 -> Trait6;
+Trait2 -> Trait1;
+Trait2 -> Trait4;
+Trait3 -> Trait4;
+}

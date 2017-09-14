@@ -1,0 +1,10 @@
+digraph G {
+size="10,10";  ratio = fill;
+node [shape=square,width=1.5];
+Genotype -> Gene3;
+Genotype -> Gene1;
+Gene3 -> Phenotype;
+Gene2 -> Gene3;
+Gene2 -> Phenotype;
+Gene1 -> Gene2;
+}

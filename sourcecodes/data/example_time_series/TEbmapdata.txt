@@ -1,0 +1,1 @@
+TraitC_T2	TraitC_T1	TraitB_T3	TraitB_T1	Genotype	TraitA_T3	TraitA_T2	TraitA_T1	TraitB_T2	TraitC_T3

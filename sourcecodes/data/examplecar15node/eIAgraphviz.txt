@@ -1,0 +1,20 @@
+digraph G {
+size="10,10";  ratio = fill;
+node [shape=square,width=1.5];
+Voltage_at_plug -> Spark_quality;
+Car_cranks -> Car_starts;
+Spark_plugs -> Spark_quality;
+Spark_quality -> Car_starts;
+Distributer -> Voltage_at_plug;
+Distributer -> Spark_timing;
+Spark_timing -> Car_starts;
+Alternator -> Charging_system;
+Charging_system -> Battery_voltage;
+Battery_voltage -> Voltage_at_plug;
+Battery_voltage -> Headlights;
+Battery_age -> Battery_voltage;
+Main_fuse -> Voltage_at_plug;
+Main_fuse -> Starter_system;
+Starter_system -> Car_cranks;
+Starter_motor -> Starter_system;
+}

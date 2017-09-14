@@ -1,0 +1,15 @@
+From	To
+Geno1	Geno2
+Geno2	Geno1
+Trait5	Geno1
+Trait5	Geno2
+Trait5	Trait1
+Trait5	Trait2
+Trait5	Trait3
+Trait5	Trait4
+Trait6	Geno1
+Trait6	Geno2
+Trait6	Trait1
+Trait6	Trait2
+Trait6	Trait3
+Trait6	Trait4

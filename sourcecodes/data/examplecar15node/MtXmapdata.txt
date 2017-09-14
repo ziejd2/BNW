@@ -1,0 +1,1 @@
+Starter_motor	Main_fuse	Starter_system	Car_cranks	Battery_age	Alternator	Charging_system	Battery_voltage	Headlights	Distributer	Spark_timing	Voltage_at_plug	Spark_plugs	Spark_quality	Car_starts

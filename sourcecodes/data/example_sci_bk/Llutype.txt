@@ -1,0 +1,2 @@
+Genotype	Gene3	Gene2	Phenotype	Gene1
+2	1	1	1	1	
