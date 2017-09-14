@@ -1,0 +1,3 @@
+From	To
+Trait2	Trait4
+Trait3	Trait6
