@@ -1,0 +1,7 @@
+#!/usr/bin/octave -qf
+cd ./data
+arg_list = argv(); 
+addpath("/var/www/html/compbio/BNW_1.02/sourcecodes/bnt-master");
+addpath(genpathKPM("/var/www/html/compbio/BNW_1.02/sourcecodes/bnt-master"));
+addpath("/var/www/html/compbio/BNW_1.02/sourcecodes/parameter_learning");
+runBN_initial(arg_list{1});

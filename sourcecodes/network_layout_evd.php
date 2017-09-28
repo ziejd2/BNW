@@ -44,7 +44,7 @@ $str_arrmat=explode("\n",$matrix1);
 if($str_arrmat[2]=="" || $matrix1=="")
 {
 ?>
-<h1><font color=blue>Error: Unable to display your network structure.</font></h1>
+  <h1><font color=blue>Error: Unable to display your network structure 1.</font></h1>
 <?php
 exit;
 }
