@@ -84,6 +84,9 @@ function calcHeight()
   <li><a href="javascript:void(0);"
 NAME="Model Averaging Matrix" title="Model Averaging Matrix"
 onClick=window.open("matrix.php?My_key=<?php print($keyval);?>","Ratting","width=950,height=270,0,status=0,");>Display structure matrix</a>  
+  <li><a href="javascript:void(0);"
+NAME="Parameters" title="Parameters"
+onClick=window.open("parameter_display.php?My_key=<?php print($keyval);?>","Ratting","width=950,height=270,0,status=0,");>View parameters</a>  
  <li><a href="help.php" target='_blank'>Help</a> 
  <li><a href="../home.php">Home</a>
 </ul>

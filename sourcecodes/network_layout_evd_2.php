@@ -108,35 +108,8 @@ if($str_arrmat[2]=="" || $matrix1=="")
 <?php
 exit;
 }
-/*
-if($node<=5)
-{
-  $width=200;
-  $hieght=150;
-  $font=11;
-}
-else if($node>5 && $node<=7)
-{
   $width=150;
-  $hieght=120;
-  $font=10;
-
-}
-else if($node>7 && $node<=10)
-{
-  $width=110;
-  $hieght=85;
-  $font=8;
-}
-else 
-{
-  $width=80;
-  $hieght=60;
-  $font=7;
-}
-*/
-  $width=150;
-  $hieght=150;
+  $height=150;
   $font=12;
 
 
@@ -193,7 +166,7 @@ for($i=0;$i<$node;$i++)
         
         		 } 
 		}
-		if($nodetype>1)  //type=descrete
+		if($nodetype>1)  //type=discrete
 		{
          		$iter=$datamat[1];
          		for($j=1;$j<=$iter;$j++)
@@ -205,7 +178,6 @@ for($i=0;$i<$node;$i++)
            			$data_read[$i][$col_in]=trim($datamat[1]);  //y data
            			$col_in++;
            			$r_index++; // increment to point next data
-           //echo "<br />"; 
          		} 
 		}
 
@@ -234,7 +206,7 @@ for($i=0;$i<$node_old;$i++)
 	$data_read_old[$i][1]=trim($datamat_old[1]);  //datatype
 	$col_in_old=2;
 	$r_index_old+=4;
-	if($datamat_old[1]==1)  //type=coninuous
+	if($datamat_old[1]==1)  //type=continuous
 	{
          for($j=1;$j<=101;$j++)
          {
@@ -249,7 +221,7 @@ for($i=0;$i<$node_old;$i++)
 
          } 
 	}
-	if($datamat_old[1]>1)  //type=descrete
+	if($datamat_old[1]>1)  //type=discrete
 	{
          $iter=$datamat_old[1];
          for($j=1;$j<=$iter;$j++)
@@ -279,15 +251,6 @@ $g_file_name="./data/".$keyval."grviz_name_file.txt";
 $grviz_name=file_get_contents("$g_file_name");
 $grviz_name_list=explode("\n",$grviz_name);
 
-
-
-//$grfilename=$keyval."graphviz.txt";
-//$cmd="/usr/bin/dot -Tplain -y  $grfilename";
-//$line=system($cmd);
-
-
-
-//shell_exec('/usr/bin/dot -Tpng -o /var/www/html/compbio/BNW/graphviz.png /var/www/html/compbio/BNW/graphviz.txt');
 $str_arrname=array();
 $str_arrname=explode("\n",$line);
 $data=array();
@@ -299,35 +262,24 @@ foreach($str_arrname as $row)
   $i++;
   if($i>1)
   {
-       
-  	$data=explode(" ",$row);
+       $data=explode(" ",$row);
        $j=0;
        $k=0;
        $flag=0;
   	foreach($data as $cell)
 	{
-             
              $j++;
-             
              $cell=trim($cell);
-             //echo $cell;
-             //echo '&nbsp';
              if($j==1 && $cell=="node")
              {
                 $flag=1;
              }  
-               
              if($j>1 && $j<5 && $flag==1)
              {
-    		  //echo $cell;
-   		  //echo '&nbsp';
                 if($j==2)
                    $ID_data[$ii][$k]=$grviz_name_list[$cell];
                 else
                    $ID_data[$ii][$k]=round($cell/10*900);
-               // echo $ID_data[$ii][$k];
-                //echo '&nbsp';
-
                 $k++; 
              }
        } 
@@ -339,10 +291,7 @@ foreach($str_arrname as $row)
           $ID_data[$ii][5]=$ID_data[$ii][1]+100;
           $ID_data[$ii][6]=$ID_data[$ii][2]; 
           $ii++;
-          //echo "<br />"; 
        } 
-     // echo "<br />"; 
-	
   }
 }
 
@@ -357,10 +306,8 @@ foreach($str_arrname as $row)
   $i++;
   if($i>1)
   {
-       
   	$data=explode(" ",$row);
        $j=0;
-       
        $flag=0;
        $number_of_point=0;
        $index=0; 
@@ -368,12 +315,10 @@ foreach($str_arrname as $row)
 	{
              $j++;
              $cell=trim($cell);
-         
              if($j==1 && $cell=="edge")
              {
                 $flag=1;
              }  
-               
              if($j==2 && $flag==1)
              {
                 
@@ -385,9 +330,7 @@ foreach($str_arrname as $row)
                           $edge_data[$ii][0]=$ID_data[$k][3];
                           $edge_data[$ii][1]=$ID_data[$k][4];
                       }                     
-
                 }
-               
              }
              else if($j==3 && $flag==1)
              {
@@ -398,9 +341,7 @@ foreach($str_arrname as $row)
                           $edge_data[$ii][2]=$ID_data[$k][5];
                           $edge_data[$ii][3]=$ID_data[$k][6];
                       }                     
-
                 }
-
              }
              else if($j==4 && $flag==1)
              {
@@ -411,29 +352,21 @@ foreach($str_arrname as $row)
              else if($j>4 && $number_of_point>0 && $flag==1)
              {
                 if(($j%2)!=0)
-                  $edge_data[$ii][$index]=round($cell/10*900)+60;//+30+30;
+                  $edge_data[$ii][$index]=round($cell/10*900)+60;
                 else
-                  $edge_data[$ii][$index]=round($cell/10*900)+48;//+18+30;
-
+                  $edge_data[$ii][$index]=round($cell/10*900)+48;
                 $number_of_point--;
                 $index++;
              }
-
-
-             
        } 
        if($flag==1)
        {
           $ii++;
-          //echo "<br />"; 
        } 
- 	
   }
 }
 
-
 $nedges=$ii;
-//echo $nedges;
 
 ?>
 
@@ -625,9 +558,9 @@ else
         } 
          chart.draw(data,
                  {title:"<?php print($named);?>", titleTextStyle: {fontSize: <?php print($font);?>},
-                  width:<?php print($width);?>, height:<?php print($hieght);?>,
-                  vAxis: {title: "State", textStyle: {fontSize:<?php print($font);?>}},
-		    hAxis: {title: "Fraction", minValue: 0, maxValue: 1, gridlines: {count: 3}}, legend: {position: 'none'},
+                  width:<?php print($width);?>, height:<?php print($height);?>,
+                  vAxis: {textStyle: {fontSize:<?php print($font);?>}},
+		    hAxis: {minValue: 0, maxValue: 1, gridlines: {count: 3}}, legend: {position: 'none'},
                   backgroundColor: {stroke: '<?php print($bcolor);?>', strokeWidth: 5}}
             );
         google.visualization.events.addListener(chart, 'select', selectHandler);  
@@ -654,14 +587,14 @@ if($evd==-9999)
 {
 ?>
   var data = google.visualization.arrayToDataTable([
-   ['<?php print($name);?>', 'Old', 'New'],
+						    [{label: '<?php print($name);?>', type: 'number'}, {label:'Old'},{label:'New'}],
 <?php
   $c_i=2;
   $c_i_old=2;
   for($j=0;$j<100;$j++) 
   {
        $val1=trim($data_read[$s_i][$c_i]);
-       $val1=map($name,$val1,$keyval);
+       //       $val1=map($name,$val1,$keyval);
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;         
@@ -678,7 +611,7 @@ if($evd==-9999)
   if($j==100)
   {
         $val1=trim($data_read[$s_i][$c_i]);
-       $val1=map($name,$val1,$keyval);
+	//       $val1=map($name,$val1,$keyval);
 
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
@@ -695,11 +628,11 @@ if($evd==-9999)
 }
 else
 {
-    $evd=map($name,$evd,$keyval);
+  //    $evd=map($name,$evd,$keyval);
     $evduse=$evd;
 ?>
   var data = google.visualization.arrayToDataTable([
-    ['<?php print($name);?>', 'Old', 'New'],
+						    [{label: '<?php print($name);?>', type: 'number'}, {label:'Old'},{label:'New'}],
 
 <?php
  
@@ -707,7 +640,7 @@ else
   for($j=0;$j<100;$j++) 
   {     
        $val1_old=trim($data_read_old[$s_i_old][$c_i_old]);
-       $val1_old=map($name,$val1_old,$keyval);
+       //       $val1_old=map($name,$val1_old,$keyval);
 
        $c_i_old++;
        $val2_old=trim($data_read_old[$s_i_old][$c_i_old]);
@@ -730,7 +663,7 @@ else
   if($j==100)
   {
        $val1_old=trim($data_read_old[$s_i_old][$c_i_old]);
-       $val1_old=map($name,$val1_old,$keyval);
+       //       $val1_old=map($name,$val1_old,$keyval);
        $c_i_old++;
        $val2_old=trim($data_read_old[$s_i_old][$c_i_old]);
        $c_i_old++;
@@ -777,9 +710,10 @@ else
             chart.draw(data, {curveType: "function",
                   title:"<?php print($named);?>", titleTextStyle: {fontSize: <?php print($font);?>},
 			legend: {position: 'none'},
-                  width:<?php print($width);?>, height:<?php print($hieght);?>,
-                  hAxis: {maxValue: 1, minValue: 0},
-			vAxis: {maxValue: 1, minValue: 0},
+                  width:<?php print($width);?>, height:<?php print($height);?>,
+		     hAxis: {gridlines: {count: 4}, textStyle: {fontSize: 9},viewWindowMode: 'maximized'},
+		    vAxis: {maxValue: 1, minValue: 0,viewWindow: {min:0}, gridlines: {count:5}, textStyle: {fontSize: 9}},
+		    chartArea:{left:30,top:25,right:8,bottom:25},
                   backgroundColor: {stroke: '<?php print($bcolor);?>', strokeWidth: 5}}
             );
            google.visualization.events.addListener(chart, 'select', selectHandler); 
@@ -946,7 +880,7 @@ for($i=0;$i<$nnode;$i++)
 <script type="text/javascript">
    google.setOnLoadCallback(draw_<?php print($name)?>);
 </script>
-<div id="<?php print($name)?>" style="left: <?php print($x)?>px; top: <?php print($y)?>px; width:<?php print($width);?>; height:<?php print($hieght);?>; position: absolute"></div>
+<div id="<?php print($name)?>" style="left: <?php print($x)?>px; top: <?php print($y)?>px; width:<?php print($width);?>; height:<?php print($height);?>; position: absolute"></div>
 
 <?php 
 }

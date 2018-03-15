@@ -105,11 +105,13 @@ for($j=0;$j<$nn;$j++)
 
 $dt=$type_d[$s];
  
-if($dt==1)
-   $textdata=reversemap($sym,$textdata,$keyval);
-else
-   $textdata=discretemap($textdata,$sym,$dmapdata);
+//if($dt==1)
+//   $textdata=reversemap($sym,$textdata,$keyval);
+//else
+//   $textdata=discretemap($textdata,$sym,$dmapdata);
 
+if($dt!=1)
+   $textdata=discretemap($textdata,$sym,$dmapdata);
 
  $ft=$dir."$keyval"."var.txt"; 
  $f1=fopen("$ft","w");  
@@ -188,15 +190,15 @@ else
 }
 
 
-  $file1="./data/".$keyval."run_evidencemodified.sh";
-  $initiallines=file_get_contents("./data/temp_evidence_file");
-  $all_lines="$initiallines"."$keyval\nfi\nexit";
+//  $file1="./data/".$keyval."run_evidencemodified.sh";
+//  $initiallines=file_get_contents("./data/temp_evidence_file");
+//  $all_lines="$initiallines"."$keyval\nfi\nexit";
    
-  $fp = fopen($file1,"w"); 
-  fwrite($fp, "$all_lines\n");
-  fclose($fp);
+//  $fp = fopen($file1,"w"); 
+//  fwrite($fp, "$all_lines\n");
+//  fclose($fp);
   //execute shell script for matlab
-  shell_exec('./runmat_evd.sh '.$keyval);
+  shell_exec('./run_octave_evd '.$keyval);
 
 ?>
 <script>

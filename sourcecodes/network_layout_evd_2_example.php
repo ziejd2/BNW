@@ -112,31 +112,31 @@ exit;
 if($node<=5)
 {
   $width=200;
-  $hieght=150;
+  $height=150;
   $font=11;
 }
 else if($node>5 && $node<=7)
 {
   $width=150;
-  $hieght=120;
+  $height=120;
   $font=10;
 
 }
 else if($node>7 && $node<=10)
 {
   $width=110;
-  $hieght=85;
+  $height=85;
   $font=8;
 }
 else 
 {
   $width=80;
-  $hieght=60;
+  $height=60;
   $font=7;
 }
 */
   $width=150;
-  $hieght=150;
+  $height=150;
   $font=12;
 
 
@@ -617,9 +617,9 @@ else
         } 
          chart.draw(data,
                  {title:"<?php print($named);?>", titleTextStyle: {fontSize: <?php print($font);?>},
-                  width:<?php print($width);?>, height:<?php print($hieght);?>,
-                  vAxis: {title: "State", textStyle: {fontSize:<?php print($font);?>}},
-		    hAxis: {title: "Fraction", minValue: 0, maxValue: 1, gridlines: {count: 3}}, legend: {position: 'none'},
+                  width:<?php print($width);?>, height:<?php print($height);?>,
+                  vAxis: {textStyle: {fontSize:<?php print($font);?>}},
+		    hAxis: {minValue: 0, maxValue: 1, gridlines: {count: 3}}, legend: {position: 'none'},
                   backgroundColor: {stroke: '<?php print($bcolor);?>', strokeWidth: 5}}
             );
         google.visualization.events.addListener(chart, 'select', selectHandler);  
@@ -646,14 +646,14 @@ if($evd==-9999)
 {
 ?>
   var data = google.visualization.arrayToDataTable([
-   ['<?php print($name);?>', 'Old', 'New'],
+						    [{label:'<?php print($name);?>',type:'number'}, {label:'Old'},{label:'New'}],
 <?php
   $c_i=2;
   $c_i_old=2;
   for($j=0;$j<100;$j++) 
   {
        $val1=trim($data_read[$s_i][$c_i]);
-       $val1=map($name,$val1,$keyval);
+       //$val1=map($name,$val1,$keyval);
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;         
@@ -670,7 +670,7 @@ if($evd==-9999)
   if($j==100)
   {
         $val1=trim($data_read[$s_i][$c_i]);
-       $val1=map($name,$val1,$keyval);
+	//$val1=map($name,$val1,$keyval);
 
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
@@ -687,11 +687,12 @@ if($evd==-9999)
 }
 else
 {
-    $evd=map($name,$evd,$keyval);
+  //$evd=map($name,$evd,$keyval);
     $evduse=$evd;
 ?>
   var data = google.visualization.arrayToDataTable([
-    ['<?php print($name);?>', 'Old', 'New'],
+						    [{label:'<?php print($name);?>',type:'number'}, {label:'Old'},{label:'New'}], 
+//   ['<?php print($name);?>', 'Old', 'New'],
 
 <?php
  
@@ -699,7 +700,7 @@ else
   for($j=0;$j<100;$j++) 
   {     
        $val1_old=trim($data_read_old[$s_i_old][$c_i_old]);
-       $val1_old=map($name,$val1_old,$keyval);
+       //$val1_old=map($name,$val1_old,$keyval);
 
        $c_i_old++;
        $val2_old=trim($data_read_old[$s_i_old][$c_i_old]);
@@ -722,7 +723,7 @@ else
   if($j==100)
   {
        $val1_old=trim($data_read_old[$s_i_old][$c_i_old]);
-       $val1_old=map($name,$val1_old,$keyval);
+       //$val1_old=map($name,$val1_old,$keyval);
        $c_i_old++;
        $val2_old=trim($data_read_old[$s_i_old][$c_i_old]);
        $c_i_old++;
@@ -769,9 +770,10 @@ else
             chart.draw(data, {curveType: "function",
                   title:"<?php print($named);?>", titleTextStyle: {fontSize: <?php print($font);?>},
 			legend: {position: 'none'},
-                  width:<?php print($width);?>, height:<?php print($hieght);?>,
-                  hAxis: {maxValue: 1, minValue: 0},
-			vAxis: {maxValue: 1, minValue: 0},
+                  width:<?php print($width);?>, height:<?php print($height);?>,
+		  hAxis: {gridlines: {count: 4}, textStyle: {fontSize: 9}, viewWindowMode: 'maximized'},
+		    vAxis: {maxValue: 1, minValue: 0,viewWindow: {min:0}, gridlines: {count:5}, textStyle: {fontSize: 9}},
+		    chartArea:{left:30,top:25,right:8,bottom:25},
                   backgroundColor: {stroke: '<?php print($bcolor);?>', strokeWidth: 5}}
             );
            google.visualization.events.addListener(chart, 'select', selectHandler); 
@@ -938,7 +940,7 @@ for($i=0;$i<$nnode;$i++)
 <script type="text/javascript">
    google.setOnLoadCallback(draw_<?php print($name)?>);
 </script>
-<div id="<?php print($name)?>" style="left: <?php print($x)?>px; top: <?php print($y)?>px; width:<?php print($width);?>; height:<?php print($hieght);?>; position: absolute"></div>
+<div id="<?php print($name)?>" style="left: <?php print($x)?>px; top: <?php print($y)?>px; width:<?php print($width);?>; height:<?php print($height);?>; position: absolute"></div>
 
 <?php 
 }

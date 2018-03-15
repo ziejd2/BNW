@@ -1,0 +1,7 @@
+#!/usr/bin/octave -qf
+cd ./data
+arg_list = argv(); 
+addpath("../bnt-master");
+addpath(genpathKPM("../bnt-master"));
+addpath("../parameter_learning");
+Predictmultipleintrvention(arg_list{1});
