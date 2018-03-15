@@ -100,10 +100,16 @@ for($j=0;$j<$nn;$j++)
 
 $dt=$type_d[$s];
  
-if($dt==1)
-   $textdata=reversemap($sym,$textdata,$keyval);
-else
+//if($dt==1)
+//   $textdata=reversemap($sym,$textdata,$keyval);
+//else
+//   $textdata=discretemap($textdata,$sym,$dmapdata);
+
+if($dt!=1)
    $textdata=discretemap($textdata,$sym,$dmapdata);
+
+
+
 
  $ft=$dir.$keyval."var.txt"; 
  $f1=fopen("$ft","w");  

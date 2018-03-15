@@ -25,19 +25,12 @@ end
 [labelsold,node_sizes,cases, data] = readInputData(dfile,nnodes);
 
 
-
-
 % read in the file with the structure
 [dag] = readInputStructure(sfile,labelsold);
 
 
 % check the ordering of the nodes and reorder if necessary
 [labels,cases,dag,node_sizes,ord_flag] = checkStructure(labelsold,cases,dag,node_sizes);
-%draw_graph(dag,labels);
-%if ord_flag == 1
-%    fprintf(['Order of nodes was changed to agree with topological order\n'])
-%end
-%fprintf(['The structure of the network should be correctly displayed in a figure\n'])
 
 dcount = 0;
 for i = 1:nnodes

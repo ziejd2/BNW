@@ -53,35 +53,8 @@ $datamat=array();
 $data_read=array();
  
 $node=trim($str_arrmat[0]);
-/*
-if($node<=5)
-{
-  $width=200;
-  $hieght=150;
-  $font=14;
-}
-else if($node>5 && $node<=7)
-{
   $width=150;
-  $hieght=120;
-  $font=12;
-
-}
-else if($node>7 && $node<=10)
-{
-  $width=110;
-  $hieght=85;
-  $font=10;
-}
-else 
-{
-  $width=80;
-  $hieght=60;
-  $font=8;
-}
-*/
-  $width=150;
-  $hieght=150;
+  $height=150;
   $font=12;
 
 $r_index=$node+2;
@@ -396,9 +369,9 @@ for($i=0;$i<$nnode;$i++)
         } 
          chart.draw(data,
                  {title:"<?php print($name);?>", titleTextStyle: {fontSize: <?php print($font);?>},
-                  width:<?php print($width);?>, height:<?php print($hieght);?>,
-                  vAxis: {title: "State", textStyle: {fontSize:<?php print($font);?>}},
-		    hAxis: {title: "Fraction", minValue: 0, maxValue: 1, gridlines: {count: 3}}, legend: {position: 'none'},
+                  width:<?php print($width);?>, height:<?php print($height);?>,
+                  vAxis: {textStyle: {fontSize:<?php print($font);?>}},
+		    hAxis: {minValue: 0, maxValue: 1, gridlines: {count: 3}}, legend: {position: 'none'},
                   backgroundColor: {stroke: 'black', strokeWidth: 5}}
             );
         google.visualization.events.addListener(chart, 'select', selectHandler);  
@@ -412,27 +385,27 @@ for($i=0;$i<$nnode;$i++)
   function <?php print($fname);?> {
   // Create and populate the data table.
   var data = google.visualization.arrayToDataTable([
-   ['<?php print($name);?>', ''],
+						    [ {label: '<?php print($name);?>', type: 'number'}, {label:''}],
   <?php
   $c_i=2;
   for($j=0;$j<100;$j++) 
   {
        $val1=trim($data_read[$s_i][$c_i]);
-       $val1=map($name,$val1,$keyval);
+       //$val1=map($name,$val1,$keyval);
 
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;         
        $data_val.="\t".$val2;
   ?>
-   ['<?php print($val1);?>', <?php print($val2);?>],
+   ['<?php print(floatval($val1));?>', <?php print($val2);?>],
 
   <?php
   }
   if($j==100)
   {
        $val1=trim($data_read[$s_i][$c_i]);
-       $val1=map($name,$val1,$keyval);
+       //$val1=map($name,$val1,$keyval);
 
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
@@ -462,11 +435,12 @@ for($i=0;$i<$nnode;$i++)
         }
             chart.draw(data, {curveType: "function",
                   title:"<?php print($name);?>", titleTextStyle: {fontSize: <?php print($font);?>},
-			legend: {position: 'none'},
-                  width:<?php print($width);?>, height:<?php print($hieght);?>,
-                  hAxis: {maxValue: 1, minValue: 0},
-			vAxis: {maxValue: 1, minValue: 0},
-                  backgroundColor: {stroke: 'black', strokeWidth: 5}}
+		  legend: {position: 'none'},
+                  width:<?php print($width);?>, height:<?php print($height);?>,
+						  vAxis: {minValue: 0, maxValue: 1, viewWindow: {min:0}, gridlines: {count: 5}, textStyle: {fontSize: 9}},
+                  hAxis: {gridlines: {count: 4}, textStyle: {fontSize: 9},viewWindowMode: 'maximized'},
+                  chartArea:{left:30,top:25,right:8,bottom:25},
+		    backgroundColor: {stroke: 'black', strokeWidth: 5}}
             );
            google.visualization.events.addListener(chart, 'select', selectHandler); 
        }
@@ -635,7 +609,7 @@ for($i=0;$i<$nnode;$i++)
 <script type="text/javascript">
    google.setOnLoadCallback(draw_<?php print($name)?>);
 </script>
-<div id="<?php print($name)?>" style="left: <?php print($x)?>px; top: <?php print($y)?>px; width:<?php print($width);?>; height:<?php print($hieght);?>; position: absolute"></div>
+<div id="<?php print($name)?>" style="left: <?php print($x)?>px; top: <?php print($y)?>px; width:<?php print($width);?>; height:<?php print($height);?>; position: absolute"></div>
 
 <?php 
 }

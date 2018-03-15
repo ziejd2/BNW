@@ -1,18 +1,19 @@
-function [] = drawFigure(nnodes,bnet,labels,filename,cases,selectvar,selectdata)
+function [] = drawFigure(nnodes,bnet,labels,filename,cases,stdevs,means,selectvar,selectdata)
 %drawFigure writes the parameters and data that are needed to draw the
 %structure of a Bayesian network.
 
-if nargin < 6,
-    drawFigureNoEv(nnodes,bnet,labels,filename,cases);
+
+if nargin < 8,
+    drawFigureNoEv(nnodes,bnet,labels,filename,cases,stdevs,means);
 else
-    drawFigureEv(nnodes,bnet,labels,filename,cases,selectvar,selectdata);
+    drawFigureEv(nnodes,bnet,labels,filename,cases,stdevs,means,selectvar,selectdata);
 end;
 
 end
 
 
 
-function [] = drawFigureEv(nnodes,bnet,labels,filename,cases,selectvar,selectdata)
+function [] = drawFigureEv(nnodes,bnet,labels,filename,cases,stdevs,means,selectvar,selectdata)
 %Function to use if there is no entered evidence. 
 %         
 %
@@ -152,6 +153,8 @@ for i = 1:nnodes,
         [x_vals,y_vals] = calcGaussian(predict.mu,predict.Sigma,Amax(i),Amin(i));
         %%%For continuous nodes, print x and the pdf of a normal curve.
         for j = 1:101,
+            %%Undo standardization
+            xvals(j,1) = xvals(j,1)*stdevs{i}+means{i}
             fprintf(fileID,'%6.4f\t%6.4f\n',x_vals(j,1),y_vals(j,1));
         end;
       end;
@@ -172,7 +175,7 @@ end
 
 
 
-function [] = drawFigureNoEv(nnodes,bnet,labels,filename,cases)
+function [] = drawFigureNoEv(nnodes,bnet,labels,filename,cases,stdevs,means)
 %Function to use if there is no entered evidence. 
 %         
 %
@@ -302,6 +305,8 @@ for i = 1:nnodes,
         [x_vals,y_vals] = calcGaussian(predict.mu,predict.Sigma,Amax(i),Amin(i));
         %%%For continuous nodes, print x and the pdf of a normal curve.
         for j = 1:101,
+            %%Undo standardization
+            x_vals(j,1) = x_vals(j,1)*stdevs{i}+means{i};
             fprintf(fileID,'%6.4f\t%6.4f\n',x_vals(j,1),y_vals(j,1));
         end;
     end;

@@ -1,7 +1,7 @@
 function [ cases ] = standardizeData( labels, node_sizes, cases )
 %standardizeData standardizes continuous nodes so they have a mean = 0
 %   and standard deviation = 1
-%   Detailed explanation goes here
+
 
 nnodes = size(labels,2);
 

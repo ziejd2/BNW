@@ -1,21 +1,6 @@
-function [] = drawFigureM(nnodes,bnet,labels,filename,cases,selectvar,selectdata)
-%drawFigure writes the parameters and data that are needed to draw the
-%structure of a Bayesian network.
-
-
-%Function to use if there is no entered evidence. 
-%         
-%
-%Before each printed line, I will have a line that starts with %%%
-% that describes what will be on that line
-
-%Create an empty evidence cell array.
-
-%val=cases;
-%for i = 1:nnodes
-% val(i,1)=val(i,2);
-
-%end
+function [] = drawFigureM(nnodes,bnet,labels,filename,cases,stdevs,means,selectvar,selectdata)
+%drawFigureM writes the parameters and data that are needed to draw the
+%structure of a Bayesian network after added evidence or intervention
 
 fileID = fopen(filename,'w');
 
@@ -30,49 +15,35 @@ engine = jtree_inf_engine(bnet);
 
 m = size(selectvar,1);
 
-
 ev_dat = zeros(1,nnodes);
-%For parents, sum down columns
 for i = 1:m,
     di=selectvar(i,1);
     ev_dat(di)=selectdata(i,1);   
-    
+%Need to standardized evidence for continuous nodes.
+    if bnet.node_sizes(di) == 1
+        ev_dat(di) = (ev_dat(di) - means{di}) / stdevs{di};
+    end
     evidence{di}=ev_dat(di);
     fprintf(fileID,'%i\t',di);
 end
+
 fprintf(fileID,'\n');
-
-%ev_dat
-
-% select_var = selectvar(1,1)
-% 
-% select_var_data = selectdata(1,1)
-% 
-% 
-% evidence{select_var}=select_var_data;
 
 [engine,loglik]=enter_evidence(engine,evidence);
 
 %Open the file, and write the nodes to a file.
-
-
-%%%%Evidence node
-
 %%% The number of nodes
 fprintf(fileID,'%i\n',nnodes);
 %Get canvas size
 labels_temp = cellstr(labels);
 [x,y] = make_layout(bnet.dag);
-
 x = x - min(x);
 y = 1 - y;
 y = y - min(y);
-
 [x_dim,y_dim] = canvasSize(nnodes,x,y);
 
 %%% The dimensions of the canvas for the javascript code
-fprintf(fileID,'%i\t%i\t\n',x_dim,y_dim)
-
+fprintf(fileID,'%i\t%i\t\n',x_dim,y_dim);
 x = x*x_dim;
 y = y*y_dim;
 for i = 1:nnodes,
@@ -98,7 +69,6 @@ for i = 1:nnodes,
         end
     end
 end
-
 
 for i = 1:nnodes,
     %%% The name and type of each node (1=continuous, the number of states
@@ -162,23 +132,25 @@ for i = 1:nnodes,
             fprintf(fileID,'%i\t%6.4f\n',j,predict.T(j));
         end;
       else
-
         [x_vals,y_vals] = calcGaussian(predict.mu,predict.Sigma,Amax(i),Amin(i));
         %%%For continuous nodes, print x and the pdf of a normal curve.
         for j = 1:101,
+            %%Undo standardization
+            x_vals(j,1) = x_vals(j,1)*stdevs{i}+means{i};
             fprintf(fileID,'%6.4f\t%6.4f\n',x_vals(j,1),y_vals(j,1));
         end;
       end;
     else
-      fprintf(fileID,'%6.4f\t%6.4f\n',ev_dat(i),1);
+      if bnet.node_sizes(i) == 1,
+	fprintf(fileID,'%6.4f\t%6.4f\n',ev_dat(i)*stdevs{i}+means{i},1);
+      else
+	fprintf(fileID,'%6.4f\t%6.4f\n',ev_dat(i),1);
+      endif 
     end
     
 end
-%fprintf(fileID,'%s\t %\n',labels_temp{:});
-
 
 fclose(fileID);
-
 end
 
 

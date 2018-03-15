@@ -1,1 +1,0 @@
-GenotypeB	Gene3	GenotypeA	Gene2	Gene4	Gene1

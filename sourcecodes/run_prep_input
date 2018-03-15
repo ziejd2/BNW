@@ -4,4 +4,4 @@ arg_list = argv();
 addpath("../bnt-master");
 addpath(genpathKPM("../bnt-master"));
 addpath("../parameter_learning");
-runBN_initial(arg_list{1});
+prepareInput(arg_list{1});
