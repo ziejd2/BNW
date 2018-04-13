@@ -1,0 +1,20 @@
+Smaller projects:
+
+1) Improve interface for users with a known structure ("Make predictions using a known structure" on the BNW homepage).
+     It should be more clear what button needs to be clicked to go to the next step. Would it be better to upload the data and structure files on the same page.
+
+2) Improve look when viewing additional files. 
+Specifically, I am referring to data available in "View uploaded variabels and data", "Display structure matrix", and "View parameters".
+
+3) Add more informative error messages.
+
+Bigger projects:
+
+1) Add additional image of the network model that displays only the node names.
+This could be the first visualization of the network that is displayed after structure learning. 
+A couple of desired features: nodes that can be dragged and the potential to export a high quality image.
+There would be a button somewhere with something like: "Make predictions with network" that would take users to current network visualization.
+
+2) Add some type of cross-validation. I am working on this.
+
+3) Parallelize the structure learning code. 
