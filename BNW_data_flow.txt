@@ -1,7 +1,7 @@
 This file will provide an overview of data flow within BNW.
 This focuses on what happens after clicking on "Learn network model from data" on homepage (home.php).
 
-Step 1: Upload data
+<b>Step 1: Upload data</b>
 
 Clicking "Learn network model from data" on homepage (home.php) goes to: 
 bn_file_load_gom.php which is responsible for uploading the input file
