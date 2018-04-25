@@ -4,12 +4,12 @@ This contains the code for the Bayesian Network Webserver (BNW).
 
 The original BNW website is compbio.uthsc.edu/BNW
 
-The current development version of BNW is compbio.uthsc.edu/BNW_1.12
+The current development version of BNW is compbio.uthsc.edu/BNW_1.2. I am working on adding cross-validation to this version.
 
 There are a couple of intermediate versions that I kept on the BNW server. Some of them are related to the branches below.
 
 There are four branches.
-1) master: This is currently identical to octave_php_separate
+1) master: This is compbio.uthsc.edu/BNW_1.12 on the BNW server. It is similar to the octave_php_separate with a couple of additional small changes and bug fixes. I think this version is ready for use as the main BNW.
 
 2) matlab_original (compbio.uthsc.edu/BNW_1.01): This is functionally identical to the original BNW code. The only difference is that unused files were removed. Currently, compbio.uthsc.edu/BNW redirects to this version. 
 
