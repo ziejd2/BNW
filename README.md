@@ -10,7 +10,9 @@ There are a couple of intermediate versions that I kept on the BNW server. Some 
 
 I recently added some text files here that provide more in-depth descriptions of the BNW code.
 These are not very readable, but will hopefully be useful for identifying which files need to be modified when updating BNW.
+
 -BNW_file_overview.txt lists the files that are needed to run BNW and gives a brief description of the purpose of each file.
+
 -BNW_data_flow.txt goes through a typical session of BNW describing the order in which codes and scripts are used, as well as when output files are written.
 
 There are four branches.
