@@ -1,5 +1,5 @@
 <?php 
-include("structuremap.php");
+  //include("structuremap.php");
 
 function levelmap($inx,$name,$mapdata)
 {
@@ -308,7 +308,7 @@ for($i=0;$i<$nnode;$i++)
       
       var cnode="<?php print($name); ?>";
        var keyv="<?php print($keyval);?>";  
-        var chart = new google.visualization.BarChart(document.getElementById('<?php print($name);?>'));
+        var chart = new google.visualization.ColumnChart(document.getElementById('<?php print($name);?>'));
         function selectHandler() {
           var selectedItem = chart.getSelection()[0];
           if (selectedItem) {
@@ -317,17 +317,13 @@ for($i=0;$i<$nnode;$i++)
             var s = window.prompt('Selected evidence ' + topping + ' for ' + cnode + '. Enter new evidence ', topping );
            
             window.location.href = "add_inv.php?name=" + cnode + "&evidence=" + s + "&My_key=" + keyv;
-           
-
-  
-              //alert('The user selected ' + topping + topname);
-          }
+             }
         } 
          chart.draw(data,
                  {title:"<?php print($name);?>", titleTextStyle: {fontSize: <?php print($font);?>},
                   width:<?php print($width);?>, height:<?php print($height);?>,
-                  vAxis: {textStyle: {fontSize:<?php print($font);?>}},
-		    hAxis: {minValue: 0, maxValue: 1, gridlines: {count: 3}}, legend: {position: 'none'},
+                  hAxis: {textStyle: {fontSize:11}},
+		  vAxis: {minValue: 0, maxValue: 1, textStyle: {fontSize: 9}}, legend: {position: 'none'},
                   backgroundColor: {stroke: 'black', strokeWidth: 5}}
             );
         google.visualization.events.addListener(chart, 'select', selectHandler);  
@@ -347,8 +343,6 @@ for($i=0;$i<$nnode;$i++)
   for($j=0;$j<100;$j++) 
   {
        $val1=trim($data_read[$s_i][$c_i]);
-       //       $val1=map($name,$val1,$keyval);
-
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;         
@@ -361,8 +355,6 @@ for($i=0;$i<$nnode;$i++)
   if($j==100)
   {
        $val1=trim($data_read[$s_i][$c_i]);
-       //       $val1=map($name,$val1,$keyval);
-
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;
@@ -395,7 +387,7 @@ for($i=0;$i<$nnode;$i++)
 			legend: {position: 'none'},
                   width:<?php print($width);?>, height:<?php print($height);?>,
 		  hAxis: {gridlines: {count: 4}, textStyle: {fontSize: 9}, viewWindowMode: 'maximized'},
-                    vAxis: {maxValue: 1, minValue: 0,viewWindow: {min:0}, gridlines: {count:5}, textStyle: {fontSize: 9}},
+                    vAxis: {maxValue: 0.5, minValue: 0,viewWindow: {min:0}, gridlines: {count:5}, textStyle: {fontSize: 9}},
                     chartArea:{left:30,top:25,right:8,bottom:25},
                   backgroundColor: {stroke: 'black', strokeWidth: 5}}
             );

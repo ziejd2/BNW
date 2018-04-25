@@ -1,0 +1,2 @@
+Starts	Dist	SpkQual	MFuse	Alter	Starter	StMotor	BatAge	Charging	PlugVolt	BatVolt	Timing	Cranks	Plugs	AirFilter	Air	Fuel	GasTank	GasFilter
+2	2	2	2	2	2	2	1	2	3	3	2	2	3	2	2	2	2	2	

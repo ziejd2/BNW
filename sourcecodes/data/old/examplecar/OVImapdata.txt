@@ -1,0 +1,1 @@
+BatVolt	PlugVolt	StMotor	Alter	MFuse	Charging	Starter	Cranks	Dist	GasFilter	GasTank	Fuel	AirFilter	Air	Plugs	SpkQual	Starts	Timing	BatAge

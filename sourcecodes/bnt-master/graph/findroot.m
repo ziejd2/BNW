@@ -14,7 +14,7 @@ for i=1:length(cliques)
     % check hybrid cliques
     hc = intersect(cliques{i}, bnet.cnodes) ; 
     hd = intersect(cliques{i}, bnet.dnodes) ;
-    if ~isempty(hd) & ~isempty(hc)
+    if ~isempty(hd) && ~isempty(hc)
         nd = length(hd) ;
         if nd > n0
             root = i ;

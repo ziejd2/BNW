@@ -79,15 +79,6 @@ for($i=1;$i<=$n;$i++)
 fwrite($fout,"$endstring");   
 fclose($fout);
 
-//$file1="./data/".$keyval."run_initialstructure.sh";
-//$initiallines=file_get_contents("./data/temp_shell_file_initial_structure");
-//$all_lines="$initiallines"."$keyval\nfi\nexit";
-//$fp = fopen($file1,"w"); 
-//fwrite($fp, "$all_lines\n");
-//fclose($fp);
-//prepare and execute shell script for matlab with a write lock
-//$cmd="./runmat.sh $keyval";
-//system($cmd);
 
 shell_exec('./run_octave '.$keyval);
 

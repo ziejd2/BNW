@@ -26,6 +26,10 @@ function  [ labels , node_sizes, cases, data] = readInputData( dfile , nnodes )
     %     cases = cell array with the data.  The cases array is transposed
     %       in comparison with the input data to agree with the format of
     %       cell data used in BNT.
+    %
+    % readInputData is called by readInput.m
+
+
 
 %  open file for input, include error handling
 fin = fopen(dfile,'r');

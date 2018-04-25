@@ -1,7 +1,7 @@
 function [ labels, cases, dag, node_sizes, ord_flag ] = checkStructure(labels, cases, dag, node_sizes)
-    %checkStructure Check to see if nodes are sorted correctly.  They must be
+    %checkStructure Check to see if nodes are sorted correctly.  Nodes must be
     %   in topological order (i.e., parents before children) before parameter
-    %   learning can take place.
+    %   learning can take place. This function performs this sorting.
     %
     %Input and output have the same meaning.  The output has just been
     %topologically ordered.
@@ -9,6 +9,10 @@ function [ labels, cases, dag, node_sizes, ord_flag ] = checkStructure(labels, c
     %   cases = cell array with the data.
     %   dag = matrix with the strucutre of the network.
     %   node_sizes = vector with the size of each node.
+%
+%   checkStructure is called by readInput.m    
+
+
 
 %make connections array
 %count how big you need the connections array to be

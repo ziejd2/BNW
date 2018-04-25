@@ -24,9 +24,10 @@ include("header_new.inc");
 <IMG SRC="BNW_overview.png" ATL="" BORDER=0 WIDTH=812 HEIGHT=290><BR>
 <br>
 <br>
+<b>    <p align="justify"> BNW has recently been updated. Read more about these updates <a href="help.php#updates">here.</a></b>
+<br>
+<br>
     <p align="justify"> The Bayesian Network Web Server (BNW) is a comprehensive web server for Bayesian network modeling of biological data sets. It is designed so that users can quickly and seamlessly upload a dataset, learn the structure of the network model that best explains the data, and use the model to understand and make predictions about relationships between the variables in the model. Many real world data sets, including those used to create genetic network models, contain both discrete (e.g., genotypes) and  continuous (e.g., gene expression traits) variables, and BNW allows for modeling of these hybrid data sets.
-<br><br>
-<b>*A note about browser usage:</b> The BNW interface for adding structural constraints uses HTML5 features that are may not be supported by Internet Explorer. We have not observed any problems with the interface using recent versions of any other web browser, and, therefore, we suggest against using Internet Explorer when accessing BNW. 
 <br>
 <br>
 <b>
@@ -34,6 +35,9 @@ How to cite the BNW:
 </b>
 <br>
 1. Ziebarth JD, Bhattacharya A, Cui Y (2013) <a href="http://bioinformatics.oxfordjournals.org/content/29/21/2801.abstract"  target="_blank">Bayesian Network Webserver: a comprehensive tool for biological network modeling.</a> Bioinformatics. 29(21): 2801-2803.
+<br>
+<br>
+   2. Ziebarth JD, Cui Y (2017) <a href="https://link.springer.com/protocol/10.1007/978-1-4939-6427-7_15" target="_blank">Precise network modeling of system genetics data using the Bayesian Network Webserver.</a> In: Schughart K, Williams R (eds) System Genetics. Methods in Molecular Biology, vol 1488. Humana Press, New York, NY.
 <br>
 <br>
 <b>Developed and maintained by: </b><a href="http://compbio.uthsc.edu/" target="_blank">Yan Cui's Lab at University of Tennessee Health Science Center</a>

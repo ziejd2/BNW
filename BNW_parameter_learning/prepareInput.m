@@ -39,6 +39,8 @@ function  [ ] = prepareInput( pre )
    %    8-12) ???ban.txt, ???white.txt, ???k.txt, ???thr.txt, and
    %          ???parent.txt: Files with default values for structure learning. 
    %
+   % It is called by the run_prep_input script in the 'sourcecodes' directory.
+
 
 %  open file for input, include error handling
 dfile=strcat(pre,'continuous_input_orig.txt');
@@ -81,28 +83,36 @@ for j = 1:nnodes
    levels{j} = size(states{j},1);
 end
 
+reason = cell(1,nnodes);
 %Now do some checks to see if nodes are discrete or continuous
 for j = 1:nnodes
     % If there are 3 or less unique values, I will assume that the node is discrete.
     if levels{j} < 4;
+        reason{j} = "It was determined to be discrete because there are a small number (<4) of possible values.";
         continue
     % If there are as many unique values as a third of the number of cases,
     %      I will assume that the node is continuous.
     elseif levels{j} > ncases/3;
        levels{j} = 1;
+       reason{j} = "It was determined to be continuous because there are a large number of possible values compared to the number of cases.";
+       continue
     % If there are more than twenty unique values,
     %      I will assume that the node is continuous.
     elseif levels{j} > 20;
        levels{j} = 1;
+       reason{j} = "It was determined to be continuous because there are many (>20) possible values.";
+       continue
     % Otherwise, I will scan through the individual values.
     % If any of the values contain a '.', I will assume it is continuous.
     else
+       reason{j} = "It was determined to be discrete by default.";
        period_test = 0;
        column = data(:,j);
        k = 1;
        while period_test == 0 
            period_test = sum(cell2mat(strfind(column(k),".")));
            if period_test != 0;
+              reason{j} = "This variable was determined to be continuous because there were several possible values and at least one value contained a period(.).";
               levels{j} = 1;
            end
            k++;
@@ -131,6 +141,7 @@ if max_disc > min_cont
   labels_old = labels;
   data_old = data;
   states_old = states;
+  reason_old = reason;
   new_order = {};
   for i=1:nnodes
     if levels_old{i} > 1
@@ -145,10 +156,12 @@ if max_disc > min_cont
   labels = {};
   levels = {};
   states = {};
+  reason = {};
   for i =1:nnodes
     labels{i} = labels_old{new_order{i}};
     levels{i} = levels_old{new_order{i}};
     states{i} = states_old{new_order{i}};
+    reason{i} = reason_old{new_order{i}};
     for j=1:ncases
       data{j,i} = data_old{j,new_order{i}};
     end
@@ -228,19 +241,21 @@ descfile = strcat(pre,'input_desc.txt');
 dout = fopen(descfile,'w');
 fprintf(dout,['As loaded, the input file had the following properties:\n\n']);
 dout = fopen(descfile,'a');
-fprintf(dout,'There are %i variables and %i cases(rows)\n',size(labels,2),ncases);
+fprintf(dout,'There are %i variables and %i cases(rows).\n',size(labels,2),ncases);
 fprintf(dout,'The variable names are:\n');
 fprintf(dout,'%s\t',labels{1:end-1});
 fprintf(dout,'%s\n\n',labels{end});
 for i=1:nnodes
     if levels{i} == 1
-       fprintf(dout,'%s is a continuous variable\n',labels{i});
+       fprintf(dout,'%s is a continuous variable.\n',labels{i});
+       fprintf(dout,'%s\n',reason{i});
        column = str2double(data(:,i));
        colmean = mean(column);
        colstd = std(column);
        fprintf(dout,'It has a mean of %6.3f and a standard deviation of %6.3f\n\n',mean(column),std(column))
     else 
-       fprintf(dout,'%s is a discrete variable with %i states\n',labels{i},levels{i});
+       fprintf(dout,'%s is a discrete variable with %i states.\n',labels{i},levels{i});
+       fprintf(dout,'%s\n',reason{i});
        fprintf(dout,'The states are: ');
        fprintf(dout,'%s ',states{i}{1:end-1});
        fprintf(dout,'%s\n\n',states{i}{end});

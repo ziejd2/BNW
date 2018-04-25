@@ -1,0 +1,57 @@
+rs3664317
+Discrete node with 2 states
+1	0.5479
+2	0.4521
+
+Oas1a
+Continuous node
+8.2815	0.3487
+
+Parp9
+Continuous node
+9.8042	0.2165
+
+Dhx58
+Continuous node
+8.8912	0.3029
+
+Cd1d1
+Continuous node
+9.6436	0.2679
+
+Irf7
+Continuous node
+10.0093	0.5542
+
+Oas3
+Continuous node
+8.9574	0.5062
+
+Pml
+Continuous node
+11.0754	0.1911
+
+Mx1
+Continuous node
+7.4831	0.3389
+
+Ifit1
+Continuous node
+8.8285	0.5736
+
+Trim25
+Continuous node
+10.2552	0.1765
+
+Oas1g
+Continuous node
+8.6322	0.4619
+
+Pglyrp3
+Continuous node
+6.0709	0.1286
+
+Ifih1
+Continuous node
+9.2981	0.3860
+

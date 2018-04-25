@@ -21,6 +21,9 @@ function [ dag ] = readInputStructure( sfile, labels )
 	%  Output:
     %     dag = matrix with the structure.
 %
+%  readInputStructure is called by runBN_initial.m
+
+
 %   Read in first line of the structure file
 %  open file for input, include error handling
 fin = fopen(sfile,'r');

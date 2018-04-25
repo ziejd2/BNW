@@ -7,7 +7,9 @@ function [ ] = checkDiscreteNodes( bnet, cases)
     %   bnet: BNT bnet
     %   cases: cell array of data
     %
+% checkDiscreteNodes is called by readInput.m
 %
+
 node_sizes = bnet.node_sizes;
 dnodes = bnet.dnodes;
 ndisc = size(dnodes,2);

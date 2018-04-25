@@ -1,5 +1,11 @@
 function [] = writeParameters_ev(pre,bnet,nnodes,labels,cases,stdevs,means,selectvar,selectdata)
 %Writes a file that contains the parameters of the network after entering evidence.
+%
+% The file is called ???parameters_ev.txt where ??? is the prefix in BNW 
+%     for the network.
+%
+% It is called by Predictmultiple.m
+
 
 %Read in original node labels to get node IDs.
 infile = strcat(pre,'continuous_input.txt');

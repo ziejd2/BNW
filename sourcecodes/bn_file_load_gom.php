@@ -39,22 +39,10 @@ if(isset($HTTP_POST_VARS["searchkey"]))
 
 }
 
-if($searchID!="")
+if($searchID=="")
 {
 ?>
 
-<!-- Site navigation menu -->
-<ul class="navbar">
-  <li><a href="help.php#file_format" target="_blank">Data formatting guidelines</a> 
-  <li><a href="help.php" target="_blank">Help</a>
-  <li><a href="home.php">Home</a>
-</ul>
-<?php
-}
-else
-{
-
-?>
 <!-- Site navigation menu -->
 <ul class="navbar">
   <li><a href="help.php#file_format" target="_blank">Data formatting guidelines</a> 
@@ -163,11 +151,15 @@ if($searchID!="")
   $runtime=exe_time($keyval,$parent_number,$k_number);
 ?>
 <ul class="navbar2">
+  <li><a href="executionprogress.php?My_key=<?php print($keyval);?>">Perform Bayesian network modeling using default settings</a>
+  <li><a href="create_tiers_gom.php?My_key=<?php print($keyval);?>">Go to structure learning settings and the BNW structural constraint interface</a>  
   <li><a href="javascript:void(0);"
 NAME="InputCheck" title="InputCheck"
     onClick=window.open("input_check.php?My_key=<?php print($keyval);?>","Rat//ting","width=950,height=270,0,status=0,");>View uploaded variables and data</a>
-  <li><a href="executionprogress.php?My_key=<?php print($keyval);?>">Perform Bayesian network modeling using default settings</a>
-  <li><a href="create_tiers_gom.php?My_key=<?php print($keyval);?>">Go to structure learning settings and the BNW structural constraint interface</a>  
+</ul>
+<ul class="navbar">
+<li><a href="help.php" target="_blank">Help</a>
+<li><a href="home.php">Home</a>
 </ul>
 <div id="outernew">
 <p><h3><?php 

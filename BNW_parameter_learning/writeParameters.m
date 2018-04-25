@@ -1,5 +1,10 @@
 function [] = writeParameters(pre,nnodes,bnet,labels,cases,labelsold,s,m)
 %Writes a file that contains the parameters of the network with no evidence.
+%
+% The file is called ???parameters.txt where ??? is the prefix in BNW
+%    for the network.
+%
+% writeParameters is called by runBN_intial.m
 
 
 %%Get the types of the nodes.

@@ -2,7 +2,7 @@
 
 $keyval=trim($_GET['My_key']);
 
-include("restructuremap.php");
+//include("restructuremap.php");
 
 
 function discretemap($textdata,$sym,$dmapdata)
@@ -104,11 +104,6 @@ for($j=0;$j<$nn;$j++)
 } 
 
 $dt=$type_d[$s];
- 
-//if($dt==1)
-//  $textdata=reversemap($sym,$textdata,$keyval);
-//else
-//   $textdata=discretemap($textdata,$sym,$dmapdata);
 
 if($dt!=1)
    $textdata=discretemap($textdata,$sym,$dmapdata);

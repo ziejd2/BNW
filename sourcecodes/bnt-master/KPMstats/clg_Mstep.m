@@ -80,11 +80,11 @@ end
 
 %%% Estimate mean and regression 
 
-if ~isempty(clamped_weights) & ~isempty(clamped_mean)
+if ~isempty(clamped_weights) && ~isempty(clamped_mean)
   B = clamped_weights;
   mu = clamped_mean;
 end
-if ~isempty(clamped_weights) & isempty(clamped_mean)
+if ~isempty(clamped_weights) && isempty(clamped_mean)
   B = clamped_weights;
   % eqn 5
   mu = zeros(Ysz, Q);
@@ -92,7 +92,7 @@ if ~isempty(clamped_weights) & isempty(clamped_mean)
     mu(:,i) = (Y(:,i) - B(:,:,i)*X(:,i)) / w(i);
   end
 end
-if isempty(clamped_weights) & ~isempty(clamped_mean)
+if isempty(clamped_weights) && ~isempty(clamped_mean)
   mu = clamped_mean;
   % eqn 3
   B = zeros(Ysz, Xsz, Q);
@@ -102,7 +102,7 @@ if isempty(clamped_weights) & ~isempty(clamped_mean)
     B(:,:,i) = (XX(:,:,i) \ tmp')';
   end
 end
-if isempty(clamped_weights) & isempty(clamped_mean)
+if isempty(clamped_weights) && isempty(clamped_mean)
   mu = zeros(Ysz, Q);
   B = zeros(Ysz, Xsz, Q);
   % Nothing is clamped, so we must estimate B and mu jointly

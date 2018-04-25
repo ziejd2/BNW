@@ -1,5 +1,5 @@
 <?php 
-include("structuremap.php");
+  //include("structuremap.php");
 
 
 function levelmap($inx,$name,$mapdata)
@@ -601,8 +601,6 @@ if($evd==-9999)
   for($j=0;$j<$node_type-1;$j++) 
   {     
        $val1=trim($data_read[$s_i][$c_i]);
-      // $val1=map($name,$val1);
-
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;
@@ -619,8 +617,6 @@ if($evd==-9999)
   if($j==$node_type-1)
   {
         $val1=trim($data_read[$s_i][$c_i]);
-      // $val1=map($name,$val1);
-
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;
@@ -645,8 +641,6 @@ if($evd==-9999)
   for($j=0;$j<$node_type-1;$j++) 
   {     
        $val1=trim($data_read[$s_i][$c_i]);
-      // $val1=map($name,$val1);
-
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;
@@ -663,8 +657,6 @@ if($evd==-9999)
   if($j==$node_type-1)
   {
         $val1=trim($data_read[$s_i][$c_i]);
-      // $val1=map($name,$val1);
-
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;
@@ -754,7 +746,7 @@ else
          ?>  
 
 
-        var chart = new google.visualization.BarChart(document.getElementById('<?php print($name);?>'));
+        var chart = new google.visualization.ColumnChart(document.getElementById('<?php print($name);?>'));
         function selectHandler() {
           var selectedItem = chart.getSelection()[0];
           if (selectedItem) {
@@ -772,8 +764,8 @@ else
          chart.draw(data,
                  {title:"<?php print($named);?>", titleTextStyle: {fontSize: <?php print($font);?>},
                   width:<?php print($width);?>, height:<?php print($height);?>,
-                  vAxis: {textStyle: {fontSize:<?php print($font);?>}},
-		    hAxis: {minValue: 0, maxValue: 1, gridlines: {count: 3}}, legend: {position: 'none'},
+                  hAxis: {textStyle: {fontSize:11}},
+		   vAxis: {minValue: 0, maxValue: 1, textStyle: {fontSize: 9}}, legend: {position: 'none'},
                   backgroundColor: {stroke: '<?php print($bcolor);?>', strokeWidth: 5}}
             );
         google.visualization.events.addListener(chart, 'select', selectHandler);  
@@ -813,14 +805,11 @@ if($evd==-9999)
   for($j=0;$j<100;$j++) 
   {
        $val1=trim($data_read[$s_i][$c_i]);
-       //       $val1=map($name,$val1,$keyval);
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;         
 
        $val1_old=trim($data_read_old[$s_i_old][$c_i_old]);
-       //$val1_old=map($name,$val1_old,$keyval);
-       
        $c_i_old++;
        $val2_old=trim($data_read_old[$s_i_old][$c_i_old]);
        $c_i_old++; 
@@ -832,15 +821,11 @@ if($evd==-9999)
   if($j==100)
   {
         $val1=trim($data_read[$s_i][$c_i]);
-	//$val1=map($name,$val1,$keyval);
-
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;
 
        $val1_old=trim($data_read_old[$s_i_old][$c_i_old]);
-	//$val1_old=map($name,$val1_old,$keyval);
-  
        $c_i_old++;
        $val2_old=trim($data_read_old[$s_i_old][$c_i_old]);
        $c_i_old++;   
@@ -863,7 +848,6 @@ if($evd==-9999)
   for($j=0;$j<100;$j++) 
   {
        $val1=trim($data_read[$s_i][$c_i]);
-       //$val1=map($name,$val1,$keyval);
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;         
@@ -880,8 +864,6 @@ if($evd==-9999)
   if($j==100)
   {
         $val1=trim($data_read[$s_i][$c_i]);
-	//$val1=map($name,$val1,$keyval);
-
        $c_i++;
        $val2=trim($data_read[$s_i][$c_i]);
        $c_i++;
@@ -898,7 +880,6 @@ if($evd==-9999)
 }
 else
 {
-  //$evd=map($name,$evd,$keyval);
     $evduse=$evd;
 ?>
   var data = google.visualization.arrayToDataTable([
@@ -910,8 +891,6 @@ else
   for($j=0;$j<100;$j++) 
   {     
        $val1_old=trim($data_read_old[$s_i_old][$c_i_old]);
-       //$val1_old=map($name,$val1_old,$keyval);
-
        $c_i_old++;
        $val2_old=trim($data_read_old[$s_i_old][$c_i_old]);
        $c_i_old++; 
@@ -933,7 +912,6 @@ else
   if($j==100)
   {
        $val1_old=trim($data_read_old[$s_i_old][$c_i_old]);
-       //$val1_old=map($name,$val1_old,$keyval);
        $c_i_old++;
        $val2_old=trim($data_read_old[$s_i_old][$c_i_old]);
        $c_i_old++;
@@ -980,7 +958,7 @@ else
 			legend: {position: 'none'},
                   width:<?php print($width);?>, height:<?php print($height);?>,
 		  hAxis: {gridlines: {count: 4}, textStyle: {fontSize: 9}, viewWindowMode: 'maximized'},
-                    vAxis: {maxValue: 1, minValue: 0,viewWindow: {min:0}, gridlines: {count:5}, textStyle: {fontSize: 9}},
+                    vAxis: {maxValue: 0.5, minValue: 0,viewWindow: {min:0}, gridlines: {count:5}, textStyle: {fontSize: 9}},
                     chartArea:{left:30,top:25,right:8,bottom:25},
                   backgroundColor: {stroke: '<?php print($bcolor);?>', strokeWidth: 5}}
             );

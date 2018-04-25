@@ -1,4 +1,18 @@
 function Predictmultiple(pre)
+% Predictmultiple is used when predicting the impact of entering
+%    evidence on the network. The 'multiple' part refers to 
+%    it working when evidence for multiple nodes is entered.
+%
+% The input is 'pre'-- the prefix for the network and data
+%      in BNW. It reads information from several files from BNW. 
+%
+% The output is ???net_figure_new.txt. It also calls 
+%      writeParameters_ev to write the parameter file.
+%
+% It is called by the run_octave_evd file in the 'sourcecodes' directory.
+
+
+
 dfile=strcat(pre,'structure_input.txt');
 sfile=dfile;
 dfile=strcat(pre,'continuous_input.txt');
@@ -28,14 +42,14 @@ mapfile = strcat(pre,'map.txt');
 fmap = fopen(mapfile,'r');
 for i=1:nnodes
     buffer = fgetl(mapfile);
-    temp = cell(1,4);
-    for j=1:4
+    temp = cell(1,3);
+    for j=1:3
         [next,buffer] = strtok(buffer);
         temp{j} = next;
     end
     labels_orig{i} = temp{1};
-    means_orig{i} = str2num(temp{4});
-    stdevs_orig{i} = str2num(temp{3});
+    means_orig{i} = str2num(temp{3});
+    stdevs_orig{i} = str2num(temp{2});
 end
 fclose(fmap);
 

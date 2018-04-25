@@ -1,0 +1,34 @@
+Geno1
+Discrete node with 2 states
+1	0.6650
+2	0.3350
+
+Geno2
+Discrete node with 2 states
+1	0.4300
+2	0.5700
+
+Trait1
+Continuous node
+-0.0239	0.6720
+
+Trait2
+Continuous node
+0.0386	0.8009
+
+Trait3
+Continuous node
+0.0687	1.0420
+
+Trait4
+Continuous node
+-0.0081	1.0133
+
+Trait5
+Continuous node
+0.0089	0.3181
+
+Trait6
+Continuous node
+-0.1143	0.9091
+

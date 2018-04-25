@@ -1,0 +1,15 @@
+From	To
+Gene1	Genotype
+Gene2	Genotype
+Gene3	Genotype
+Phenotype	Genotype
+Gene1	Genotype
+Gene2	Genotype
+Gene3	Genotype
+Phenotype	Gene1
+Phenotype	Gene2
+Phenotype	Gene3
+Phenotype	Genotype
+Phenotype	Gene1
+Phenotype	Gene2
+Phenotype	Gene3

@@ -1,4 +1,17 @@
 function runBN_initial(pre)
+% runBN_initial is used to create the net_figure file
+%   for a network without entered evidence or intervention.
+%
+% The input is 'pre'-- the prefix for the network and data
+%    in BNW. It uses this identifier to read several files from
+%    BNW.
+% 
+% The output is ???net_figure.txt. It also calls writeParameters 
+%    to write the parameter file.
+%
+% runBN_initial is called by run_octave in the 'sourcecodes' directory.
+%
+
 sfile=strcat(pre,'structure_input.txt');
 dfile=strcat(pre,'continuous_input.txt');
 
@@ -21,7 +34,7 @@ s=std(data,0,1);
 m=mean(data);
 
 for i=1:nnodes
-  fprintf(mapval,'%s\t%d\t%f\t%f\n',labelsold{i},node_sizes(i),s(i),m(i));
+  fprintf(mapval,'%s\t%f\t%f\n',labelsold{i},s(i),m(i));
 end
 
 fprintf(mapfile,'%s',labels{1});

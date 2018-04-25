@@ -1,6 +1,15 @@
 function [] = drawFigureM(nnodes,bnet,labels,filename,cases,stdevs,means,selectvar,selectdata)
 %drawFigureM writes the parameters and data that are needed to draw the
-%structure of a Bayesian network after added evidence or intervention
+%structure of a Bayesian network after adding evidence or intervention
+%It creates the net_figure_new file after evidence/intervetion.
+%
+% The output file is specified by 'filename'.
+%   For BNW, the file is named ???net_figure_new.txt
+%       where ??? is the prefix.
+%
+% drawFigureM is called by Predictmultiple.m and Predictmultipleintervention.m
+
+
 
 fileID = fopen(filename,'w');
 

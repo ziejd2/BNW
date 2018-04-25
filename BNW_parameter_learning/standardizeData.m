@@ -1,7 +1,8 @@
 function [ cases ] = standardizeData( labels, node_sizes, cases )
 %standardizeData standardizes continuous nodes so they have a mean = 0
 %   and standard deviation = 1
-
+%
+% standardizeData is called by readInput.m
 
 nnodes = size(labels,2);
 
@@ -14,12 +15,6 @@ for i = 1:nnodes
     end
 end
 
-%write standardized data to file
-%fprintf(['Standardized data is written to file standardized_data.txt\n'])
-%fout = 'standardized_data.txt';
-%txt = sprintf([repmat('%s\t',1,size(labels,2))],labels{:});
-%dlmwrite(fout,txt,'');
-%dlmwrite(fout,cell2num(cases'),'-append','delimiter','\t');
 
 end
 

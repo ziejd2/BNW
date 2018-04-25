@@ -78,7 +78,7 @@ if 0 && bigpot.subtype == 'c'
   jdepends = 0;
   for i=1:I
     for j=2:J
-      if ~approxeq(h1(:,j,i), h1(:,1,i)) | ~approxeq(K1(:,:,j,i), K1(:,:,1,i))
+      if ~approxeq(h1(:,j,i), h1(:,1,i)) || ~approxeq(K1(:,:,j,i), K1(:,:,1,i))
 	jdepends = 1;
 	break
       end

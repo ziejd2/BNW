@@ -15,6 +15,9 @@ function [ labels, cases, bnet, node_sizes, data,labelsold] = readInput( dfile, 
     %   labels = cell array with the names of the nodes.
     %   cases = cell array with the data.
     %   bnet = BNT bayesian network with the input structure.
+    % 
+    %  readInput is called by runBN_initial.m
+
 
 if nargin < 4
     std_flag = false(1);

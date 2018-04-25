@@ -1,6 +1,10 @@
 function [] = writeParameters_int(pre,bnet,nnodes,labels,cases,stdevs,means,selectvar,selectdata)
 %Writes a file that contains the parameters of the network after intervention.
-
+%
+% The file is called ???parameters_ev.txt where ??? is the prefix in BNW
+%    for the network.
+%
+% writeParameters is called by Predictmultipleintervention.m
 
 %First read input file to get node labels to get node IDs.
 infile = strcat(pre,'continuous_input.txt');

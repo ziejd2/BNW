@@ -4,4 +4,4 @@ arg_list = argv();
 addpath("../bnt-master");
 addpath(genpathKPM("../bnt-master"));
 addpath("../parameter_learning");
-Predictmultipleintrvention(arg_list{1});
+Predictmultipleintervention(arg_list{1});

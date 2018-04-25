@@ -90,6 +90,9 @@ $runtime=exe_time($keyval,$parent_number,$k_number);
 <!-- Site navigation menu -->
 <ul class="navbar2">
   <li><p onClick="getcombineDescription(ntiers,'ban_from','ban_to','white_from','white_to','<?php print($keyval);?>')"><a href="javascript:void(0)" >Perform Bayesian network modeling</a></p>
+  <li><a href="javascript:void(0);"
+NAME="InputCheck" title="InputCheck"
+    onClick=window.open("input_check.php?My_key=<?php print($keyval);?>","Rat//ting","width=950,height=270,0,status=0,");>View uploaded variables and data</a>
 </ul>
 <ul class="navbar">
   <li><a href="help.php#constraint_interface" target="_blank">How to use this page</a>

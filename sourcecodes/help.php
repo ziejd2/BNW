@@ -33,6 +33,7 @@ include("header_new.inc");
 <li><a href="#learn_details">Details of structure learning methods</a>
 <li><a href="#file_format">Formatting files for BNW</a>
 <li><a href="#download_sl">Downloadable structure learning package</a>
+<li><a href="#updates">Recent updates to BNW</a>
 <!-- <li><a href="#updates">Recent updates and upcoming BNW features</a> -->
 
 </ol>
@@ -128,33 +129,37 @@ Two prediction modes are available in BNW: evidence and intervention. In the evi
 <h3>Data file format</h3>
 </tr>
 <tr><td>
-  <p align="justify"> Data files uploaded to the Bayesian Network Webserver should be tab-delimited text files with the names of the variables in the first row of the file and the values of the variables for each sample or individual in the remaining rows. <br><br>BNW automatically determines whether variables contain continuous or discrete data. To help ensure that BNW correctly parses data files, users should follow these formatting guidelines:<br>
-  1. Variable names should start with a letter, not a number, and should not contain any whitespace characters.<br>
-  2. Discrete variables should be listed before continuous variables, that is, discrete variables should be the leftmost columns of the file.<br>
-3. The values of the levels of discrete variables should be integers starting with 1.<br>
-  4. The data values for each continuous variables should include a period (.) followed by a number in at least one of the samples.<br><br>
-    An example input data file for a file with 5 variables is given below. The network contains 2 discrete (Disc1 and Disc2) variables, which are given in the first two columns of the file, and 3 continuous variables (Cont1, Cont2, and Cont3). Disc1 is a discrete variable with two states (1 and 2), while Disc2 has three states (1, 2, and 3). Although the samples of Cont2 are integral values, we wish to deal with this variable as continuous, not discrete. Therefore, the value of Cont2 for the first sample is given as '3.0' instead of '3' so that one of the values of Cont2 contains a '.' followed by a number and Cont2 is interpreted as a continuous variable.
+  <p align="justify"> Data files uploaded to the Bayesian Network Webserver should be tab-delimited text files with the names of the variables in the first row of the file and the values of the variables for each sample or individual in the remaining rows. <br><br>Variable names should not contain any whitespace characters.<br><br>BNW automatically determines whether each variable contains continuous or discrete data. BNW applies the following rules, in order, to determine if variables should be considered discrete or continuous:<br><br>
+ <b> 1.</b> If a variable contains 3 or fewer different values, the variable is considered to be discrete.<br><br>
+ <b> 2.</b> If a variable contains more than 20 different values, the variable is considered to be continuous.<br><br>
+ <b> 3.</b> If the ratio of the number of different values for a variable compared to the number of cases in the data set is large, the variable is considered to be continuous. Specifically, if this ratio is 1/3 or larger, the variable is considered to be continuous.<br><br>
+ <b> 4.</b> If none of the first three rules apply, the data set is inspected to determine if any of the values for the variable contain a period (.). If at least one value contains a period, the variable is considered to be continous; otherwise, the variable is considered to be discrete.<br><br>
+  Users can examine whether or not BNW has correctly loaded input data files and classified variables by clicking on "View uploaded variables and data" on the left-hand menu after uploading a dataset. We believe that BNW should correctly classify variables in most cases, but users may occasionally need to add or remove a period to the data of some variables. <br><br>
+    An example input data file for a file with 5 variables is given below. The network contains 2 discrete (Disc1 and Disc2) variables, which are given in the first two columns of the file, and 3 continuous variables (Cont1, Cont2, and Cont3). Disc1 is a discrete variable with two states (1 and 2), while Disc2 has two states (A and B). Although the samples of Cont2 are integral values, we wish to deal with this variable as continuous, not discrete. Therefore, the value of Cont2 for the first sample is given as '3.0' instead of '3' so that one of the values of Cont2 contains a '.', helping to ensure that Cont2 is interpreted as a continuous variable.
 </p>
 <br>
 <table>
 <tr><th>Disc1</th><th>&nbsp;</th><th>Disc2</th><th>&nbsp;</th><th>Cont1</th><th>&nbsp;</th><th>Cont2</th><th>&nbsp;</th><th>Cont3</td></tr>
 <tr>
-<td>2</td><td>&nbsp;</td><td>1</td><td>&nbsp;</td><td>3.25</td><td>&nbsp;</td><td>3.0</td><td>&nbsp;</td><td>0.97</td>
+<td>2</td><td>&nbsp;</td><td>A</td><td>&nbsp;</td><td>3.25</td><td>&nbsp;</td><td>3.0</td><td>&nbsp;</td><td>0.97</td>
 </tr>
 <tr>
-<td>2</td><td>&nbsp;</td><td>3</td><td>&nbsp;</td><td>2.46</td><td>&nbsp;</td><td>2</td><td>&nbsp;</td><td>0.93</td>
+<td>2</td><td>&nbsp;</td><td>B</td><td>&nbsp;</td><td>2.46</td><td>&nbsp;</td><td>2</td><td>&nbsp;</td><td>0.93</td>
 </tr>
 <tr>
-<td>1</td><td>&nbsp;</td><td>2</td><td>&nbsp;</td><td>4.21</td><td>&nbsp;</td><td>33</td><td>&nbsp;</td><td>0.43</td>
+<td>1</td><td>&nbsp;</td><td>A</td><td>&nbsp;</td><td>4.21</td><td>&nbsp;</td><td>33</td><td>&nbsp;</td><td>0.43</td>
 </tr>
 <tr>
-<td>2</td><td>&nbsp;</td><td>3</td><td>&nbsp;</td><td>3.76</td><td>&nbsp;</td><td>8</td><td>&nbsp;</td><td>0.88</td>
+<td>2</td><td>&nbsp;</td><td>B</td><td>&nbsp;</td><td>3.76</td><td>&nbsp;</td><td>8</td><td>&nbsp;</td><td>0.88</td>
 </tr>
 <tr>
-<td>2</td><td>&nbsp;</td><td>1</td><td>&nbsp;</td><td>3.69</td><td>&nbsp;</td><td>4</td><td>&nbsp;</td><td>0.91</td>
+<td>2</td><td>&nbsp;</td><td>A</td><td>&nbsp;</td><td>3.69</td><td>&nbsp;</td><td>4</td><td>&nbsp;</td><td>0.91</td>
 </tr>
 <tr>
-<td>1</td><td>&nbsp;</td><td>1</td><td>&nbsp;</td><td>4.27</td><td>&nbsp;</td><td>13</td><td>&nbsp;</td><td>0.38</td>
+<td>1</td><td>&nbsp;</td><td>B</td><td>&nbsp;</td><td>4.27</td><td>&nbsp;</td><td>13</td><td>&nbsp;</td><td>0.38</td>
+</tr>
+<tr>
+<td>1</td><td>&nbsp;</td><td>A</td><td>&nbsp;</td><td>4.12</td><td>&nbsp;</td><td>9</td><td>&nbsp;</td><td>0.45</td>
 </tr>
 </table>
 <br>
@@ -191,6 +196,25 @@ Two prediction modes are available in BNW: evidence and intervention. In the evi
 <br>
 <tr><td>
 <p align="justify"> To learn the structure of large networks or for large values of <i>k</i> when identifying the <i>k</i>-highest scoring networks for model averaging, users may want to download a package containing the BNW structure learning method, which is available <a href="../downloads/BNW_src_files.tar">here</a>. The model_averaging.txt output file provided by the package can be loaded into BNW by selecting "Make predictions using a known structure" on the left menu on the BNW homepage or <a href="home_upload.php">here</a> and used to make predictions. The input of the data file required by the downloadable package has one change from the BNW input file format; namely, the downloadable package requires that user specify the variable type on the second line of input file. Enter the number of unique states on this line for discrete variables and enter '1' on this line to indicate a continuous variable. The downloadable package is written in C and is intended for use on computers with a Linux operating system and the gcc compiler.<br>
+</table>
+
+
+<br>
+<br>
+<table>
+<tr>
+<a name=updates><h2>8. Recent updates to BNW</h2></a>
+</tr>
+<br>
+<tr><td>
+<p align="justify"> BNW has recently been updated to add features and improve the user experience. These updates have included improving the network model visualizations and allowing users to more quickly load large data sets. Additionally, in a change that is invisible to users, BNW now uses Octave to perform parameter learning with the Bayes Net Toolbox. <br><br>
+Major changes and new features that have been added to BNW include:<br>
+<br><b>1)</b> Increased flexibility in formatting of uploaded data files. One major change is that BNW now allows for users to upload data files in which discrete variables have alphabetic values. For example, a file containing a node for the genotype of BXD mice can now have values of B and D; the values do not have to be recoded as integers. A full description of the proper format for input files in BNW considering these changes can be found <a href="help.php#file_format">here</a>.<br>
+<br><b>2)</b> Added "View uploaded variables and data" button to allow users to ensure that uploaded data sets are loaded and parsed correctly. After users upload a data set, clicking this button provides the ability to view either the uploaded data file directly or view a variable description file that shows how BNW has parsed the data. The variable description file lists the number of variables and cases (e.g., individuals or samples) in the data file. It also indicates whether each variable is discrete or continuous and the criteria that was used to make this determination. For discrete variables, the possible states of the variable are provided. For continuous variables, the mean and standard deviation of the variable is provided.<br>
+<br><b>3)</b> Added "View parameters" button to allow users to quantify network parameters. Users can now view the parameters of the network models considering the original data set that was uploaded by the user or the predicted parameters considering the evidence or intervention that has been entered by the user. This feature allows users to quantify predictions using the Bayesian network model.<br>
+<br>After performing structure learning and viewing their network model, users now have the ability to click a "View parameters" button on menu to the left of the model structure. This button provides a link to a file containing the original parameters of the model. For discrete nodes, the fraction of cases for each possible state in the variable is provided. For continuous nodes, the mean and standard deviation of the Gaussian distribution that best fits the data in the variable are provided.<br><br>
+If users have made predictions using either the evidence or intervention modes, a link to a file containing the parameters of the network considering the entered evidence or intervention is provided. The file lists the predicted fraction of states for discrete nodes and predicted mean and standard deviation of the Gaussian distribution for continuous nodes. Nodes for which evidence or intervention has been entered are also noted in the file.    
+<br>
 </table>
 
 

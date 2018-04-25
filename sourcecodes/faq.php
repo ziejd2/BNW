@@ -110,14 +110,14 @@ While it does not fully support dynamic Bayesian network modeling, BNW can be us
 </tr>
 <br>
 <tr><td>
-  <p align="justify">After structure learning, it is possible that all variables will not be connected within a single network. Some variables may not be found to be associated with any other variables in the input dataset and may be left out of any network model, or there may be two or more distinct networks. In these cases, the highest scoring network model did not have all variables in a single network given the data and our scoring metric. To our knowledge, parameter learning and predictions with these unconnected models should still work correctly, but this has not been tested extensively.<br> 
+  <p align="justify">After structure learning, it is possible that all variables will not be connected within a single network. Some variables may not be found to be associated with any other variables in the input dataset and may be left out of any network model, or there may be two or more distinct networks. In these cases, the highest scoring network model did not have all variables in a single network given the data and our scoring metric.<br> 
 </td></tr>
 </table>
 
 <br>
 <table>
 <tr>
-<a name=unconnected><h3>7. Can I restore a previous session containing a model in BNW?</h3></a>
+<a name=old_model><h3>7. Can I restore a previous session containing a model in BNW?</h3></a>
 </tr>
 <br>
 <tr><td>
@@ -133,7 +133,7 @@ While it does not fully support dynamic Bayesian network modeling, BNW can be us
 </tr>
 <br>
 <tr><td>
-  <p align="justify"> We are aware that the structural constraint interface does not display or operate correctly using Internet Explorer. This seems to be due to IE not supporting HTML5 drag-and-drop functions, and we have not noticed any problems with this interface using other web browsers. The majority of testing of BNW has been performed using recent versions of Google Chrome and Mozilla Firefox web browsers on computers with Windows operating systems. We have also done used several browers on Linux and Apple computers and have not noticed problems.<br>
+<p align="justify"> We are aware that the structural constraint interface does not display or operate correctly using some older versions of Internet Explorer that did not support HTML5 drag-and-drop functions. We have not noticed any problems with this interface using recent versions of Internet Explorer, Microsoft Edge, or other web browsers. The majority of testing of BNW has been performed using recent versions of Google Chrome and Mozilla Firefox web browsers on computers with Windows operating systems. We have also done used several browers on Linux and Apple computers and have not noticed problems.<br>
 </p>
 </td>
 </tr>
