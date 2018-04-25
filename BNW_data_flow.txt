@@ -1,0 +1,166 @@
+This file will provide an overview of data flow within BNW.
+This focuses on what happens after clicking on "Learn network model from data" on homepage (home.php).
+
+Step 1: Upload data
+
+Clicking "Learn network model from data" on homepage (home.php) goes to: 
+bn_file_load_gom.php which is responsible for uploading the input file
+   and preparing it for structure/parameter learning.
+
+Specifically, uploading a file runs the 'run_prep_input' script in /sourcecodes.
+This runs the prepareInput.m Matlab/Octave function.
+
+One additional note:
+BNW assigns each network a randomly generated 3 letter prefix when the file is uploaded.
+I will use ??? to signify this prefix.
+
+The following 13 files are written to /sourcecodes/data directory during this step:
+1) ???continuous_input_orig.txt: This is an exact copy of the input file uploaded by the user.
+2) ???continuous_input.txt: Input file after processing by prepareInput.m.
+   -A couple of notable changes are made to the input file.
+     a) An additional header type row containing the variable/node type is added as the second row of the file.
+         See ???type.txt below.
+     b) Discrete variable values are recoded to be integers.
+3) ???input_desc.txt: Variable descriptions that can be viewed by user clicking on "View uploaded variables and data"
+4) ???nnode.txt: The number of variables/nodes in the input file (# of columns in input file).
+5) ???nrows.txt: The number of cases/samples in the input file (# of rows in the input file, excluding header lines).
+
+The following 3 files are used to keep track of variable names, variable types, and discrete variable states.
+6) ???name.txt: The names of the variables in the input file in the same order as they are presented in the input file.
+7) ???nlevels.txt: The original possible states of discrete variables in the input file. The order of these states
+      corresponds to the integers in ???continuous_input.txt (i.e., the first listed state for the variable has a value
+      of 1 in ???continuous_input.txt, the second listed state has a value of 2, . . .)
+8) ???type.txt: The type of each variable/node. Continuous nodes have a value of 1. Discrete nodes have a value equal to the
+      number of possible states.
+
+The following 5 files contain default values of structure learning options.
+They will be modified if the structural constraint interface is used.
+9) ???ban.txt: List of banned edges (will contain only a header line at this point).
+10) ???white.txt: List of required edges (will contain only a header line at this point).
+11) ???k.txt: Number of top-scoring models to include in model averaging (default value is 1, indicating no model averaging).
+12) ???parent.txt: Maximum number of parents for each node during structure learning (default value is 4).
+13) ???thr.txt: Threshold value to include edges after model averaging (default value is 0.5). 
+
+Step 2a: Structure learning with default parameters
+
+Click "Perform Bayesian network modeling using default settings"
+This is a link to executionprogress.php which just displays a "progress bar" and starts structure learning.
+To start structure learning, it runs execute_bn_gom.php.
+execute_bn_gom.php which runs the run.sh script and prepares a couple of files.
+
+The run.sh contains the commands to run the structure learning codes.
+
+Output files from structure learning that are written to /sourcecodes/data:
+1) ???structure_input.txt: The structure matrix, containing the edges included in the network model.
+   The format of this file is a header line containing the variable names.
+   The rest is the strucure matrix where 1 indicates an edge is included in the network and a 2 is not.
+   The matrix had dimensions n x n where n is the number of variables.
+   A '1' in the ith column in the jth row indicates that there is an edge from variable i to variable j.
+2) ???structure_input_temp.txt: Structure matrix with model averaging data.
+   This file has the model averaging probability of each edge.
+   The ???structure_input.txt file is generated from this file. If the value of an edge is this file
+   is greater than the value in ???thr.txt, the edge is included in the network (a '1' in ???structure_input.txt).
+
+execute_bn_gom.php also creates the following graphviz:
+3) ???grviz_name_file.txt: A list of the names of the variables that is used by graphviz/dot. 
+4) ???graphviz.txt: Input file for dot that creates the edges included in the network.
+   0 is the first node listed in ???grviz_name_file.txt, 1 is the second node, . . .
+
+
+Step 2b: Structure learning using the structural constraint interface
+
+Before the process described in Step 2a, additional constraints or changes to default parameters 
+  can be added using the structural constraint interface.
+
+This can be accessed by clicking on "Go to structure learning settings and the BNW
+     structural constraint interface" which links to create_tiers_gom.php
+
+The top section of create_tiers_gom.php is "Global structure learning settings"
+  Modifying this section will change the values in ???parent.txt, ???k.txt, and ???thr.txt.
+
+The remaining sections will modify the ???ban.txt and ???white.txt files.
+
+Clicking on "Perform Bayesian network modeling" goes to executionprogress.php and Step 2a is followed.
+
+
+Step 3: Parameter learning of the original network.
+
+The step begins near the end of execute_bn_gom.php file where the run_octave script is run.
+
+run_octave starts up the runBN_initial.m Matlab/Octave script.
+This prepares parameter learning for the data file in ???continuous_input.txt and 
+    network structure defined in ???structure_input.txt.
+
+runBN_initial makes 2 main output files and 2 files that may be used by other Matlab/Octave scripts.
+1) ???net_figure.txt: This file provides the data that is used to draw the network in BNW.  I will describe 
+      the format of this file elsewhere.
+2) ???parameters.txt: The parameters of the network using the original data set.
+    This file is broken into different sections that correspond to each variable/node.
+    Each section has the name of the variable and whether it is discrete or continuout.
+    If it is discrete, the number of possible states is also provided.
+    For discrete nodes, the percentage of each state is listed.
+    For continuous nodes, the mean and standard deviation of the Gaussian fit to that variable is provided.
+3) ???map.txt: The standard deviations and means of the original data set.
+    The parameter learning tools used in BNW work best if continuous data is normalized.
+    Each line of this file provides the variable name, the standard deviation, and the mean of the original data
+         for each variable for use in standardizing data in the Matlab/Octave scripts.
+4) ???mapdata.txt: The topological order of the nodes used in parameter learning.
+    Sometimes before parameter learning, the nodes are resorted so they are in topological order (i.e., 
+      parents are always listed before parents).
+
+Step 4: Display of the network.
+  
+This step is initiated at the end of execute_bn_gom.php when layout.php is opened.
+
+layout.php is the main page that is used when the network is displayed.
+
+The network is drawn in a division using either 
+network_layout_evd.php if Evidence mode is being used or 
+network_layout_inv.php if Intervention mode is being used.
+
+These php files basically just read and ???net_figure.txt and run dot using the graphviz file
+   described above to draw the network.
+
+Step 5a: Adding evidence or intervention to the network.
+
+Clicking on a node and entering evidence/intervention runs add_evd.php/add_inv.php.
+
+This creates 3 files:
+(I am going to describe these as evidence here, intervention mode is the same.)
+1) ???vardata.txt: The value of the evidence that was entered.
+2) ???varname.txt: The name of the node for which evidence was entered.
+3) ???var.txt: The index of the node for which evidence was entered in the ???mapdata.txt file.
+If evidence is entered for more than one node, these files will contain tab-separated lists.
+
+add_evd.php/add_inv.php then runs a script called either run_octave_evd or run_octave_inv.
+
+This script runs the Predictmultiple or Predictmultipleintervention Matlab/Octave functions.
+
+The output files from this script are:
+4) ???net_figure_new.txt: The net_figure file after entering evidence/intervention.
+5) ???parameters_ev.txt: The parameters of the network considering the evidence/intervention.
+
+Then, network_layout_evd_2.php or network_layout_inv_2.php is used to draw the network with the evidence/intervention.
+
+Step 5b: Additional files created in Intervention mode.
+
+In Intervention mode, the network structure can change. The node with intervention no longer depends on its parents.
+
+Several files must be created to account for this. They are the same as described above, but with the new network structure.
+1) ???graphviz_new.txt
+2) ???grviz_name_file_new.txt
+3) ???structure_input_new.txt
+
+
+
+Structure learning:
+
+
+
+
+
+
+
+
+
+
