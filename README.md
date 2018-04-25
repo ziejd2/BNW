@@ -13,7 +13,7 @@ These are not very readable, but will hopefully be useful for identifying which 
 
 -BNW_file_overview.txt lists the files that are needed to run BNW and gives a brief description of the purpose of each file.
 
--BNW_data_flow.txt goes through a typical session of BNW describing the order in which codes and scripts are used, as well as when output files are written.
+-BNW_data_flow.txt goes through a typical session of BNW describing the order in which codes and scripts are used, as well as when output files are written and the output file format.
 
 There are four branches.
 1) master: This is currently compbio.uthsc.edu/BNW_1.12 on the BNW server. It is similar to the octave_php_separate with a couple of additional small changes and bug fixes. I think this version is ready for use as the main version of BNW.
