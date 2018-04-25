@@ -6,15 +6,15 @@ a) dot can be executed using /usr/bin/dot
 b) octave can be executed using /usr/bin/octave
 
 BNW is currently located at /var/www/html/compbio/BNW_x.xx
-(Current development version is BNW_1.12).
+(The current development version is BNW_1.2).
 
-It contains two basic files (index.html and home.php) and two directories.
-home.php can be modified/updated to use other versions of BNW
+The main BNW directory contains two basic files (index.html and home.php) and two directories.
+A couple of lines in home.php should be modified/updated to point to the correct BNW directory.
 
 downloads: This contains the downloadable version of the BNW structure learning package.
 
 sourcecodes: This contains the files and codes that are used by the webserver.
-The main purpose of this file is to provide an overview of the files that are contained in 'sourcecodes'.
+The main purpose of this file is to provide a brief overview of the files that are contained in 'sourcecodes'.
 
 1. Directories within sourcecodes:
 a) bnt-master: This contains the code for BayesNetToolbox which is used in parameter learning in BNW.
@@ -23,7 +23,7 @@ a) bnt-master: This contains the code for BayesNetToolbox which is used in param
 b) parameter_learning: This contains the MATLAB/Octave code that we have written for parameter_learning.
         It also prepares data that has been uploaded to BNW for use with the structure learning code.
 
-c) k-best and localscore: These two directories contains the code used for structure learning.
+c) k-best and localscore: These two directories contains the C code used for structure learning.
 
 d) BNW_workflow_test_files, example_datasets, and examples: These three directories contain files that are used by the tutorials and examples on the BNW homepage.
 
