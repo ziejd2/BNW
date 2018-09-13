@@ -17,4 +17,6 @@ This would be viewed before layout.php.
 
 6) Add more informative error messages.
 
-7) Parallelize the structure learning code. 
+7) Improve security for uploaded files.
+
+8) Parallelize the structure learning code. 
