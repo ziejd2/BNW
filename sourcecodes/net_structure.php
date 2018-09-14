@@ -1,6 +1,7 @@
 <?php
 include("header_new.inc");
 include("header_batchsearch.inc");
+include("input_validate.php");
 ////////////////continuous///////////////
 $searchID="";
 $UploadValue="NO";
@@ -12,7 +13,7 @@ if($_POST["My_key"]!="")
 if($_GET["My_key"]!="")
   $keyval=$_GET["My_key"];
 
-
+$keyval=valid_keyval($keyval);
 
 $sid="structure_input";
 $dir="./data/$keyval";

@@ -4,7 +4,7 @@ function [ bnet ] = parameterLearning( bnet,cases,engine_name )
 % 
 % This is very basic now. It could be modified to use different engine
 %  types in the future. Now, I always use the 'jtree_inf_engine'.
-% 
+%  with dirichlet priors
 %
 % parameterLearning is called by runBN_initial.m, 
 %   Predictmultiple.m, and Predictmultipleintervention.m
@@ -35,7 +35,8 @@ nnodes = size(dnodes,2)+size(cnodes,2);
 
 %make dnodes tabular_CPT
 for i = 1:size(dnodes,2)
-    bnet.CPD{dnodes(i)} = tabular_CPD(bnet,dnodes(i));
+%    bnet.CPD{dnodes(i)} = tabular_CPD(bnet,dnodes(i));
+    bnet.CPD{dnodes(i)} = tabular_CPD(bnet,dnodes(i),'prior_type','dirichlet');
 end
 
 for i = 1:size(cnodes,2)

@@ -21,6 +21,9 @@ for j=1:n
     fam = family(bnet.dag,j);
     %bnet.CPD{j} = learn_params(bnet.CPD{j}, data(fam,:));
     bnet.CPD{j} = learn_params(bnet.CPD{j}, fam, data, bnet.node_sizes, bnet.cnodes);
+    if ismember(e,bnet.dnodes)
+      bnet.CPD{j} = learn_params_orig(bnet.CPD{j}, j, data, bnet.node_sizes, bnet.cnodes);
+    end
   end
 end
 

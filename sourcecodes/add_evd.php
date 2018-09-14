@@ -1,6 +1,6 @@
 <?php 
-
-$keyval=trim($_GET['My_key']);
+include("input_validate.php");
+$keyval=valid_keyval(trim($_GET['My_key']));
 
 //include("restructuremap.php");
 
@@ -76,10 +76,13 @@ $sym=trim($_GET['name']);
 $textdata=$_GET['evidence'];
 $ft=$dir.$keyval."var.txt";
 $fpvar = file_get_contents("$ft");
+$fpvar = trim("$fpvar");
 $ft=$dir.$keyval."vardata.txt";
 $fpdata  = file_get_contents("$ft");
+$fpdata = trim("$fpdata");
 $ft=$dir.$keyval."varname.txt";
 $fpvarname  = file_get_contents("$ft");
+$fpvarname = trim("$fpvarname");
 
 $vriable=mapid($sym,$keyval);
 
@@ -187,14 +190,8 @@ else
 }
 
 
-//  $file1="./data/".$keyval."run_evidencemodified.sh";
-//  $initiallines=file_get_contents("./data/temp_evidence_file");
-//  $all_lines="$initiallines"."$keyval\nfi\nexit";
-   
-//  $fp = fopen($file1,"w"); 
-//  fwrite($fp, "$all_lines\n");
-//  fclose($fp);
   //execute shell script for matlab
+  $keyval = valid_keyval($keyval);
   shell_exec('./run_octave_evd '.$keyval);
 
 ?>

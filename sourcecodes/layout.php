@@ -1,13 +1,8 @@
 <?php
 
 include("header_new.inc");
-
-$keyval=$_GET["My_key"];
-
-
-
-
-
+include("input_validate.php");
+$keyval=valid_keyval($_GET["My_key"]);
 
 $dir="./data/";
 
@@ -77,10 +72,14 @@ function calcHeight()
 <!-- Site navigation menu -->
 <ul class="navbar2">
    <li><p>Selected mode:<br><?php print($radiovalue);?></p></li>
+   <li><p>Network ID:<br><?php print($keyval);?></p></li>
 </ul>
 
 <ul class="navbar">
  <li><a href="clear.php?My_key=<?php print($keyval);?>" target='_blank'>Clear evidence</a>
+<!---
+<li><a href="cv_predictions.php?My_key=<?php print($keyval);?>";>Cross validation and predictions</a>
+--->
   <li><a href="javascript:void(0);"
 NAME="Model Averaging Matrix" title="Model Averaging Matrix"
 onClick=window.open("matrix.php?My_key=<?php print($keyval);?>","Ratting","width=950,height=270,0,status=0,");>Display structure matrix</a>  

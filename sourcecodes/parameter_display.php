@@ -1,4 +1,7 @@
-<?php $keyval=$_GET["My_key"]; ?>
+<?php 
+include("input_validate.php");
+$keyval=valid_keyval($_GET["My_key"]); 
+?>
 
 <h3> <a href=<?php $d="./data/".$keyval."parameters.txt"; print($d);?>>View original parameters</a></h3>
 <br>

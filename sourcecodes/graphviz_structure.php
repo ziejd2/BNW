@@ -17,7 +17,8 @@ function calcHeight()
 
 <?php 
 include("header_new.inc");
-$keyval=$_GET["My_key"];
+include("input_validate.php");
+$keyval=valid_keyval($_GET["My_key"]);
 
 /////////////////////////////////structure matrix//////////////////////////////////////////////////////////
 

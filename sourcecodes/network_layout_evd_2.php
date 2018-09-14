@@ -1,6 +1,7 @@
 <?php 
   //include("structuremap.php");
-
+include("input_validate.php");
+include("header_batchsearch.inc");
 
 function levelmap($inx,$name,$mapdata)
 {
@@ -23,7 +24,7 @@ foreach($leve_l as $l)
 
 
 
-$keyval=trim($_GET["My_key"]);
+$keyval=valid_keyval($_GET["My_key"]);
 //////////////////////////Entered evidences//////////////////////////////////////////
 $dir="./data/";
 
@@ -546,12 +547,14 @@ else
             var topping = data.getValue(selectedItem.row, 0);
             
             var s = window.prompt('Selected evidence ' + topping + ' for ' + cnode + '. Enter new evidence ', topping );
-            
-            window.location.href = "add_evd.php?name=" + cnode + "&evidence=" + s + "&My_key=" + keyv;
-           
-
-  
-              //alert('The user selected ' + topping + topname);
+	    if (input_check(s))
+	      {
+		window.location.href = "add_evd.php?name=" + cnode + "&evidence=" + s + "&My_key=" + keyv;
+	      }
+	    else
+	      {
+		window.location.href = "input_error_no_menu.php";
+	      }
           }
         } 
          chart.draw(data,
@@ -695,9 +698,15 @@ else
           if (selectedItem) {
            
             var topping = data.getValue(selectedItem.row, 0);
-            var s = window.prompt('Selected evidence ' + topping + ' for ' + cnode + '. Enter new evidence ', topping );
-            window.location.href = "add_evd.php?name=" + cnode + "&evidence=" + s + "&My_key=" + keyv;  
-
+            var s = window.prompt('New selected evidence ' + topping + ' for ' + cnode + '. Enter new evidence ', topping );
+	    if (input_check(s))
+	      {
+		window.location.href = "add_evd.php?name=" + cnode + "&evidence=" + s + "&My_key=" + keyv;  
+	      }
+	    else
+	      {
+		window.location.href = "input_error_no_menu.php";
+	      }
           }
         }
             chart.draw(data, {curveType: "function",

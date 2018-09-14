@@ -123,7 +123,8 @@ for i = 1:nnodes,
         fprintf(fileID,format,num_child(i),children(1,:));
     end
     
-    predict = marginal_nodes(engine,i);
+%    predict = marginal_nodes(engine,i);
+    predict = marginal_nodes_no_ev(bnet,engine,i);
     if bnet.node_sizes(i) ~= 1,
         for j = 1:bnet.node_sizes(i),
             %%%For discrete nodes, the state and the percent of that state

@@ -1,5 +1,5 @@
 <?php
-
+include("input_validate.php");
 $oldkeyval=$_GET["My_key"];
 
 $type_n=array();
@@ -7,8 +7,9 @@ $type_n=array();
 $type_n=explode("|",$oldkeyval);
 
 
-$example=trim($type_n[0]);   
-$oldkeyval=trim($type_n[1]);   
+$example=valid_input(trim($type_n[0]));   
+$oldkeyval=valid_keyval(trim($type_n[1]));   
+
 
 /////////////Generate a random key/////////////////////
 $alphas=array();

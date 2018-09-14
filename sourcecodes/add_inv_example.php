@@ -1,6 +1,7 @@
 <?php 
   //include("restructuremap.php");
-$keyval=$_GET["My_key"];
+include("input_validate.php");
+$keyval=valid_keyval($_GET["My_key"]);
 
 function discretemap($textdata,$sym,$dmapdata)
 {
@@ -183,6 +184,7 @@ else
 }
 
 include("mat_structure.php");
+$keyval = valid_keyval($keyval);
 structure_change($keyval);
 
 

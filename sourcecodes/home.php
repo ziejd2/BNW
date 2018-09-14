@@ -7,6 +7,7 @@ include("header_new.inc");
 <ul class="navbar">
   <li><a href="bn_file_load_gom.php">Learn a network model from data</a>
   <li><a href="home_upload.php">Make predictions using a known structure</a>  
+  <li><a href="enter_netID.php">Use a network ID to return to a network</a>  
   <li><a href="getting_started.php">Getting started with BNW</a>
   <li><a href="help.php">Help</a>
   <li><a href="workflow.php">Tutorials and examples</a>

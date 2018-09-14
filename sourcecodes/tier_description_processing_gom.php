@@ -1,6 +1,6 @@
 <?php
-
-$keyval=$_GET["My_key"];
+include("input_validate.php");
+$keyval=valid_keyval($_GET["My_key"]);
 
 function get_tier($keyval)
 {

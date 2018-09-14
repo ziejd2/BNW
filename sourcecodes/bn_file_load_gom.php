@@ -6,6 +6,7 @@
 include("header_new.inc");
 include("header_batchsearch.inc");
 include("runtime_check.php");
+include("input_validate.php");
 $searchID="";
 $UploadValue="NO";
 $TextFile=$HTTP_POST_FILES["MyFile"]["name"];
@@ -25,7 +26,7 @@ $keyval=$alpha;
 
 if($_POST["My_key"]!="")
   $keyval=$_POST["My_key"];
-
+  $keyval=valid_keyval($keyval);
 
 $sid=$keyval."continuous_input";
 $dir="./data/";
@@ -60,6 +61,7 @@ if(isset($HTTP_POST_VARS["MyUpload"]))
    {
         if($TextFile!="")
         {
+	  $TextFile = valid_input($TextFile);
             $sta=move_uploaded_file($HTTP_POST_FILES['MyFile']['tmp_name'],$TextinFile);
             if(!$sta)
             {
@@ -145,6 +147,7 @@ if($searchID!="")
       $fpdata = fopen($dir.$keyval."continuous_input_orig.txt","w");
       fwrite($fpdata,$searchID);
   }  
+  $keyval = valid_keyval($keyval);
   shell_exec('./run_prep_input '.$keyval);
   $parent_number=4;
   $k_number=1;

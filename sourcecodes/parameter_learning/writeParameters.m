@@ -70,7 +70,8 @@ for i = 1:nnodes
             break
         end
     end
-    predict = marginal_nodes(engine,nodeid);
+%    predict = marginal_nodes(engine,nodeid);
+    predict = marginal_nodes_no_ev(bnet,engine,nodeid);
     %%%Print the name of the node
     fprintf(fileID,'%s\n',labels{nodeid});
     %%%Print the type of node

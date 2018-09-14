@@ -10,6 +10,7 @@ function val = get_field(CPD, name)
 
 switch name
  case 'cpt',      val = CPD.CPT;
+ case 'cpt_orig',      val = CPD.CPT_orig;
  case 'counts',      val = CPD.counts;
  otherwise,
   error(['invalid argument name ' name]);

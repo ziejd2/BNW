@@ -3,9 +3,9 @@
 
 include("header_new.inc");
 include("runtime_check.php");
+include("input_validate.php");
 
-
-$keyval=$_GET["My_key"];
+$keyval=valid_keyval($_GET["My_key"]);
 $dir="./data/";
 
 //number of parents
@@ -28,6 +28,7 @@ $runtime=exe_time($keyval,$parent_number,$k_number);
 
 <div>
 <p><h3><?php 
+print("Network ID: $keyval<br/>");
 print("Estimated run time: $runtime seconds");
 ?>
 <br><br></h3>

@@ -4,7 +4,7 @@
 
 include("header_new.inc");
 include("runtime_check.php");
-
+include("input_validate.php");
 $keyval=$_GET["My_key"];
 
 $dir="./data/";
@@ -40,6 +40,7 @@ $structure_thr=trim($type_n[3]);
 
 if($keyval=="")
   $keyval=$type_n[4];
+
 
 if($parent_number=="")
 {
@@ -81,7 +82,8 @@ $thrfile=$dir.$keyval."thr.txt";
 $kf=fopen($thrfile,"w");
 fwrite($kf,"$structure_thr\n");
 
-//////////////////Check execution time///////////////////////////////////////////////
+//////////////////Check execution time//////////////////////////////////////////////
+$keyval=valid_keyval($keyval);
 $runtime=exe_time($keyval,$parent_number,$k_number);
 
 //print("Runtime is $runtime");

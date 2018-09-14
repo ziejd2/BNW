@@ -1,5 +1,6 @@
 <?php 
-$keyval=$_GET["My_key"];
+include("input_validate.php");
+$keyval=valid_keyval($_GET["My_key"]);
 $dir="./data/";
 
 $matfile=$dir.$keyval."structure_input_temp.txt";

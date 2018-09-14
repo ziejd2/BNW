@@ -274,7 +274,7 @@ for i = 1:nnodes
     if levels{i} > 1
 	for j = 1:ncases
             for k=1:size(states{i},1)
-	      if data{j,i} == states{i}{k}
+	      if strcmp(data{j,i},states{i}{k})
                  data{j,i} = sprintf('%i',num2cell(k){1});;
                  break
               end

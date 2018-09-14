@@ -9,6 +9,7 @@ function CPD = tabular_CPD(bnet, self, varargin)
 %   - T means use table T; it will be reshaped to the size of node's family.
 %   - 'rnd' creates rnd params (drawn from uniform)
 %   - 'unif' creates a uniform distribution
+% CPT_orig - specifies the distribution based on original data
 % adjustable - 0 means don't adjust the parameters during learning [1]
 % prior_type - defines type of prior ['none']
 %  - 'none' means do ML estimation
@@ -60,6 +61,7 @@ CPD.sparse = 0;
 
 % set defaults
 CPD.CPT = mk_stochastic(myrand(fam_sz));
+CPD.CPT_orig = mk_stochastic(myrand(ns([self])));
 CPD.adjustable = 1;
 CPD.prior_type = 'none';
 dirichlet_type = 'BDeu';
@@ -158,6 +160,7 @@ function CPD = init_fields()
 % or create it from scratch. (Matlab requires this.)
 
 CPD.CPT = [];
+CPD.CPT_orig = [];
 CPD.sizes = [];
 CPD.prior_type = [];
 CPD.dirichlet = [];

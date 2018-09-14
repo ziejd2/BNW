@@ -1,5 +1,7 @@
 <?php 
   //include("structuremap.php");
+include("header_batchsearch.inc");
+include("input_validate.php");
 
 function levelmap($inx,$name,$mapdata)
 {
@@ -25,7 +27,7 @@ foreach($leve_l as $l)
 $dir="./data/";
 
 
-$keyval=$_GET["My_key"];
+$keyval=valid_keyval($_GET["My_key"]);
 
 $matfile=$dir."$keyval"."net_figure.txt";
 
@@ -359,10 +361,14 @@ for($i=0;$i<$nnode;$i++)
             var topping = data.getValue(selectedItem.row, 0);
             
             var s = window.prompt('Selected evidence ' + topping + ' for ' + cnode + '. Enter new evidence ', topping );
-           
-            window.location.href = "add_evd_example.php?name=" + cnode + "&evidence=" + s + "&My_key="  + keyv;
-           
-
+	    if (input_check(s))
+	      {
+                window.location.href = "add_evd_example.php?name=" + cnode + "&evidence=" + s + "&My_key="  + keyv;
+	      }
+	    else
+	      {
+		window.location.href = "input_error_no_menu.php";
+	      }
   
               //alert('The user selected ' + topping + topname);
           }
@@ -425,7 +431,14 @@ for($i=0;$i<$nnode;$i++)
            
             var topping = data.getValue(selectedItem.row, 0);
             var s = window.prompt('Selected evidence ' + topping + ' for ' + cnode + '. Enter new evidence ', topping );
-            window.location.href = "add_evd_example.php?name=" + cnode + "&evidence=" + s + "&My_key=" + keyv;  
+	    if (input_check(s))
+	      {
+		window.location.href = "add_evd_example.php?name=" + cnode + "&evidence=" + s + "&My_key=" + keyv; 
+	      }
+	    else
+	      {
+		window.location.href = "input_error_no_menu.php";
+	      }
 
           }
         }

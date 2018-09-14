@@ -1,8 +1,9 @@
 <?php
-
+include("input_validate.php");
 $key=$_POST["My_key"];
 if($key=="")
-  $key="ab";//uniqid("");
+  $key="abc";//uniqid("");
+$key=valid_keyval("$key");
 
 include("header_new.inc");
 ?>
@@ -120,8 +121,8 @@ While it does not fully support dynamic Bayesian network modeling, BNW can be us
 <a name=old_model><h3>7. Can I restore a previous session containing a model in BNW?</h3></a>
 </tr>
 <br>
-<tr><td>
-<p align="justify">While there is no current method to automatically restore a previous session of BNW, users have the option of downloading a file that contains the structure of their model. This file can be loaded in BNW on return visits to the site, allowing them to skip the potentially time consuming structure learning step. To download the structure matrix file after structure learning of the dataset for the first time, click on "Display structure matrix" on the left side of the prediction interface, scroll to the bottom of the popup window, and click "Download". This file and the original input data file and then be loaded into BNW by clicking "Make predictions using a known structure" on the BNW home page.<br> 
+<tr><td><p align="justify"> BNW has been recently been updated to allow for returning to a previous network model. Each network is currently identified by a three letter network ID that is noted on the upper left of the network page. This network ID can be entered into a link on the left menu of the BNW homepage. Users should note that data is occasionally cleared from the BNW server, so this method will may only allow users to return to a network model for a short time. Users can follow the description below for longer term use.<br><br>
+Additionally, users have the option of downloading a file that contains the structure of their model. This file can be loaded in BNW on return visits to the site, allowing them to skip the potentially time consuming structure learning step. To download the structure matrix file after structure learning of the dataset for the first time, click on "Display structure matrix" on the left side of the prediction interface, scroll to the bottom of the popup window, and click "Download". This file and the original input data file and then be loaded into BNW by clicking "Make predictions using a known structure" on the BNW home page.<br> 
 </td></tr>
 </table>
 <br>

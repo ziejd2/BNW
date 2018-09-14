@@ -1,23 +1,27 @@
 
 <?php 
-$keyval=$_GET["My_key"];
+include("input_validate.php");
+$keyval=valid_keyval($_GET["My_key"]);
 
 //////////////execute c codes for local score///////////////////
 $dir="./data/";
 
 $pfile="./data/".$keyval."parent.txt";
 $parentf=file_get_contents("$pfile");
+//$maxp=valid_input($parentf);
 $maxp=trim($parentf);
 
 
 $kfile="./data/".$keyval."k.txt";
 $kf=file_get_contents("$kfile");
+//$maxk=valid_input($kf);
 $maxk=trim($kf);
 
 
 
 $thrfile="./data/".$keyval."thr.txt";
 $thr=file_get_contents("$thrfile");
+//$thr=valid_input($thr);
 $thr=trim($thr);
 
 

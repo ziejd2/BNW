@@ -6,6 +6,8 @@
 include("header_new.inc");
 include("header_batchsearch.inc");
 include("runtime_check.php");
+include("input_validate.php");
+
 $searchID="";
 $UploadValue="NO";
 $TextFile=$HTTP_POST_FILES["MyFile"]["name"];
@@ -26,6 +28,7 @@ $keyval=$alpha;
 if($_POST["My_key"]!="")
   $keyval=$_POST["My_key"];
 
+$keyval=valid_keyval($keyval);
 
 $sid=$keyval."continuous_input";
 $dir="./data/";

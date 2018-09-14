@@ -4,6 +4,17 @@
 <script language="JavaScript">
 <!-- hide
 
+function input_check(input) {
+     var valid_char = /^[a-zA-Z0-9/./-]+$/;
+     if(valid_char.test(input))
+      {
+       return true;
+      }
+     else
+      {
+       return false;
+      }
+}
 function demo_str()
 {
     with(window.document.key_search)
