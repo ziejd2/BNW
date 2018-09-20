@@ -18,6 +18,7 @@ Specifically, I am referring to data available in "View uploaded variabels and d
 4) Improve interface for users with a known structure ("Make predictions using a known structure" on the BNW homepage).
 It should be more clear what button needs to be clicked to go to the next step. It might be better to upload the data and structure files on the same page.
 The related files are home_upload.php, upload_structure_file.php, and net_structure.php.
+Some minor changes to the upload procedure for the general data upload ("Learn a network model from data") might also be helpful.
 
 5) Improve security for uploaded files.  I have made some security improvements to check things like making sure the network ID's that are entered are correct, but th
 
