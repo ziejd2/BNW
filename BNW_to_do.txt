@@ -9,6 +9,7 @@ d) There might be a couple of additional metrics for assessing the quality of pr
 2) Add additional image of the network model that displays only the node names.
 This could be the first visualization of the network that is displayed after structure learning. 
 A couple of desired features: nodes that can be dragged and the potential to export a high quality image.
+This image could also show the strength of the evidence for the edge (e.g., the width of the line or a number next to the line).
 There would be a button somewhere with something like: "Make predictions with network" that would take users to current network visualization.
 This would be viewed before layout.php.
 
