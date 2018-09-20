@@ -1,22 +1,28 @@
-1) Add some type of cross-validation. I am working on this and should have something ready soon.
+1) Improve cross-validation and prediction interface and output. The development version has three specific tools here:
+leave-one-out cross validation, k-fold cross validation, and making predictions using a test data set.
+The input and output methods and format currently work, but could be greatly improved.
+a) Currently, users have to type the name of a variable in an input box on BNW for LOOCV and KfoldCV. The predictions of this variable are then investigated by BNW. For the test data set, the variable of interest has to be the first line of the input test data file. Adding a dropdown selection box with the network variables might be better. 
+b) The output files are just plain text files with no formatting. We should probably at least have something like showing the prediction accurary/error of the predictions on an html page, and then having a button that could be used to download the complete prediction file. 
+c) The predictions could be displayed graphically. For example, for continuous variables, we could show a plot with the predicted and actual values for the cross validation or prediction.
+d) There might be a couple of additional metrics for assessing the quality of predictions that we could add. I will look at some the Bayesian network R packages again to see what they use.
 
-2) Improve interface for users with a known structure ("Make predictions using a known structure" on the BNW homepage).
-It should be more clear what button needs to be clicked to go to the next step. It might be better to upload the data and structure files on the same page.
-The related files are home_upload.php, upload_structure_file.php, and net_structure.php.
-
-3) Improve look when viewing additional files. 
-Specifically, I am referring to data available in "View uploaded variabels and data", "Display structure matrix", and "View parameters". The related files are input_check.php, matrix.php, and parameter_display.php, respectively.
-
-4) Add additional image of the network model that displays only the node names.
+2) Add additional image of the network model that displays only the node names.
 This could be the first visualization of the network that is displayed after structure learning. 
 A couple of desired features: nodes that can be dragged and the potential to export a high quality image.
 There would be a button somewhere with something like: "Make predictions with network" that would take users to current network visualization.
 This would be viewed before layout.php.
 
-5) Allow users to log into BNW to easily save and return to networks.
+3) Improve look when viewing additional files. 
+Specifically, I am referring to data available in "View uploaded variabels and data", "Display structure matrix", and "View parameters". The related files are input_check.php, matrix.php, and parameter_display.php, respectively.
 
-6) Add more informative error messages.
+4) Improve interface for users with a known structure ("Make predictions using a known structure" on the BNW homepage).
+It should be more clear what button needs to be clicked to go to the next step. It might be better to upload the data and structure files on the same page.
+The related files are home_upload.php, upload_structure_file.php, and net_structure.php.
 
-7) Improve security for uploaded files.
+5) Improve security for uploaded files.  I have made some security improvements to check things like making sure the network ID's that are entered are correct, but th
+
+6) Add informative error messages for when things go wrong with structure/parameter learning. I need to think about how to do this.
+
+7) Allow users to log into BNW to easily save and return to networks? Currently, there is the option of using the network ID to return to the network. Is this something that we should keep long term?
 
 8) Parallelize the structure learning code. 
