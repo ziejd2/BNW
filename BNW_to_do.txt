@@ -16,10 +16,12 @@ This would be viewed before layout.php.
 3) Improve look when viewing additional files. 
 Specifically, I am referring to data available in "View uploaded variabels and data", "Display structure matrix", and "View parameters". The related files are input_check.php, matrix.php, and parameter_display.php, respectively.
 
-4) Improve interface for users with a known structure ("Make predictions using a known structure" on the BNW homepage).
+4) Clarify file loading and BNW calculations. Sometimes it is not clear that a file is still being loaded or a calculation is currently running. 
+a) Improve interface for users with a known structure ("Make predictions using a known structure" on the BNW homepage).
 It should be more clear what button needs to be clicked to go to the next step. It might be better to upload the data and structure files on the same page.
 The related files are home_upload.php, upload_structure_file.php, and net_structure.php.
-Some minor changes to the upload procedure for the general data upload ("Learn a network model from data") might also be helpful.
+b) Some minor changes to the upload procedure for the general data upload ("Learn a network model from data") might also be helpful.
+c) The calculation after evidence/intervention is submitted can take 5-10 seconds.
 
 5) Improve security for uploaded files.  I have made some security improvements to check things like making sure the network ID's that are entered are correct, but th
 
