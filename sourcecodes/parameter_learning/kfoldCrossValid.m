@@ -149,6 +149,9 @@ for i = 1:ncases
      fprintf(fileID,'%6.4f\t%6.4f\n',kfoldPredictions(i,:));
 end
 
+fflush(fileID);
+fclose(fileID);
+
 end
 
 
@@ -282,6 +285,9 @@ for i = 1:ncases
      fprintf(fileID,'%6.4f\t',kfoldPredictions(i,1:end-1));
      fprintf(fileID,'%6.4f\n',kfoldPredictions(i,end));
 end
+
+fflush(fileID);
+fclose(fileID);
 
 end
 

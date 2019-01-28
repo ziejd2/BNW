@@ -1,0 +1,24 @@
+#!/usr/bin/octave -qf
+cd ./data
+arg_list = argv(); 
+addpath("../bnt-master");
+addpath(genpathKPM("../bnt-master"));
+addpath("../parameter_learning");
+modifyEdges(arg_list{1},arg_list{2});
+
+fname1=strcat(arg_list{1},"continuous_input.txt");
+fname2=strcat(arg_list{2},"continuous_input.txt");
+copyfile(fname1,fname2);
+
+fname1=strcat(arg_list{1},"continuous_input_orig.txt");
+fname2=strcat(arg_list{2},"continuous_input_orig.txt");
+copyfile(fname1,fname2);
+
+fname1=strcat(arg_list{1},"nnode.txt");
+fname2=strcat(arg_list{2},"nnode.txt");
+copyfile(fname1,fname2);
+
+fname1=strcat(arg_list{1},"name.txt");
+fname2=strcat(arg_list{2},"name.txt");
+copyfile(fname1,fname2);
+

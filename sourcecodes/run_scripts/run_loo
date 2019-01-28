@@ -1,0 +1,17 @@
+#!/usr/bin/octave -qf
+cd ./data
+arg_list = argv(); 
+addpath("../bnt-master");
+addpath(genpathKPM("../bnt-master"));
+addpath("../parameter_learning");
+filename=strcat(arg_list{1},"looCV.txt");
+delete(filename);
+filename=strcat(arg_list{1},"looCV_temp.txt");
+fout_temp=fopen(filename,'w');
+fprintf(fout_temp,arg_list{2});
+fclose(fout_temp);
+looCrossValid(arg_list{1},arg_list{2});
+delete(filename);
+
+command=strcat({"/home/jziebart/python/Python-2.7.15/python ../cv_plotly.py "},arg_list{1});
+test=system(command);

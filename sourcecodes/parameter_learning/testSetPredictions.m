@@ -273,6 +273,8 @@ for i = 1:ntestcases
      fprintf(fileID,'%6.4f\t%6.4f\n',predictions(i,:));
 end
 
+fflush(fileID);
+fclose(fileID);
 
 end
 
@@ -353,7 +355,8 @@ for i = 1:ntestcases
      fprintf(fileID,'%6.4f\n',predictions(i,end));
 end
 
-
+fflush(fileID);
+fclose(fileID);
 
 
 

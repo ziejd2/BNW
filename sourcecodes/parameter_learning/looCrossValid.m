@@ -126,6 +126,10 @@ for i = 1:ncases
      fprintf(fileID,'%6.4f\t%6.4f\n',loopredictions(i,:));
 end
 
+fflush(fileID);
+fclose(fileID);
+
+
 end
 
 
@@ -246,5 +250,8 @@ for i = 1:ncases
      fprintf(fileID,'%6.4f\t',loopredictions(i,1:end-1));
      fprintf(fileID,'%6.4f\n',loopredictions(i,end));
 end
+
+fflush(fileID);
+fclose(fileID);
 
 end

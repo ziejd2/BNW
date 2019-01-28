@@ -1,4 +1,5 @@
 function  [ ] = prepareInput( pre )
+   % Jan. 2019: Modifying to allow for missing data.
    %   
    %  This function takes files that are uploaded to BNW and creates output
    %    files that can be used for structure and parameter learning.
@@ -73,6 +74,11 @@ for i = 1:ncases
          data{i,j} = next;
     end
 end
+
+% Remove all rows that have missing data from data file
+remove_count = sum(any(strcmp(data,"NA"),2));
+data(any(strcmp(data,"NA"),2),:)=[];
+ncases = ncases - remove_count;
 
 % Determine whether or not the nodes are continuous or discrete.
 % First, treat them as all discrete and get the states and number of stats(levels).
@@ -242,6 +248,7 @@ dout = fopen(descfile,'w');
 fprintf(dout,['As loaded, the input file had the following properties:\n\n']);
 dout = fopen(descfile,'a');
 fprintf(dout,'There are %i variables and %i cases(rows).\n',size(labels,2),ncases);
+fprintf(dout,'%i cases(rows) have been removed because they contained NA (missing data).\n',remove_count);
 fprintf(dout,'The variable names are:\n');
 fprintf(dout,'%s\t',labels{1:end-1});
 fprintf(dout,'%s\n\n',labels{end});
