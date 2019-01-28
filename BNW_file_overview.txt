@@ -1,3 +1,23 @@
+Jan. 2019 Update:
+I have added several new files with new features. I will make a major update soon, but here is a list of the new files:
+1) bn_after_upload_gom.php
+2) cross_valid.php; cross_valid_example.php
+3) cv_plotly.py
+4) cv_predictions.php; cv_predictions_example.php
+5) enter_netID.php
+6) input_error.php; input_error_no_menu.php
+7) keyval_error.php
+8) kfold_cv_example.php; kfold_cv.php
+9) kfold_plotly.py
+10) modify_edges.php; modify_edges_processing.php
+11) modify_structure_learning.php
+12) remove_variables.php
+13) remove_variables_processing.php; remove_variables_processing_default.php
+14) test_set_predictions.php; test_set_predictions_example.php
+15) ts_plotly.py
+There are also several new run files: These have been added to the 'run_scripts' sub-directory.
+
+
 This file will provide an overview of the BNW code.
 
 At this point, BNW requires two packages that are not currently included in the BNW directory.
