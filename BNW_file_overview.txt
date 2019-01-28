@@ -20,11 +20,17 @@ There are also several new run files: These have been added to the 'run_scripts'
 
 This file will provide an overview of the BNW code.
 
-At this point, BNW requires two packages that are not currently included in the BNW directory.
-These are Octave and dot/graphviz. The BNW code assumes:
+At this point, BNW requires three packages that are not currently included in the BNW directory.
+These are dot/graphviz; octave; and plotly. The BNW code assumes:
 a) dot can be executed using /usr/bin/dot
 b) octave can be executed using /usr/bin/octave
-
+c) plotly: 
+    The version of python on the current server is too old for plotly. I installed an newer version of python in my home directory:
+     python2.7 is currently installed in /home/jziebart/python/Python-2.7.15/python
+    Then, to use plotly, I modified files.py in:
+      /home/jziebart/python/lib/python2.7/site-packages/plotly to use absolute paths for PLOTLY_DIR and TEST_DIR
+    The files that need plotly are:  cv_plotly.py, kfold_plotly.py, and ts_plotly.py
+    
 BNW is currently located at /var/www/html/compbio/BNW_x.xx
 (The current development version is BNW_1.21).
 
