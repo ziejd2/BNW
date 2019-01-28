@@ -88,7 +88,7 @@ fclose($fp);
 //prepare and execute shell script for matlab with a write lock
 //$cmd="./runmat.sh $keyval";
 //system($cmd);
-shell_exec('./run_octave '.$keyval);
+shell_exec('./run_scripts/run_octave '.$keyval);
 ?>
 <script>
 window.open("layout.php?My_key=<?php print($keyval);?>",'_self',false);

@@ -84,7 +84,7 @@ fwrite($fout,"$endstring");
 fclose($fout);
 
 
-shell_exec('./run_octave '.$keyval);
+shell_exec('./run_scripts/run_octave '.$keyval);
 
 ?>
 <script>

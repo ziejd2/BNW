@@ -123,7 +123,7 @@ if($searchID!="")
       $fpdata = fopen($dir.$keyval."continuous_input_orig.txt","w");
       fwrite($fpdata,$searchID);
   }  
-  shell_exec('./run_prep_input '.$keyval);
+  shell_exec('./run_scripts/run_prep_input '.$keyval);
 ?>
 <ul class="navbar2">
   <li><a href="net_structure.php?My_key=<?php print($keyval);?>">Upload structure file</a>

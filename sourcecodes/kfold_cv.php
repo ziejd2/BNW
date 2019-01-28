@@ -74,6 +74,16 @@ if(file_exists($filename2))
  {?>
 <br>
     <h2> <a href=<?php $d="./data/".$keyval."kfoldCV.txt"; print($d);?>>View cross-validation results</a></h2>
+<?php
+   $plotly_file="./data/".$keyval."kfold_plotly.html";
+   if(file_exists($plotly_file))
+     {?>
+     <div>
+	 <object type="text/html" data=<?php print($plotly_file);?> width="800" height="500" >
+         </object>
+     </div>
+ <?php
+      }?>    
 <br>
 <h3>Perform k-fold cross-validation of another network variable</h3>
 <p align="justify"> 
@@ -133,7 +143,7 @@ if(file_exists($filename2))
 
 if($nm_folds!="")
 {
-  $command = './run_kfold '.$keyval.' '.$varName.' '.$nm_folds;
+  $command = './run_scripts/run_kfold '.$keyval.' '.$varName.' '.$nm_folds;
   $output = shell_exec("$command > /dev/null 2 > /dev/null &");
   $pred_link='cv_predictions.php?My_key='.$keyval;
   sleep(1);

@@ -89,7 +89,7 @@ $runtime=exe_time($keyval,$parent_number,$k_number);
 ?>
 <!-- Site navigation menu -->
 <ul class="navbar2">
-  <li><p onClick="getcombineDescription(ntiers,'ban_from','ban_to','white_from','white_to','<?php print($keyval);?>')"><a href="javascript:void(0)" >Perform Bayesian network modeling</a></p>
+  <li><p onClick="getcombineDescription(ntiers,'ban_from','ban_to','white_from','white_to','<?php print($keyval);?>')"><a href="javascript:void(0)" >View modified structure </p>
   <li><a href="javascript:void(0);"
 NAME="InputCheck" title="InputCheck"
     onClick=window.open("input_check.php?My_key=<?php print($keyval);?>","Rat//ting","width=950,height=270,0,status=0,");>View uploaded variables and data</a>
@@ -101,118 +101,10 @@ NAME="InputCheck" title="InputCheck"
 
 </ul>
 
-<div id="outernew">
-<p><h3><?php 
-print("Estimated run time for the current parameters: $runtime seconds");
-?>
-<br><br></h3>
-</p>
-<br>
-<p><h3>1. Global structure learning settings:<br><br></h3>
-</p>
-<table align="center">
-<tr>
-<td align="left">
-Maximum number of parents for any node:
-</td>
-<td align="left"> 
-     <form method="post" action="create_tiers_gom.php" name="form">
-      <SELECT NAME="nm_parent"  onchange="form.submit();">
-      <?php if($node<=5) 
-            {
-               for($i=1;$i<=4;$i++)
-              {
-            ?>
-              <option value=<?php $combined=$i."|".$k_number."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($parent_number == $i) {print "selected";}?>><?php print($i)?></option>
-            <?php
-              }
-            }
-            else if($node<=10) 
-            {
-               for($i=1;$i<$node;$i++)
-              {
-            ?>
-              <option value=<?php $combined=$i."|".$k_number."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($parent_number == $i) {print "selected";}?>><?php print($i)?></option>
-            <?php
-              }
-            }
-            else
-            {
-               for($i=1;$i<=9;$i++)
-               {
-   
-                ?>
-                 <option value=<?php $combined=$i."|".$k_number."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($parent_number == $i) {print "selected";}?>><?php print($i)?></option>
-               <?php
-               }
-               ?>
-              <option value=<?php $combined=$maxplist."|".$k_number."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($parent_number == $maxplist) {print "selected";}?>>All</option>
-           <?php
 
-            }
-            
-     ?>  
- 
-      </SELECT>
-   </form>
-</td>
-</tr>
-<tr>
-<td align="left">
-Number of networks to include in model averaging:
-</td>
-<td align="left"> 
-     <form method="post" action="create_tiers_gom.php" name="form">
-      <SELECT NAME="nm_k"  onchange="form.submit();">
-           <option value=<?php $combined=$parent_number."|"."1"."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($k_number == 1) {print "selected";}?>><?php print("1")?></option>
-           <option value=<?php $combined=$parent_number."|"."10"."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($k_number == 10) {print "selected";}?>><?php print("10")?></option>
-          <option value=<?php $combined=$parent_number."|"."50"."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($k_number == 50) {print "selected";}?>><?php print("50")?></option>
-          <option value=<?php $combined=$parent_number."|"."100"."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($k_number == 100) {print "selected";}?>><?php print("100")?></option>
-          <option value=<?php $combined=$parent_number."|"."500"."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($k_number == 500) {print "selected";}?>><?php print("500")?></option>
-          <option value=<?php $combined=$parent_number."|"."1000"."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($k_number == 1000) {print "selected";}?>><?php print("1000")?></option>
-      </SELECT>
-   </form>
-</td>
-</tr>
-<tr>
-<td align="left">
-Model averaging edge selection threshold:
-</td>
-<td align="left"> 
-     <form method="post" action="create_tiers_gom.php" name="form">
-      <SELECT NAME="nm_thr"  onchange="form.submit();">
-     <option value=<?php $combined=$parent_number."|".$k_number."|".$tier_number."|"."0.5"."|".$keyval; print($combined)?> <?php if($structure_thr == 0.5) {print "selected";}?>>0.5</option>
-     <option value=<?php $combined=$parent_number."|".$k_number."|".$tier_number."|"."0.6"."|".$keyval; print($combined)?> <?php if($structure_thr == 0.6) {print "selected";}?>>0.6</option>
-     <option value=<?php $combined=$parent_number."|".$k_number."|".$tier_number."|"."0.7"."|".$keyval; print($combined)?> <?php if($structure_thr == 0.7) {print "selected";}?>>0.7</option>
-     <option value=<?php $combined=$parent_number."|".$k_number."|".$tier_number."|"."0.8"."|".$keyval; print($combined)?> <?php if($structure_thr == 0.8) {print "selected";}?>>0.8</option>
-     <option value=<?php $combined=$parent_number."|".$k_number."|".$tier_number."|"."0.9"."|".$keyval; print($combined)?> <?php if($structure_thr == 0.9) {print "selected";}?>>0.9</option>
-     <option value=<?php $combined=$parent_number."|".$k_number."|".$tier_number."|"."1.0"."|".$keyval; print($combined)?> <?php if($structure_thr == 1.0) {print "selected";}?>>1.0</option>
-    
-      </SELECT>
-   </form>
-</td>
-</tr>
-<tr>
-<td align="left">
-Number of tiers:
-</td>
-<td align="left"> 
-     <form method="post" action="create_tiers_gom.php" name="form">
-      <SELECT NAME="nm_tier"  onchange="form.submit();">
-      <?php for($i=2;$i<10;$i++)
-      {
-        ?>
-           <option value=<?php $combined=$parent_number."|".$k_number."|".$i."|".$structure_thr."|".$keyval; print($combined)?> <?php if($tier_number == $i) {print "selected";}?>><?php print($i)?></option>
-     <?php
-     }
-   
-     ?>  
-      </SELECT>
-   </form>
-</td>
-</tr>
-</table>
-</br>
+
+<div id="outernew">
+
 
 
 <?php
@@ -416,14 +308,14 @@ function dropCopy(ev) {
 
 
 function loadFunction(nnodes,ntiers) {
-             makeNodeList(nnodes,'nodelist','tr');
-             makeNodes(nnodes,'nodelist');
-             makeTiers(nnodes,ntiers);
+  //             makeNodeList(nnodes,'nodelist','tr');
+  //           makeNodes(nnodes,'nodelist');
+  //           makeTiers(nnodes,ntiers);
              makeNodes(nnodes,'nodelist2','bw');
-             makeTierDesc1(ntiers);
-             makeTierDesc2(ntiers);
-             makeTierDesc3(ntiers);
-             makeTierDesc4(ntiers);
+	     //           makeTierDesc1(ntiers);
+	     //  makeTierDesc2(ntiers);
+             //makeTierDesc3(ntiers);
+             //makeTierDesc4(ntiers);
              makeBWLists(nnodes);
 }
 
@@ -432,7 +324,7 @@ function loadFunction(nnodes,ntiers) {
 function makeNodeList(nnodes,nlist) {
                var element1 = document.createElement('div');
                var newheight = 45*nnodes + 40;
-               newheight = newheight+'px';                  
+               newheight = newheight+'px'; 
                element1.setAttribute('id',nlist);
                element1.setAttribute('ondrop','drop(this, event)');
                element1.setAttribute('ondragenter','return false');
@@ -933,11 +825,14 @@ function getDescribeTiers(ntiers) {
 
 function getcombineDescription(ntiers,ban_from,ban_to,white_from,white_to,keyv)
 {
-  var tier=getNodesInTiers(ntiers);
-  var tierdesc=getDescribeTiers(ntiers);
+  //  var tier=getNodesInTiers(ntiers);
+  //  var tierdesc=getDescribeTiers(ntiers);
+  ntiers = 1;
+  var tier = "";
+  var tierdesc = "";
   var ban=getNodesInList(ban_from,ban_to);
   var white=getNodesInList(white_from,white_to);
-  window.open("tier_description_processing_gom.php?tier="+tier+"&tierdesc="+tierdesc+"&ban="+ban+"&white="+white +"&My_key="+keyv,'_self',false);
+  window.open("modify_edges_processing.php?ban="+ban+"&white="+white +"&My_key="+keyv,'_self',false);
 }
 
 function clearBWLists()
@@ -982,7 +877,12 @@ function clearBWLists()
 </script>
 
 <body onload="loadFunction(nnodes,ntiers)">
+
+
 </br>
+
+
+<!---
         <p><h3>2. Assign variables to tiers:<br></h3>
          </p>
         <br>
@@ -991,7 +891,7 @@ function clearBWLists()
        
        </div>
 
-           
+
        <div id="outer_tier_desc1">
        <p><h3>3. Define interactions allowed between tiers:<br></h3> 
        </p>
@@ -1011,9 +911,10 @@ function clearBWLists()
        <br>
        <br>
        <br>
-           
-        <div id="outer_box_lists">
-       <p><h3>4. Specify additional constraints:<br></h3>
+
+--->
+       <div id="outer_box_lists">
+       <p><h3>Specify edges to remove or add:<br></h3>
        </p>         
        <br>
        <div><input type="button" value="Clear lists of banned and required edges" onClick="clearBWLists()"/></div><br>
@@ -1021,19 +922,22 @@ function clearBWLists()
         ondragcenter="return false" ondragover="return false" >Nodes<br>
         </div>
          
-        <div id="ban_outer">Banned edges<br>
+        <div id="ban_outer">Edges to remove<br>
         <div id="ban_from" class="tier" ondrop="return dropCopy(event)"
         ondragenter="return false" ondragover="return false">From<br></div>
         <div id="ban_to" class="tier" ondrop="return dropCopy(event)"
         ondragenter="return false" ondragover="return false">To<br></div>
         </div>
-        <div id="white_outer">Required edges<br>
+        <div id="white_outer">Edges to add<br>
         <div id="white_from" class="tier" ondrop="return dropCopy(event)"
         ondragenter="return false" ondragover="return false">From<br></div>
         <div id="white_to" class="tier" ondrop="return dropCopy(event)"
         ondragenter="return false" ondragover="return false">To<br></div>
         </div>
         </div>
+
+
+
        
         <br>
         <br>

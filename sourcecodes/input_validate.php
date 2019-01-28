@@ -23,7 +23,7 @@ function valid_input($input)
   $input = stripslashes($input);
   $input = htmlspecialchars($input);
   //check if keyval contains only letters, numbers, hyphens, underscore, periods, or whitespace.
-  if (!preg_match('/^[-A-Za-z\d\ \t\r\n_\.]+$/',$input)) {
+  if (!preg_match('/^[-A-Za-z\d\ \t\r\n_\.\-]+$/',$input)) {
     header("Location: input_error.php");
   }
   return $input;

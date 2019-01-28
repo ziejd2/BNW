@@ -133,7 +133,7 @@ if(file_exists($filename2))
 
 if($nm_folds!="")
 {
-  $command = './run_kfold '.$keyval.' '.$varName.' '.$nm_folds;
+  $command = './run_scripts/run_kfold '.$keyval.' '.$varName.' '.$nm_folds;
   $output = shell_exec("$command > /dev/null 2 > /dev/null &");
   $pred_link='cv_predictions_example.php?My_key='.$keyval;
   sleep(1);

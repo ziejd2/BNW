@@ -70,8 +70,17 @@ if(file_exists($filename2))
  }
  else if(file_exists($filename1))
  {?>
-<br>
-    <h2> <a href=<?php $d="./data/".$keyval."looCV.txt"; print($d);?>>View cross-validation results</a></h2>
+    <h2> <a href=<?php $d="./data/".$keyval."looCV.txt"; print($d);?>>Download cross-validation results</a></h2>   
+<?php
+   $plotly_file="./data/".$keyval."loo_plotly.html";
+   if(file_exists($plotly_file))
+     {?>
+     <div>
+	 <object type="text/html" data=<?php print($plotly_file);?> width="800" height="500" >
+         </object>
+     </div>
+ <?php
+      }?>    
 <br>
 <h3>Perform leave-one-out cross-validation of another network variable<br></h3>
 <p align="justify"> 
@@ -108,7 +117,8 @@ display: block; height: 30px; width: 300px;"><span class="error"> <?php if($varN
 
 if($varNameErr=="1")
 {
-  $command = './run_loo '.$keyval.' '.$varName;
+  $command = './run_scripts/run_loo '.$keyval.' '.$varName;
+  //  $command = 'sh plotly_loo.sh'
   $output = shell_exec("$command > /dev/null 2 > /dev/null &");
   $pred_link='cv_predictions.php?My_key='.$keyval;
   sleep(1);

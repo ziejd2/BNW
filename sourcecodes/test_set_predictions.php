@@ -85,6 +85,16 @@ else if(file_exists($filename2))
   {?>
   <br>
   <h2> <a href=<?php $d="./data/".$keyval."ts_output.txt"; print($d);?>>View predictions</a></h2>
+<?php
+   $plotly_file="./data/".$keyval."ts_plotly.html";
+   if(file_exists($plotly_file))
+     {?>
+     <div>
+	 <object type="text/html" data=<?php print($plotly_file);?> width="800" height="500" >
+         </object>
+     </div>
+ <?php
+      }?>    
   <br>
 <h3>Make a new set of predictions by submitting data file below</h3>
 <FORM name="key_search" enctype="multipart/form-data" ACTION="test_set_predictions.php" METHOD=POST>
@@ -146,7 +156,7 @@ if($searchID!="")
       $fpdata = fopen("./data/".$keyval."ts_input.txt","w");
       fwrite($fpdata,$searchID);
     }
-  $command = './run_test_set '.$keyval;
+  $command = './run_scripts/run_test_set '.$keyval;
   $output = shell_exec("$command > /dev/null 2 > /dev/null &");
   $pred_link='cv_predictions.php?My_key='.$keyval;
 }

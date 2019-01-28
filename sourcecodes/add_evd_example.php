@@ -187,7 +187,7 @@ else
  
   //execute shell script for matlab
   $keyval = valid_keyval($keyval);
-  shell_exec('./run_octave_evd '.$keyval);
+  shell_exec('./run_scripts/run_octave_evd '.$keyval);
 
 ?>
 <script>

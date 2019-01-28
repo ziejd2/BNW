@@ -315,22 +315,16 @@ ul
 
 <div class=WordSection1>
 
-<p class=MsoNormal style='margin-top:0in;margin-right:307.5pt;margin-bottom:
-0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-size:12.0pt;
-line-height:115%;font-family:"Arial","sans-serif"'>
-**Recent updates to BNW may result in slight differences between what is described/shown below and what would currently be experienced in BNW.**
-<br><br><o:p></o:p></span></p>
-
 <p class=MsoNormal style='margin-right:307.5pt'><b style='mso-bidi-font-weight:
 normal'><span style='font-size:14.0pt;line-height:115%;font-family:"Arial","sans-serif"'>1.
 A genetic network linking genotype and phenotype<o:p></o:p></span></b></p>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:307.5pt;margin-bottom:
 0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-size:12.0pt;
-line-height:115%;font-family:"Arial","sans-serif"'>In this example, we will use the structural constraint interface to create a genetic network linking a genotype with gene expression traits and a higher-order phenotype. There are 5 nodes in the network: Genotype, Gene1, Gene2, Gene3, and Phenotype. The input datafile is available <a href="example_datasets/sci_5node_input_data2.txt">here</a>. To begin, select <u>Learn a network model from data</u> on the BNW homepage and load the data file, displaying what is shown below:<br><br><o:p></o:p></span></p>
+line-height:115%;font-family:"Arial","sans-serif"'>In this example, we will use the structural constraint interface to create a genetic network linking a genotype with gene expression traits and a higher-order phenotype. There are 5 nodes in the network: Genotype, Gene1, Gene2, Gene3, and Phenotype. The input data file is available <a href="example_datasets/sci_5node_input_data2.txt">here</a>. To begin, select <u>Learn a network model from data</u> on the BNW homepage and load the data file, displaying what is shown below:<br><br><o:p></o:p></span></p>
 
 
-<img width=515 height=180 src="BNW_workflow_test_files/sci_5node_upload.jpg" v:shapes="Picture_x0020_2"></img>
+<img width=1076 height=404 src="BNW_workflow_test_files/sci_5node_upload.jpg" v:shapes="Picture_x0020_2"></img>
 
 <p class=MsoNormal style='margin-top:0in;margin-right:307.5pt;margin-bottom:
 0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-size:12.0pt;
@@ -354,7 +348,7 @@ line-height:115%;font-family:"Arial","sans-serif"'><br>The third section of the 
 0in;margin-left:0in;margin-bottom:.0001pt'><span style='font-size:12.0pt;
 line-height:115%;font-family:"Arial","sans-serif"'><br>In this example, we will not specify any additional constraints in the fourth section of the structural constraint interface, and we can click <u>Perform Bayesian network modeling</u> on the upper left corner of the page. The figure below shows the network with the model average network of the 1000 highest scoring networks and this network is available <a href="example.php?My_key=example_sci|Llu" target="_blank">here</a>. Genotype directly influences two of the genes (Gene1 and Gene3), and two of the genes (Gene2 and Gene3) directly influence the Phenotype. In this case, although we did not prevent the Genotype from directly influencing the Phenotype, the highest scoring networks did not include this directed edge. The right side of the figure shows the predictions of the network with Genotype=1 used as evidence. If Genotype is known to be in state 1, the values of all other variables in the network are expected to decrease compared to the distributions learned using all phenotypes. A more complete description of using BNW to make predictions with network models can be found in a <a href="BNW_workflow_net1.htm">separate tutorial</a>.<br><br><o:p></o:p></span></p>
 
-<img width=700 height=450 src="BNW_workflow_test_files/sci_5node_network1.jpg" v:shapes="Picture_x0020_2"></img>
+<img width=1117 height=846 src="BNW_workflow_test_files/sci_5node_network1.jpg" v:shapes="Picture_x0020_2"></img>
 
 
 <p class=MsoNormal style='margin-right:307.5pt'><b style='mso-bidi-font-weight:

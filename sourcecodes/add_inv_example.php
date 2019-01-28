@@ -201,7 +201,7 @@ structure_change($keyval);
   //execute shell script for matlab
  // $cmd="./runmat_inv.sh $keyval";
 //  system($cmd);
-shell_exec('./run_octave_inv '.$keyval);
+shell_exec('./run_scripts/run_octave_inv '.$keyval);
 
 
 

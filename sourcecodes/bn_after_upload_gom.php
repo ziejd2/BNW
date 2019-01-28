@@ -7,31 +7,32 @@ include("header_new.inc");
 include("header_batchsearch.inc");
 include("runtime_check.php");
 include("input_validate.php");
-$searchID="";
+//$searchID="";
+$searchID="YES";
 $UploadValue="NO";
 $TextFile=$HTTP_POST_FILES["MyFile"]["name"];
 
 
 /////////////Generate a random key/////////////////////
-$alphas=array();
-$alphas = array_merge(range('A', 'Z'), range('a', 'z'));
+//$alphas=array();
+//$alphas = array_merge(range('A', 'Z'), range('a', 'z'));
 
-$al1=rand(0,51);
-$al2=rand(0,51);
-$al3=rand(0,51);
+//$al1=rand(0,51);
+//$al2=rand(0,51);
+//$al3=rand(0,51);
 
-$alpha="$alphas[$al1]"."$alphas[$al2]"."$alphas[$al3]";
-$keyval=$alpha;
+//$alpha="$alphas[$al1]"."$alphas[$al2]"."$alphas[$al3]";
+//$keyval=$alpha;
 
 
-if($_POST["My_key"]!="")
-  $keyval=$_POST["My_key"];
-  $keyval=valid_keyval($keyval);
+//if($_POST["My_key"]!="")
+//  $keyval=$_POST["My_key"];
+//  $keyval=valid_keyval($keyval);
 
-$sid=$keyval."continuous_input";
-$dir="./data/";
+//$sid=$keyval."continuous_input";
+//$dir="./data/";
 
-$TextinFile=$dir.$sid."_orig.txt";
+//$TextinFile=$dir.$sid."_orig.txt";
 
 
 if(isset($HTTP_POST_VARS["searchkey"]))
@@ -142,13 +143,14 @@ if(isset($HTTP_POST_VARS["MyUpload"]))
 
 if($searchID!="")
 {
-  if ($UploadValue=="NO")
-  {
-      $fpdata = fopen($dir.$keyval."continuous_input_orig.txt","w");
-      fwrite($fpdata,$searchID);
-  }  
-  $keyval = valid_keyval($keyval);
-  shell_exec('./run_scripts/run_prep_input '.$keyval);
+  //if ($UploadValue=="NO")
+  //{
+  //    $fpdata = fopen($dir.$keyval."continuous_input_orig.txt","w");
+  //    fwrite($fpdata,$searchID);
+  //}  
+  //$keyval = valid_keyval($keyval);
+  //shell_exec('./run_scripts/run_prep_input '.$keyval);
+  $keyval=valid_keyval($_GET["My_key"]);
   $parent_number=4;
   $k_number=1;
   $runtime=exe_time($keyval,$parent_number,$k_number);

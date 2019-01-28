@@ -85,7 +85,7 @@ onClick=window.open("matrix.php?My_key=<?php print($keyval);?>","Ratting","width
   <li><a href="javascript:void(0);"
 NAME="Parameters" title="Parameters"
 onClick=window.open("parameter_display.php?My_key=<?php print($keyval);?>","Ratting","width=950,height=270,0,status=0,");>View parameters</a>  
-<li><a href="modify_structure_learning.php?My_key=<?php print($keyval);?>" target='_blank';>Modify structure learning settings</a>
+<li><a href="modify_structure_learning.php?My_key=<?php print($keyval);?>";>Modify structure learning settings</a>
  <li><a href="help.php" target='_blank'>Help</a> 
  <li><a href="../home.php">Home</a>
 </ul>

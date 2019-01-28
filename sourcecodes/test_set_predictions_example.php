@@ -146,7 +146,7 @@ if($searchID!="")
       $fpdata = fopen("./data/".$keyval."ts_input.txt","w");
       fwrite($fpdata,$searchID);
     }
-  $command = './run_test_set '.$keyval;
+  $command = './run_scripts/run_test_set '.$keyval;
   $output = shell_exec("$command > /dev/null 2 > /dev/null &");
   $pred_link='cv_predictions_example.php?My_key='.$keyval;
 }

@@ -108,7 +108,7 @@ display: block; height: 30px; width: 300px;"><span class="error"> <?php if($varN
 
 if($varNameErr=="1")
 {
-  $command = './run_loo '.$keyval.' '.$varName;
+  $command = './run_scripts/run_loo '.$keyval.' '.$varName;
   $output = shell_exec("$command > /dev/null 2 > /dev/null &");
   $pred_link='cv_predictions_example.php?My_key='.$keyval;
   sleep(1);

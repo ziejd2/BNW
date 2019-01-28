@@ -78,9 +78,7 @@ function calcHeight()
 
 <ul class="navbar">
  <li><a href="clear_example.php?My_key=<?php print($keyval);?>" target='_blank'>Clear evidence</a>
-<!---
 <li><a href="cv_predictions_example.php?My_key=<?php print($keyval);?>";>Cross validation and predictions</a>
---->
   <li><a href="javascript:void(0);"
 NAME="Model Averaging Matrix" title="Model Averaging Matrix"
 onClick=window.open("matrix.php?My_key=<?php print($keyval);?>","Ratting","width=950,height=270,0,status=0,");>Display structure matrix</a>  

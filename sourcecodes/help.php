@@ -218,17 +218,16 @@ If users have made predictions using either the evidence or intervention modes, 
 <br>
 <br><b>5)</b> Added a "Use a network ID to return to a network" on the BNW home page. This button allows users to enter a network ID to return to a previously generated network model. The network ID can also be used to share the network model with collaborators. The network ID is a three character string that is listed in left menu of a BNW network page.
 <br> 
-<!-- 
-<br><b>6)</b> Added a "Cross validation" feature to test networks using leave-one-out cross-validation. This button is available on the left menu of a network page. <br><br>
- Clicking "Cross validation" will open a pop-up window. Users can then enter the name of the variable that they want to test. After submitting the variable, the pop-up window will close. Users can then click the "Cross validation" button on the network page again to determine if their cross-validation calculation has completed.
-If it has completed, the cross-validation output contains the following information:<br><br>
+<br><b>6)</b> BNW is now able to perform cross-validation and make predictions on a test data set using the "Cross validation and predictions" button on the left menu of the network page. Clicking this button presents three options: leave-one-out cross validation, k-fold cross validation, and uploading a test data set to make predictions using the network model.<br><br> 
+<b>Leave-one-out cross validation: </b>Users should enter the name of a network variable that they want to investigate. These calculations can take up to 3 minutes for large data sets.
+After the calculation is complete, the cross-validation output contains the following information:<br><br>
 For discrete variables, the predicted likelihood of each state for the left-out case, given the values of its parent variables in the network, is provided.<br><br>
-For continuous variables, the predicted mean and standard deviation of the left-out variable, given the values of its parent variables in the network, is provided.<br>
-<br><b>7)</b> Added a method to make predictions on a test data set that can be accessed using the "Make predictions on test data set" button on the left menu of a network page. <br><br>
-Clicking this button will open a pop-up window. Users can then upload a file containing a test data set. The format of the file should follow the format of the input data file with two exceptions:<br><br>
+For continuous variables, the predicted mean and standard deviation of the left-out variable, given the values of its parent variables in the network, is provided.<br><br>
+<b>k-fold cross validation: </b>Users should enter the name of the variable that should be predicted as well as the number of folds into which the data set should be split.
+The output file contains similar information as what is produced using leave-one-out cross-validation.<br><br>
+<b>Predictions on a test data set: </b>Users can then upload a file containing a test data set. The format of the file should follow the format of the input data file with two exceptions:<br><br>
 <b>a)</b> The first line of the file should containing the name of the variable that should be predicted.<br><br>
 <b>b)</b> "NA" can be used for missing data. The test data file can contain missing data. If data for a variable of a given sample or case is not known, an "NA" can be entered in the input file. Data can be missing for the variable that is to be predicted or for the variables that are to be used as predictors.<br><br>
- -->
 <br>
 </table>
 

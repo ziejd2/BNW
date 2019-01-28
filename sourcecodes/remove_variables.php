@@ -89,10 +89,11 @@ $runtime=exe_time($keyval,$parent_number,$k_number);
 ?>
 <!-- Site navigation menu -->
 <ul class="navbar2">
-  <li><p onClick="getcombineDescription(ntiers,'ban_from','ban_to','white_from','white_to','<?php print($keyval);?>')"><a href="javascript:void(0)" >Perform Bayesian network modeling</a></p>
+  <li><p onClick="getcombineDescriptionDefault(ntiers,'ban_from','ban_to','white_from','white_to','<?php print($keyval);?>')"><a href="javascript:void(0)" >Perform structure learning with default settings</a></p>
+  <li><p onClick="getcombineDescription(ntiers,'ban_from','ban_to','white_from','white_to','<?php print($keyval);?>')"><a href="javascript:void(0)" >Go to structural constraint interface</a></p>
   <li><a href="javascript:void(0);"
 NAME="InputCheck" title="InputCheck"
-    onClick=window.open("input_check.php?My_key=<?php print($keyval);?>","Rat//ting","width=950,height=270,0,status=0,");>View uploaded variables and data</a>
+    onClick=window.open("input_check.php?My_key=<?php print($keyval);?>","Ratting","width=950,height=270,0,status=0,");>View uploaded variables and data</a>
 </ul>
 <ul class="navbar">
   <li><a href="help.php#constraint_interface" target="_blank">How to use this page</a>
@@ -102,118 +103,6 @@ NAME="InputCheck" title="InputCheck"
 </ul>
 
 <div id="outernew">
-<p><h3><?php 
-print("Estimated run time for the current parameters: $runtime seconds");
-?>
-<br><br></h3>
-</p>
-<br>
-<p><h3>1. Global structure learning settings:<br><br></h3>
-</p>
-<table align="center">
-<tr>
-<td align="left">
-Maximum number of parents for any node:
-</td>
-<td align="left"> 
-     <form method="post" action="create_tiers_gom.php" name="form">
-      <SELECT NAME="nm_parent"  onchange="form.submit();">
-      <?php if($node<=5) 
-            {
-               for($i=1;$i<=4;$i++)
-              {
-            ?>
-              <option value=<?php $combined=$i."|".$k_number."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($parent_number == $i) {print "selected";}?>><?php print($i)?></option>
-            <?php
-              }
-            }
-            else if($node<=10) 
-            {
-               for($i=1;$i<$node;$i++)
-              {
-            ?>
-              <option value=<?php $combined=$i."|".$k_number."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($parent_number == $i) {print "selected";}?>><?php print($i)?></option>
-            <?php
-              }
-            }
-            else
-            {
-               for($i=1;$i<=9;$i++)
-               {
-   
-                ?>
-                 <option value=<?php $combined=$i."|".$k_number."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($parent_number == $i) {print "selected";}?>><?php print($i)?></option>
-               <?php
-               }
-               ?>
-              <option value=<?php $combined=$maxplist."|".$k_number."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($parent_number == $maxplist) {print "selected";}?>>All</option>
-           <?php
-
-            }
-            
-     ?>  
- 
-      </SELECT>
-   </form>
-</td>
-</tr>
-<tr>
-<td align="left">
-Number of networks to include in model averaging:
-</td>
-<td align="left"> 
-     <form method="post" action="create_tiers_gom.php" name="form">
-      <SELECT NAME="nm_k"  onchange="form.submit();">
-           <option value=<?php $combined=$parent_number."|"."1"."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($k_number == 1) {print "selected";}?>><?php print("1")?></option>
-           <option value=<?php $combined=$parent_number."|"."10"."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($k_number == 10) {print "selected";}?>><?php print("10")?></option>
-          <option value=<?php $combined=$parent_number."|"."50"."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($k_number == 50) {print "selected";}?>><?php print("50")?></option>
-          <option value=<?php $combined=$parent_number."|"."100"."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($k_number == 100) {print "selected";}?>><?php print("100")?></option>
-          <option value=<?php $combined=$parent_number."|"."500"."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($k_number == 500) {print "selected";}?>><?php print("500")?></option>
-          <option value=<?php $combined=$parent_number."|"."1000"."|".$tier_number."|".$structure_thr."|".$keyval; print($combined)?> <?php if($k_number == 1000) {print "selected";}?>><?php print("1000")?></option>
-      </SELECT>
-   </form>
-</td>
-</tr>
-<tr>
-<td align="left">
-Model averaging edge selection threshold:
-</td>
-<td align="left"> 
-     <form method="post" action="create_tiers_gom.php" name="form">
-      <SELECT NAME="nm_thr"  onchange="form.submit();">
-     <option value=<?php $combined=$parent_number."|".$k_number."|".$tier_number."|"."0.5"."|".$keyval; print($combined)?> <?php if($structure_thr == 0.5) {print "selected";}?>>0.5</option>
-     <option value=<?php $combined=$parent_number."|".$k_number."|".$tier_number."|"."0.6"."|".$keyval; print($combined)?> <?php if($structure_thr == 0.6) {print "selected";}?>>0.6</option>
-     <option value=<?php $combined=$parent_number."|".$k_number."|".$tier_number."|"."0.7"."|".$keyval; print($combined)?> <?php if($structure_thr == 0.7) {print "selected";}?>>0.7</option>
-     <option value=<?php $combined=$parent_number."|".$k_number."|".$tier_number."|"."0.8"."|".$keyval; print($combined)?> <?php if($structure_thr == 0.8) {print "selected";}?>>0.8</option>
-     <option value=<?php $combined=$parent_number."|".$k_number."|".$tier_number."|"."0.9"."|".$keyval; print($combined)?> <?php if($structure_thr == 0.9) {print "selected";}?>>0.9</option>
-     <option value=<?php $combined=$parent_number."|".$k_number."|".$tier_number."|"."1.0"."|".$keyval; print($combined)?> <?php if($structure_thr == 1.0) {print "selected";}?>>1.0</option>
-    
-      </SELECT>
-   </form>
-</td>
-</tr>
-<tr>
-<td align="left">
-Number of tiers:
-</td>
-<td align="left"> 
-     <form method="post" action="create_tiers_gom.php" name="form">
-      <SELECT NAME="nm_tier"  onchange="form.submit();">
-      <?php for($i=2;$i<10;$i++)
-      {
-        ?>
-           <option value=<?php $combined=$parent_number."|".$k_number."|".$i."|".$structure_thr."|".$keyval; print($combined)?> <?php if($tier_number == $i) {print "selected";}?>><?php print($i)?></option>
-     <?php
-     }
-   
-     ?>  
-      </SELECT>
-   </form>
-</td>
-</tr>
-</table>
-</br>
-
 
 <?php
 
@@ -438,7 +327,7 @@ function makeNodeList(nnodes,nlist) {
                element1.setAttribute('ondragenter','return false');
                element1.setAttribute('ondragover','return false');
                element1.style.height=(newheight);
-               element1.innerHTML = "Nodes<br>";
+               element1.innerHTML = "Variables to use<br>";
                document.getElementById('tier_box').appendChild(element1);
 }
 
@@ -479,8 +368,11 @@ $npr=trim($dataname[$ii]);
 
 //Function to make the Tiers. It is similar to the above function.
 function makeTiers(nnodes,ntiers) {
-           for (i=1;i<=ntiers;i++){
-               var newname = 'Tier'+i;
+  //ntiers = 1;
+  //         for (i=1;i<=ntiers;i++){
+             i = 1;
+	     //var newname = 'Tier'+i;
+	     var newname = 'Variables to remove';
                var element1 = document.createElement('div');
                //var newpos = i*205;
                //newpos = 'left: '+newpos+'px';
@@ -496,7 +388,7 @@ function makeTiers(nnodes,ntiers) {
                element1.style.height=(newheight);
                element1.innerHTML = newname +"<br>";
                document.getElementById('tiers').appendChild(element1);
-            }
+	       //   }
                var newwidth = ntiers*205 + 20;
                newwidth = newwidth+'px';
                document.getElementById('tiers').style.width=newwidth;
@@ -514,7 +406,8 @@ function makeTierDesc1(ntiers) {
                element1.style.width=(newwidth);
                //element1.innerHTML = "st<br>";
                document.getElementById('int_box1').appendChild(element1);
-	       for (i=1;i<=ntiers;i++) {
+	       //for (i=1;i<=ntiers;i++) {
+               i = 1;
 		 var newname = 'int_box1'+i;
                  var newheight = '20px';
                  var newwidth = '205px';
@@ -527,7 +420,7 @@ function makeTierDesc1(ntiers) {
 		 element1.style.height=(newheight);
 		 element1.style.width=(newwidth);
 		 document.getElementById('int_box1').appendChild(element1);
-	       }
+		 //}
                  
 }
 function makeTierDesc2(ntiers) {
@@ -540,7 +433,8 @@ function makeTierDesc2(ntiers) {
                element1.style.width=(newwidth);
                element1.innerHTML = "Are within tier <br>interactions allowed?<br>";
                document.getElementById('int_box2').appendChild(element1);
-	       for (i=1;i<=ntiers;i++) {
+	       //for (i=1;i<=ntiers;i++) {
+	       i = 1;
 		 var newname = 'int_box2'+i;
                  var newheight = '50px';
                  var newwidth = '205px';
@@ -583,7 +477,7 @@ function makeTierDesc2(ntiers) {
                      //  alert(radio_yes.checked);
                      //  alert(radio_no.value); 
                      //  alert(radio_no.checked);
-	       }
+		       //}
                  
 }
 
@@ -600,7 +494,8 @@ function makeTierDesc3(ntiers) {
                element1.style.width=(newwidth);
                element1.innerHTML = "Which tiers contain nodes that <br>can be the parents of this tier?<br>";
                document.getElementById('int_box3').appendChild(element1);
-	       for (i=1;i<=ntiers;i++) {
+	       //for (i=1;i<=ntiers;i++) {
+               i = 1;
 		 var newname = 'int_box3'+i;
                  //var newheight = '50px';
                  var newwidth = '205px';
@@ -641,7 +536,7 @@ function makeTierDesc3(ntiers) {
                            }
                         }
                        element1.appendChild(form2);
-	       }
+		       //}
 }
 
 function makeTierDesc4(ntiers) {
@@ -656,7 +551,8 @@ function makeTierDesc4(ntiers) {
                element1.style.width=(newwidth);
                element1.innerHTML = "Which tiers contain nodes that<br> can be the children of this tier?<br>";
                document.getElementById('int_box4').appendChild(element1);
-	       for (i=1;i<=ntiers;i++) {
+	       //for (i=1;i<=ntiers;i++) {
+	       i = 1;
 		 var newname = 'int_box4'+i;
                  //var newheight = '50px';
                  //var newwidth = ntiers*65 + 20;
@@ -699,7 +595,7 @@ function makeTierDesc4(ntiers) {
                            }
                         }
                        element1.appendChild(form3);
-	       }
+		       //}
 }
 
 
@@ -707,7 +603,8 @@ function makeTierDesc4(ntiers) {
 //Old function to make section of page that allows for tier description.
 //Replaced by the four functions above.
 function makeTierDesc(ntiers) {
-                for (i=1;i<=ntiers;i++) {
+  i = 1;
+  //                for (i=1;i<=ntiers;i++) {
                        //var i = 2;
                        var newname = 'desc_tier'+i;
                        
@@ -813,7 +710,7 @@ function makeTierDesc(ntiers) {
                      //  alert(cbox.value);
                       // alert(cbox.checked);
 
-                  }
+		       //          }
 }
 
 //Function to give the divs for the ban and white lists the correct
@@ -841,19 +738,23 @@ function makeBWLists(nnodes) {
 //Will probably need to add a function to get the tier description information.
 //Might be able to do that with just php though?
 function getNodesInTiers(ntiers) {
-                output = ntiers+",\n";
-                for (i=1;i<=ntiers;i++){
-                var newname = 'Tier'+i;
+                //output = ntiers+",\n";
+		i = 1;
+                //for (i=1;i<=ntiers;i++){
+		  //var newname = 'Tier'+i;
+		var newname = 'Variables to remove';
                 children = document.getElementById(newname).childNodes;
-                temp = children.length - 2;
-                temp = newname + ",\t" +temp+ ",\t"
+                //temp = children.length - 2;
+		var temp = [];
+                //temp = newname + ",\t" +temp+ ",\t"
                 for (j=2;j<children.length;j++){
-                temp = temp + children[j].innerHTML + ",\t"
+		  //temp = temp + "\\t" + children[j].innerHTML;
+		  temp.push(children[j].innerHTML);
                 }
-                output = output + temp +"\n"
-                }
+                //output = output + temp +"\n"
+		  //}
                 
-                
+                output = temp.join(' ');
                 return output;
                 
                // window.open("http://compbio.uthsc.edu/BNServer/tier.php?tier="+output,"Ratting","width=950,height=270,0,status=0,");
@@ -885,7 +786,8 @@ function getNodesInList(from_div,to_div) {
 //Functions that get the description of the tiers. 
 function getDescribeTiers(ntiers) {
               output = "";
-              for (i=1;i<=ntiers;i++) {
+	      //              for (i=1;i<=ntiers;i++) {
+	      i = 1;
                temp="";
                var newname = 'int_box2'+i;
                 
@@ -901,7 +803,8 @@ function getDescribeTiers(ntiers) {
                // temp = temp + temp_no.value + ",\t"
                 temp = temp + temp_no.checked + ",\t"
  
-                for (j=1;j<=ntiers;j++) {
+		  //for (j=1;j<=ntiers;j++) {
+		  j = 1;
                     if(j!=i)
                     {
                       var pbox_id="par_"+i+"_"+j;
@@ -915,12 +818,12 @@ function getDescribeTiers(ntiers) {
 
                       
                      }
-                }   
+		    //}   
                // alert(temp); 
                 
                 output = output + temp +"\n"
                
-}
+		  //}
               
 
               //  window.open("http://compbio.uthsc.edu/BNServer/tierdescription.php?tierdesc="+output,"Ratting","width=950,height=270,0,status=0,");
@@ -933,11 +836,37 @@ function getDescribeTiers(ntiers) {
 
 function getcombineDescription(ntiers,ban_from,ban_to,white_from,white_to,keyv)
 {
+  ntiers = 1;
   var tier=getNodesInTiers(ntiers);
-  var tierdesc=getDescribeTiers(ntiers);
-  var ban=getNodesInList(ban_from,ban_to);
-  var white=getNodesInList(white_from,white_to);
-  window.open("tier_description_processing_gom.php?tier="+tier+"&tierdesc="+tierdesc+"&ban="+ban+"&white="+white +"&My_key="+keyv,'_self',false);
+  var txtFile="./data/"+keyv+"del_var.txt";
+  //var file = new File(txtFile);
+  //file.open("w");
+  //file.write(tier);
+  //file.close();
+  //  var tierdesc=getDescribeTiers(ntiers);
+  //  var ban=getNodesInList(ban_from,ban_to);
+  //  var white=getNodesInList(white_from,white_to);
+  var tierdesc = "";
+  var ban = "";
+  var white = "";
+  window.open("remove_variables_processing.php?tier="+tier+"&My_key="+keyv,'_self',false);
+}
+function getcombineDescriptionDefault(ntiers,ban_from,ban_to,white_from,white_to,keyv)
+{
+  ntiers = 1;
+  var tier=getNodesInTiers(ntiers);
+  var txtFile="./data/"+keyv+"del_var.txt";
+  //var file = new File(txtFile);
+  //file.open("w");
+  //file.write(tier);
+  //file.close();
+  //  var tierdesc=getDescribeTiers(ntiers);
+  //  var ban=getNodesInList(ban_from,ban_to);
+  //  var white=getNodesInList(white_from,white_to);
+  var tierdesc = "";
+  var ban = "";
+  var white = "";
+  window.open("remove_variables_processing_default.php?tier="+tier+"&My_key="+keyv,'_self',false);
 }
 
 function clearBWLists()
@@ -983,7 +912,7 @@ function clearBWLists()
 
 <body onload="loadFunction(nnodes,ntiers)">
 </br>
-        <p><h3>2. Assign variables to tiers:<br></h3>
+        <p><h3>Select variables to remove:<br></h3>
          </p>
         <br>
         <div id="tier_box">
@@ -991,6 +920,7 @@ function clearBWLists()
        
        </div>
 
+<!--
            
        <div id="outer_tier_desc1">
        <p><h3>3. Define interactions allowed between tiers:<br></h3> 
@@ -1011,7 +941,7 @@ function clearBWLists()
        <br>
        <br>
        <br>
-           
+
         <div id="outer_box_lists">
        <p><h3>4. Specify additional constraints:<br></h3>
        </p>         
@@ -1033,6 +963,8 @@ function clearBWLists()
         <div id="white_to" class="tier" ondrop="return dropCopy(event)"
         ondragenter="return false" ondragover="return false">To<br></div>
         </div>
+-->
+
         </div>
        
         <br>

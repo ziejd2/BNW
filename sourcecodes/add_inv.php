@@ -200,7 +200,7 @@ structure_change($keyval);
  // $cmd="./runmat_inv.sh $keyval";
 //  system($cmd);
 
-shell_exec('./run_octave_inv '.$keyval);
+shell_exec('./run_scripts/run_octave_inv '.$keyval);
 
 
 
