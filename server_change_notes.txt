@@ -1,0 +1,35 @@
+This file will contain notes that will be needed for moving to a new server:
+
+Required software:
+1) Octave
+   BNW assumes Octave can be executed using /usr/bin/octave
+   The header line in all of the files in the run_scripts directory will need to be modified if this is not true.
+   
+2) dot/graphviz
+   BNW assumes dot can be executed using /usr/bin/dot
+   
+3) plotly
+   I installed a local copy of python in my home directory to run plotly
+   
+
+Specific changes that need to be made:
+Files that use Octave:
+Header lines in all of the files in the run_scripts directory
+
+Files that use dot:
+-network_layout_evd_2_example.php: line 275
+-network_layout_evd_2.php: line 247
+-network_layout_inv_2_example.php: line 360
+-network_layout_inv_2.php: line 360
+-network_layout_inv.php: line 102
+-network_layout_inv_example.php: line 150
+-network_layout_evd.php: line 114
+-network_layout_evd_example.php: line 117
+
+Files that use plotly:
+cv_plotly.ph: header line
+ts_plotly.py: header line
+kfold_plotly.ph: header line
+
+
+
