@@ -12,7 +12,7 @@ Below are a couple of text files that provide descriptions of the BNW code.
 
 -BNW_data_flow.txt goes through a typical session of BNW describing the order in which codes and scripts are used, as well as when output files are written and the output file format.
 
-There are four branches.
+There are five branches.
 1) master: This is currently compbio.uthsc.edu/BNW_1.21 on the BNW server.
 
 2) new_server: Branched from master to make changes with the new server.
