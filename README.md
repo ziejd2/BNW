@@ -2,17 +2,11 @@
 
 This contains the code for the Bayesian Network Webserver (BNW).
 
-The original BNW website is compbio.uthsc.edu/BNW, which currently redirects to BNW_1.2.
+The main BNW website is compbio.uthsc.edu/BNW, which currently redirects to BNW_1.2.
 
 The current development version of BNW is compbio.uthsc.edu/BNW_1.21. I added cross-validation/test set predictions in the development version as well as a couple of usability features.
 
-There are a couple of files here that provide descriptions of the BNW code.
-
--BNW_file_overview.txt lists the files that are needed to run BNW and gives a brief description of the purpose of each file.
-
--BNW_data_flow.txt goes through a typical session of BNW describing the order in which codes and scripts are used, as well as when output files are written and the output file format.
-
-
+There are a couple of files in the info_files directory that provide descriptions of the BNW code and other information.
 
 There are four branches.
 1) master: This is currently compbio.uthsc.edu/BNW_1.21 on the BNW server.
