@@ -1,22 +1,22 @@
-This file will contain notes that will be needed for moving to a new server:
+This file will contain notes about changes that might need to be made on a new server:
 
 Required software:
 1) Octave
    BNW assumes Octave can be executed using /usr/bin/octave
-   The header line in all of the files in the run_scripts directory will need to be modified if this is not true.
    
 2) dot/graphviz
-   BNW assumes dot can be executed using /usr/bin/dot
+   BNW assumes the graphviz command dot can be executed using /usr/bin/dot
    
 3) plotly
-   I installed a local copy of python in my home directory to run plotly
+   I installed a local copy of python in my home directory to run plotly on the old server, so there are a couple of lines that point to 
+     this python/plotly.
    
 
 Specific changes that need to be made:
-Files that use Octave:
+1) Files that use Octave:
 Header lines in all of the files in the run_scripts directory
 
-Files that use dot:
+2) Files that use dot:
 -network_layout_evd_2_example.php: line 275
 -network_layout_evd_2.php: line 247
 -network_layout_inv_2_example.php: line 360
@@ -26,10 +26,12 @@ Files that use dot:
 -network_layout_evd.php: line 114
 -network_layout_evd_example.php: line 117
 
-Files that use plotly:
+3) Files that use plotly:
 cv_plotly.ph: header line
 ts_plotly.py: header line
 kfold_plotly.ph: header line
 
-
+4) Other changes:
+home.php might need to be modified
+The structure learning package might need to be recompiled. If so, running build.sh in the sourcecodes directory will hopefully work. It uses gcc
 
