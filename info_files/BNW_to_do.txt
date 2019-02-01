@@ -1,3 +1,5 @@
+This file needs to be updated, but most of the basic ideas are still true.
+
 1) Improve cross-validation and prediction interface and output. The development version has three specific tools here:
 leave-one-out cross validation, k-fold cross validation, and making predictions using a test data set.
 The input and output methods and format currently work, but could be greatly improved.
