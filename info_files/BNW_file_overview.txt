@@ -12,7 +12,7 @@ c) plotly:
     The files that need plotly are:  cv_plotly.py, kfold_plotly.py, and ts_plotly.py
     
 BNW is currently located at /var/www/html/compbio/BNW_x.xx
-(The current development version is BNW_1.21).
+(The current development version is BNW_1.22).
 
 The main BNW directory contains two basic files (index.html and home.php) and two directories.
 A couple of lines in home.php should be modified/updated to point to the correct BNW directory.
@@ -47,6 +47,9 @@ home_upload.php: Used in uploading a data file and a structure file when the str
 layout_example.php: Main php file for displaying/making predictions with network using example data.
 layout.php: Main php file for displaying/making predictions with network using user uploaded data.
 net_structure.php: Used in uploading structure file when the network structure is known.
+layout_svg_wt.php: Initial display of network structure with edge weights.
+layout_svg_no.php: Initial display of network structure without edge weights.
+layout_cyto.php: Network visualization that can be used to modify the network structure.
 upload_structure_file.php: Used in uploading structure file when the network structure is known.
 faq.php
 getting_started.php
@@ -77,6 +80,8 @@ js-graph-it.css
 js-graph-it.js
 my_new_style.css
 sf-homepage.css
+graph-creator.css
+graph-creator.js
 
 e) PHP files that support layout.php or layout_example.php:
 add_evd_example.php
@@ -147,8 +152,8 @@ enter_netID.php
 modify_structure_learning.php, bn_after_upload_gom.php
 -Allows for modification of structure learning settings without having to upload the file again.
 
-modify_edges.php, modify_edges_processing.php
--Allows for the removal or addition of specific nodes to a network.
+modified_network.php
+-Allows for the direct modification of network structure using the Cytoscape layout.
 
 remove_variables.php, remove_variables_processing.php, remove_variables_processing_default.php
 -Allows for the removal of variables after uploading an input file.
