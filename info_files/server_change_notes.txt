@@ -12,6 +12,7 @@ Required software:
 3) plotly
    I installed a local copy of python in my home directory to run plotly on the old server, so there are a couple of lines that point to 
      this python/plotly.
+   The current version of plotly is 3.2.1. It uses Python 2.7.
    
 
 Specific changes that need to be made:
