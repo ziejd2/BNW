@@ -47,9 +47,7 @@ Step 2a: Structure learning with default parameters
 Click "Perform Bayesian network modeling using default settings"
 This is a link to executionprogress.php which just displays a "progress bar" and starts structure learning.
 To start structure learning, it runs execute_bn_gom.php.
-execute_bn_gom.php which runs the run.sh script and prepares a couple of files.
-
-The run.sh script contains the commands to run the structure learning codes.
+execute_bn_gom.php starts structure learning and then runs run_octave in the run_scripts directory discussed in Step 3.
 
 Output files from structure learning that are written to /sourcecodes/data:
 1) ???structure_input.txt: The structure matrix, containing the edges included in the network model.
@@ -61,12 +59,6 @@ Output files from structure learning that are written to /sourcecodes/data:
    This file has the model averaging probability of each edge.
    The ???structure_input.txt file is generated from this file. If the value of an edge is this file
    is greater than the value in ???thr.txt, the edge is included in the network (a '1' in ???structure_input.txt).
-
-execute_bn_gom.php also creates the following graphviz:
-3) ???grviz_name_file.txt: A list of the names of the variables that is used by graphviz/dot. 
-4) ???graphviz.txt: Input file for dot that creates the edges included in the network.
-   0 is the first node listed in ???grviz_name_file.txt, 1 is the second node, . . .
-
 
 Step 2b: Structure learning using the structural constraint interface
 
@@ -109,12 +101,26 @@ runBN_initial makes 2 main output files and 2 files that may be used by other Ma
     Sometimes before parameter learning, the nodes are resorted so they are in topological order (i.e., 
       parents are always listed before parents).
 
+A couple other Octave functions (createSVG and createJSON) are run to make files related to visualizing the network:
+5) ???grviz_name_file.txt: A list of the names of the variables that is used by graphviz/dot when laying out the network. 
+6) ???graphviz.txt: Input file for dot that creates the edges included in the network that is used by layout.php.
+   0 is the first node listed in ???grviz_name_file.txt, 1 is the second node, . . .
+7) ???graphviz_svg_no_edge.txt: Input file for dot that is used to create svg file to make SVG file without edge weights.
+8) ???graphviz_svg.txt: Input file for dot that is used to create svg file to make SVG file with edge weights.
+9) ???network_no_edge.svg: SVG file without edge weight
+10) ???network.svg: SVG file with edge weights
+11) ???network.json: JSON file used 
+
 Step 4: Display of the network.
   
-This step is initiated at the end of execute_bn_gom.php when layout.php is opened.
+The network can be displayed in three ways:
+1) The network is initially displayed using the SVG files and Graphviz with layout_svg_wt.php/layout_svg_no.php.
+This provides a simple display of the network that is suitable for dowloading.
+The user then has the option to either use the modify the network or use the network to make predictions.
 
-layout.php is the main page that is used when the network is displayed.
+2) The network structure can be modified using the JSON file and Cytoscape with layout_cyto.php.
 
+3) The network can be used to make predictions using layout.php.
 The network is drawn in a division using either 
 network_layout_evd.php if Evidence mode is being used or 
 network_layout_inv.php if Intervention mode is being used.
@@ -152,7 +158,8 @@ Several files must be created to account for this. They are the same as describe
 2) ???grviz_name_file_new.txt
 3) ???structure_input_new.txt
 
-
+Step 6: Cross-validations and predictions
+I will add discussion of this step later.
 
 
 
