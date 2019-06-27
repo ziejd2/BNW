@@ -47,7 +47,7 @@ Step 2a: Structure learning with default parameters
 Click "Perform Bayesian network modeling using default settings"
 This is a link to executionprogress.php which just displays a "progress bar" and starts structure learning.
 To start structure learning, it runs execute_bn_gom.php.
-execute_bn_gom.php starts structure learning and then runs run_octave in the run_scripts directory discussed in Step 3.
+execute_bn_gom.php starts structure learning using run.sh and, then, run_octave in the run_scripts directory discussed in Step 3.
 
 Output files from structure learning that are written to /sourcecodes/data:
 1) ???structure_input.txt: The structure matrix, containing the edges included in the network model.
