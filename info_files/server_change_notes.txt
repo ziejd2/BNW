@@ -3,9 +3,11 @@ This file will contain notes about changes that might need to be made on a new s
 Required software:
 1) Octave
    BNW assumes Octave can be executed using /usr/bin/octave
+   The current version of Octave is 3.4.3
    
 2) dot/graphviz
    BNW assumes the graphviz command dot can be executed using /usr/bin/dot
+   The current version of graphviz is 2.26.0
    
 3) plotly
    I installed a local copy of python in my home directory to run plotly on the old server, so there are a couple of lines that point to 
@@ -27,9 +29,9 @@ Header lines in all of the files in the run_scripts directory
 -network_layout_evd_example.php: line 117
 
 3) Files that use plotly:
-cv_plotly.ph: header line
+cv_plotly.py: header line
 ts_plotly.py: header line
-kfold_plotly.ph: header line
+kfold_plotly.py: header line
 
 4) Other changes:
 home.php might need to be modified
