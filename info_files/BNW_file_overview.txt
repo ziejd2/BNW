@@ -120,7 +120,7 @@ h) Files that perform specific functions:
 tier_description_processing_gom.php
 -Used by create_tiers_gom.php for the structure constraint interface.
 
-clear_example.php, clear.php, and filecopy.sh
+clear_example.php, clear.php, filecopy.sh, examplefilecopy.sh
 -Used by layout.php to clear entered evidence/intervention 
 
 execute_bn_gom.php
