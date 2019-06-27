@@ -1,0 +1,11 @@
+I modified files.py to use the absolute paths for the PLOTLY_DIR and TEST_DIR
+This file is in:
+/home/jziebart/python/lib/python2.7/site-packages/plotly
+
+Commands to run as apache:
+Run from /sourcecodes/data:
+sudo su -s /bin/bash apache -c "/home/jziebart/python/Python-2.7.15/python ../cv_plotly.py LvQ"
+sudo su -s /bin/bash apache -c "sh ../plotly_loo.sh"
+
+Run from /sourcecodes:
+sudo su -s /bin/bash apache -c "./run_loo LvQ Weight"

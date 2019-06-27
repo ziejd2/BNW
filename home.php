@@ -13,7 +13,7 @@ if($str_arrmat[1]>70.0)
 
 ?>
 <script>
-window.open("http://bnw.genenetwork.org/BNW_1.21/sourcecodes/home.php",'_self',false);
+window.open("http://bnw.genenetwork.org/BNW_1.22/sourcecodes/home.php",'_self',false);
 </script>
 <?php
 }
@@ -21,7 +21,7 @@ else
 {
 ?>    
 <script>
-window.open("http://compbio.uthsc.edu/BNW_1.21/sourcecodes/home.php",'_self',false);
+window.open("http://compbio.uthsc.edu/BNW_1.22/sourcecodes/home.php",'_self',false);
 </script>
 
 <?php
