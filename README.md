@@ -2,7 +2,7 @@
 
 This contains the code for the Bayesian Network Webserver (BNW).
 
-The main BNW website is compbio.uthsc.edu/BNW, which currently redirects to BNW_1.2.
+The master branch will be for running with GeneNetwork. I will keep a testing branch The main BNW website is compbio.uthsc.edu/BNW, which currently redirects to BNW_1.2.
 
 The current development version of BNW is compbio.uthsc.edu/BNW_1.22. I added a couple of new visualizations to this version.
 
