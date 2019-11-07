@@ -2,14 +2,14 @@
 
 This contains the code for the Bayesian Network Webserver (BNW).
 
-The master branch will be for running with GeneNetwork. I will keep a testing branch The main BNW website is compbio.uthsc.edu/BNW, which currently redirects to BNW_1.2.
+The master branch will be the stable version of the code for running with GeneNetwork. The original BNW website is compbio.uthsc.edu/BNW, which currently redirects to BNW_1.2.
 
-The current development version of BNW is compbio.uthsc.edu/BNW_1.22. I added a couple of new visualizations to this version.
+The current development version of BNW is compbio.uthsc.edu/BNW_1.22. This is the 1.22_development branch. I added a couple of new visualizations to this version.
 
 There are a couple of files in the info_files directory that provide descriptions of the BNW code and other information.
 
-There are five branches.
-1) master: This is currently compbio.uthsc.edu/BNW_1.22 on the BNW server.
+There are six branches.
+1) master: This will have the code to pull and use in the guix container on Gene Network cluster.
 
 2) matlab_original (compbio.uthsc.edu/BNW_1.01): This is functionally identical to the original BNW code. The only difference is that unused files were removed.
 
@@ -19,3 +19,4 @@ There are five branches.
 
 5) version-1.21: Temporarily keeping this version while cleaning up code and testing things in version 1.22.
 
+6) 1.22-development: Current development version which I will keep on genenet.
