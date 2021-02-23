@@ -1,33 +1,12 @@
 This file needs to be updated, but most of the basic ideas are still true.
 
-1) Improve display of data and distributions for continuous variables.
-a) Currently, data are displayed in the network when making predictions using by 'marginalizing the nodes' with BayesNetToolbox. One problem with this is that it averages the conditional Gaussian distributions. For example, a continuous node with a single parent that is a discrete variable with two states can be represented by two Gaussian distributions, but, after marginalizing the node, it is averaged to become a single Gaussian distribution even when no evidence is entered.
-b) I don't think it would be too difficult to get the parameters of the Gaussian distributions using BNT and make distibutions without marginalizing the nodes when no evidence is entered. After entering the evidence, margini
-c) It also might be useful to allow users to compare the distribution after parameter learning with the actual data. I think it would be too cluttered to show this directly on the network image (i.e., layout.php), but maybe there could be a link to page with plotly graphs of histograms of the data distributions compared with the network distributions, volcano plots, or some other graph.
-
-2) Improve cross-validation and prediction interface and output. The development version has three specific tools here:
+1) Improve cross-validation and prediction interface and output. The development version has three specific tools here:
 leave-one-out cross validation, k-fold cross validation, and making predictions using a test data set.
-The input and output methods and format currently work, but could be greatly improved.
-a) Currently, users have to type the name of a variable in an input box on BNW for LOOCV and KfoldCV. The predictions of this variable are then investigated by BNW. For the test data set, the variable of interest has to be the first line of the input test data file. Adding a dropdown selection box with the network variables might be better. 
-b) The output files are just plain text files with no formatting. We should probably at least have something like showing the prediction accurary/error of the predictions on an html page, and then having a button that could be used to download the complete prediction file. 
-c) The predictions could be displayed graphically. For example, for continuous variables, we could show a plot with the predicted and actual values for the cross validation or prediction.
-d) There might be a couple of additional metrics for assessing the quality of predictions that we could add. I will look at some the Bayesian network R packages again to see what they use.
-e) A hold-out validation options could also potentially be added.
+a) There might be a couple of additional metrics for assessing the quality of predictions that we could add. I will look at some the Bayesian network R packages again to see what they use.
+b) A hold-out validation options could also potentially be added.
 
-3) Improve look when viewing additional files. 
-Specifically, I am referring to data available in "View uploaded variabels and data", "Display structure matrix", and "View parameters". The related files are input_check.php, matrix.php, and parameter_display.php, respectively.
+2) Add informative error messages for when things go wrong with structure/parameter learning. I need to think about how to do this.
 
-4) Clarify file loading and BNW calculations. Sometimes it is not clear that a file is still being loaded or a calculation is currently running. 
-a) Improve interface for users with a known structure ("Make predictions using a known structure" on the BNW homepage).
-It should be more clear what button needs to be clicked to go to the next step. It might be better to upload the data and structure files on the same page.
-The related files are home_upload.php, upload_structure_file.php, and net_structure.php.
-b) Some minor changes to the upload procedure for the general data upload ("Learn a network model from data") might also be helpful.
-c) The calculation after evidence/intervention is submitted can take 5-10 seconds.
+3) Allow users to log into BNW to easily save and return to networks? Currently, there is the option of using the network ID to return to the network. Is this something that we should keep long term?
 
-5) Improve security for uploaded files.  I have made some security improvements to check things like making sure the network ID's that are entered are correct, but this is very basic.
-
-6) Add informative error messages for when things go wrong with structure/parameter learning. I need to think about how to do this.
-
-7) Allow users to log into BNW to easily save and return to networks? Currently, there is the option of using the network ID to return to the network. Is this something that we should keep long term?
-
-8) Update structure learning code (parallelize, investigate other potential structure learning options). 
+4) Update structure learning code (parallelize, investigate other potential structure learning options). 
