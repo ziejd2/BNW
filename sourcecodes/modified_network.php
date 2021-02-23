@@ -27,7 +27,8 @@ if($_POST["My_key"]!="")
   $keyval=valid_keyval($keyval);
 
 
-$filename = "./data/".$old_key."modify_edge.txt";
+//$filename = "./data/".$old_key."modify_edge.txt";
+$filename = "/tmp/bnw/".$old_key."modify_edge.txt";
 
 $file = fopen($filename,'w');
 //fwrite($file,$json);

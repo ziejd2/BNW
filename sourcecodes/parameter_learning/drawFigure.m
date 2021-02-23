@@ -1,4 +1,4 @@
-function [] = drawFigure(nnodes,bnet,labels,filename,cases,stdevs,means)
+function [] = drawFigure(nnodes,bnet,labels,filename,cases,stdevs,means,pre)
 %drawFigure writes the parameters and data that are needed to draw the
 %structure of a Bayesian network for BNW.
 % This is the function that is called to create the initial
@@ -11,6 +11,10 @@ function [] = drawFigure(nnodes,bnet,labels,filename,cases,stdevs,means)
 % 
 % drawFigure is called by runBN_intial.m
 %
+% This was modified to show the original distributions of continuous nodes 
+%  as mixtures of Gaussian distributions instead of marginalizing the nodes.
+%  JZ, 7-15-2019
+
 
 A=cell2mat(cases');
 Amax=max(A);
@@ -25,6 +29,11 @@ engine = jtree_inf_engine(bnet);
 fileID = fopen(filename,'w');
 %%% The number of nodes
 fprintf(fileID,'%i\n',nnodes);
+
+%Open file to write violin plot data
+
+violin_file = strcat(pre,'violin_orig.txt');
+vfile = fopen(violin_file,'w');
 
 %Get canvas size
 
@@ -67,7 +76,6 @@ for i = 1:nnodes,
         end
     end
 end
-
 
 for i = 1:nnodes,
     %%% The name and type of each node (1=continuous, the number of states
@@ -131,22 +139,67 @@ for i = 1:nnodes,
             fprintf(fileID,'%i\t%6.4f\n',j,predict.T(j));
         end;
     else
-        %cases(i)
-       % MAX(cases(i))
-       % MIN(cases(i))
-        [x_vals,y_vals] = calcGaussian(predict.mu,predict.Sigma,Amax(i),Amin(i));
-        %%%For continuous nodes, print x and the pdf of a normal curve.
-        for j = 1:101,
+	%% The name of the node for the violin plot data
+	if bnet.node_sizes(i) == 1;
+	    fprintf(vfile,'Data for new node\n');
+	    fprintf(vfile,'%s\n',labels{i});
+	end
+
+        %The next line is marginal node method for continuous variables.
+        %%[x_vals,y_vals] = calcGaussian(predict.mu,predict.Sigma,Amax(i),Amin(i));
+        %Instead get mixture of Gaussian distributions.
+	s=struct(bnet.CPD{i});
+	no_gaussians = size(s.Wsum)(1);
+        Wsum = sum(s.Wsum);
+        weights = zeros(no_gaussians,1);
+	for j=1:no_gaussians,
+            weights(j) = s.Wsum(j)/Wsum;
+        end;
+
+
+	%Get random samples from normals to make violin plots
+        for j=1:no_gaussians
+                normrnd_count = int16(1000*weights(j));
+                if normrnd_count > 0
+		    violin_data = normrnd(s.mean(j),sqrt(s.cov(j)),normrnd_count,1);
+		%violin_data = normrnd(s.mean(j),sqrt(s.cov(j)),1000,1);
+		    for k = 1:size(violin_data)
+		      fprintf(vfile,'%6.4f\n',violin_data(k));
+		    end
+		end
+	end
+        
+
+        all_y = zeros(101,1);
+        for j=1:no_gaussians
+            [x_vals,y_vals] = calcGaussian(s.mean(j),sqrt(s.cov(j)),Amax(i),Amin(i));
+            y_vals = y_vals*weights(j);
+            all_y = all_y + y_vals;
+	end;
+        
+        %%%For continuous nodes, print x and the pdf of curve.
+	for j = 1:101,
+            %Write data to make violin plots
+            %no_lines = int16(100*y_vals(j,1));
+            %if no_lines > 0;
+	    %	for k = 1:no_lines
+	    %	    fprintf(vfile,'%6.4f\n',x_vals(j,1));
+            %    end
+            %end
             %%Undo standardization
             x_vals(j,1) = x_vals(j,1)*stdevs{i}+means{i};
-            fprintf(fileID,'%6.4f\t%6.4f\n',x_vals(j,1),y_vals(j,1));
+            %%fprintf(fileID,'%6.4f\t%6.4f\n',x_vals(j,1),y_vals(j,1));
+            fprintf(fileID,'%6.4f\t%6.4f\n',x_vals(j,1),all_y(j,1));
         end;
-    end;
+
+end
+
 end
 %fprintf(fileID,'%s\t %\n',labels_temp{:});
 
 
 fclose(fileID);
+fclose(vfile);
 
 end
 

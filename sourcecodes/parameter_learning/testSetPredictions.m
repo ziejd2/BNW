@@ -4,7 +4,7 @@ function  [ ] = testSetPredictions( pre )
    %   in the uploaded data file.
    %      
    %
-   %  Input: ???ts_input.txt
+   %  Input: ???ts_upload.txt
    %    This is the input file that is uploaded to BNW.
    %    It is directly written out by the BNW php code with no modification.
    %    The file format is a header line containing the variable that you want to predict.
@@ -157,7 +157,6 @@ for i=1:nnodes
      end
   else
      for j=1:ntestcases
-	labels{i}
         if !strcmp(data_test{j,i},"NA")
 	    for jj = 1:size(levels,1)
 		if strcmp(labels{i},levels{jj,1})
@@ -179,7 +178,7 @@ end
 predict_cases = bnet.node_sizes(predict_node);
 
 if predict_cases == 1
-      ts_continuous(pre,bnet,nnodes,predict_label,predict_node,data_test,means,stdevs)
+      ts_continuous(pre,bnet,nnodes,predict_label,predict_node,data_test,means,stdevs);
 else
       pred_levels = cell(1,predict_cases);
       for i = 1:disc_nodes
@@ -190,7 +189,7 @@ else
             break
          end
       end
-      ts_discrete(pre,bnet,nnodes,predict_label,predict_node,data_test,pred_levels,predict_cases)
+      ts_discrete(pre,bnet,nnodes,predict_label,predict_node,data_test,pred_levels,predict_cases);
 end
 
 %delete(dfile)
@@ -224,7 +223,7 @@ end
 filename = strcat(pre,'ts_output.txt');
 fileID = fopen(filename,'w');
 
-fprintf(fileID,'Variable that was predicted: %s\n\n',predict_label);
+%fprintf(fileID,'Variable that was predicted: %s\n\n',predict_label);
 
 
 %Calculate RMSEP (root mean square error of prediction) and q^2
@@ -235,13 +234,10 @@ actual_values = [];
 predictions_removeNA = [];
 for i=1:ntestcases
    if !strcmp(data_test(i,predict_node),'NA')
-        actual_values = [actual_values, cell2num(data_test(i,predict_node))]
-	predictions_removeNA = [predictions_removeNA,predictions(i,1)]
+        actual_values = [actual_values, cell2num(data_test(i,predict_node))];
+	predictions_removeNA = [predictions_removeNA,predictions(i,1)];
    end
 end
-
-size(actual_values)
-size(predictions_removeNA)
 
 average = mean(actual_values);
 average = average*stdevs{predict_node}+means{predict_node};
@@ -256,12 +252,12 @@ rmsep = sqrt(press/length(actual_values));
 q_squared = 1 - press/tss;
 
 %% Print rmseq and q^2
-fprintf(fileID,'RMS error of predictions: %6.4f\n',rmsep);
-fprintf(fileID,'Q^2 of predictions: %6.4f\n\n',q_squared);
+%fprintf(fileID,'RMS error of predictions: %6.4f\n',rmsep);
+%fprintf(fileID,'Q^2 of predictions: %6.4f\n\n',q_squared);
 
 
 %%Print the predictions
-fprintf(fileID,'Predicted mean and standard deviation for each case:\n');
+%fprintf(fileID,'Predicted mean and standard deviation for each case:\n');
 fprintf(fileID,'CaseRow\tActualValue\tPredictionMean\tPredictionStDev\n');
 for i = 1:ntestcases
      if strcmp(data_test{i,predict_node},"NA")
@@ -272,6 +268,8 @@ for i = 1:ntestcases
      end
      fprintf(fileID,'%6.4f\t%6.4f\n',predictions(i,:));
 end
+
+fprintf(fileID,'Test set predictions for %s; RMSE= %6.4f; Q^2= %6.4f\n',predict_label,rmsep,q_squared);
 
 fflush(fileID);
 fclose(fileID);
@@ -333,13 +331,13 @@ accuracy = correct/length(pred_states);
 filename = strcat(pre,'ts_output.txt');
 fileID = fopen(filename,'w');
 
-fprintf(fileID,'Variable that was predicted: %s\n\n',predict_label);
+%fprintf(fileID,'Variable that was predicted: %s\n\n',predict_label);
 
 %%Print the accuracy
-fprintf(fileID,'Fraction of accurate predictions: %6.4f\n\n',accuracy);
+%fprintf(fileID,'Fraction of accurate predictions: %6.4f\n\n',accuracy);
 
 %%Print the predictions
-fprintf(fileID,'Predicted likelihood of each state for each case:\n');
+%fprintf(fileID,'Predicted likelihood of each state for each case:\n');
 fprintf(fileID,'%s\t%s\t','CaseRow','ActualState');
 fprintf(fileID,'%s\t',pred_levels{1:end-1});
 fprintf(fileID,'%s\n',pred_levels{end});
@@ -354,6 +352,8 @@ for i = 1:ntestcases
      fprintf(fileID,'%6.4f\t',predictions(i,1:end-1));
      fprintf(fileID,'%6.4f\n',predictions(i,end));
 end
+
+fprintf(fileID,'Test set predictions of %s; Fraction of accurate predictions= %6.4f\n',predict_label,accuracy);
 
 fflush(fileID);
 fclose(fileID);

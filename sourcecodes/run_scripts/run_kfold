@@ -1,10 +1,9 @@
 #!/usr/bin/octave -qf
-cd ./data
-arg_list = argv(); 
-addpath("../bnt-master");
-addpath(genpathKPM("../bnt-master"));
-addpath("../parameter_learning");
+source("./run_scripts/path_cd.m")
+arg_list = argv();
 fileout=strcat(arg_list{1},"kfoldCV.txt");
+delete(fileout);
+fileout=strcat(arg_list{1},"kfold_plotly.html");
 delete(fileout);
 filename=strcat(arg_list{1},"kfoldCV_temp.txt");
 fout_temp=fopen(filename,'w');
@@ -14,5 +13,5 @@ fclose(fout_temp);
 delete(filename);
 
 
-command=strcat({"/home/jziebart/python/Python-2.7.15/python ../kfold_plotly.py "},arg_list{1});
+command=cstrcat("/home/jziebart/python/Python-2.7.15/python ",base_dir,"/kfold_plotly.py ",arg_list{1});
 test=system(command);

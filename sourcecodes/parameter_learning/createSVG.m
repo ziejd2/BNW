@@ -48,6 +48,13 @@ end
 % open file to read in model averaging scores
 dfile2=strcat(pre,'structure_input_temp.txt');
 
+%If it does not exist, then just read in the regular structure file
+%%   as the model averaging score file
+if exist(dfile2, 'file') != 2
+   dfile2 = dfile;
+   frewind(dfile2);
+end
+
 if (exist(dfile2) == 0)
   scores = cell(nnodes,nnodes);
   for i = 1:nnodes
@@ -107,11 +114,11 @@ end
 
 outfile = strcat(pre,'graphviz_svg.txt');
 fout = fopen(outfile,'w');
-fprintf(fout,"digraph G {\n");
+fprintf(fout,"digraph \"\" {\n");
 %fprintf(fout,"size=\"10,10\"; ratio = fill;\n");
 fprintf(fout,"size=\"10,10\"; remincross = true;\n");
-fprintf(fout,"node [shape=rectangle, width=1.0, fontsize=22];\n");
-fprintf(fout,"edge [fontsize=16];\n");
+fprintf(fout,"node [shape=box, fontsize=18, margin=\"0.05,0\", height=0.3, rounded=true];\n");
+fprintf(fout,"edge [fontsize=12];\n");
 for i = 1:nedges
   fprintf(fout,"\"%s\" -> \"%s\" [ label=\"%3.2f\", penwidth=\"%3.2f\" ];\n",labels{sources(i)},labels{targets(i)},scores1(i),2*scores1(i));
 end
@@ -121,11 +128,11 @@ fclose(fout);
 
 outfile2 = strcat(pre,'graphviz_svg_no_edge.txt');
 fout2 = fopen(outfile2,'w');
-fprintf(fout2,"digraph G {\n");
+fprintf(fout2,"digraph \"\" {\n");
 %fprintf(fout,"size=\"10,10\"; ratio = fill;\n");
 fprintf(fout2,"size=\"10,10\"; remincross = true;\n");
-fprintf(fout2,"node [shape=rectangle, width=1.0, fontsize=22];\n");
-fprintf(fout2,"edge [fontsize=16];\n");
+fprintf(fout2,"node [shape=box, fontsize=18, margin=\"0.05,0\", height=0.3,rounded=true];\n");
+fprintf(fout2,"edge [fontsize=12];\n");
 for i = 1:nedges
   fprintf(fout,"\"%s\" -> \"%s\" [ penwidth=\"%3.2f\" ];\n",labels{sources(i)},labels{targets(i)},2*scores1(i));
 end

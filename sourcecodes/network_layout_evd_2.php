@@ -26,7 +26,8 @@ foreach($leve_l as $l)
 
 $keyval=valid_keyval($_GET["My_key"]);
 //////////////////////////Entered evidences//////////////////////////////////////////
-$dir="./data/";
+//$dir="./data/";
+$dir ="/tmp/bnw/";
 
 $lfile=$dir.$keyval."nlevels.txt";
 $levelmap=file_get_contents($lfile);   
@@ -248,7 +249,8 @@ $line=shell_exec('/usr/bin/dot -Tplain -y '.$grv);
 
 
 $grviz_name_list=array();
-$g_file_name="./data/".$keyval."grviz_name_file.txt";
+//$g_file_name="./data/".$keyval."grviz_name_file.txt";
+$g_file_name=$dir.$keyval."grviz_name_file.txt";
 $grviz_name=file_get_contents("$g_file_name");
 $grviz_name_list=explode("\n",$grviz_name);
 
@@ -388,7 +390,9 @@ for($i=0;$i<$nnode;$i++)
  {
 ////////////////////////////select node //////////////////////////////////////
  $name=$ID_data[$i][0];
- $fname="draw_".$name."()";
+ $replaced_char = array("-","/",",",".","!","?");
+ $name_replaced = str_replace($replaced_char,"_",$name);
+ $fname="draw_".$name_replaced."()";
  $data_val.=$name;
  $flag=0; //evidence flag
  for($j=0;$j<$node;$j++)
@@ -877,10 +881,12 @@ for($i=0;$i<$nnode;$i++)
 {
   $x=$ID_data[$i][1]-8; $y=$ID_data[$i][2]-20; 
   $name=$ID_data[$i][0];
+  $replaced_char = array("-","/",",",".","!","?");
+  $name_replaced = str_replace($replaced_char,"_",$name);
 ?>
 
 <script type="text/javascript">
-   google.setOnLoadCallback(draw_<?php print($name)?>);
+   google.setOnLoadCallback(draw_<?php print($name_replaced)?>);
 </script>
 <div id="<?php print($name)?>" style="left: <?php print($x)?>px; top: <?php print($y)?>px; width:<?php print($width);?>; height:<?php print($height);?>; position: absolute"></div>
 

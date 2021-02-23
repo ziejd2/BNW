@@ -2,7 +2,7 @@ function looCrossValid(pre,predict_label)
 % This function will peform leave-one-out cross-validation.
 % This requires the specification of the name of the variable
 %   that you want to predict.
-
+% Modifying to output a table.  Sept 2020
 
 
 sfile=strcat(pre,'structure_input.txt');
@@ -93,7 +93,7 @@ end
 filename = strcat(pre,'looCV.txt');
 fileID = fopen(filename,'w');
 
-fprintf(fileID,'Variable that was predicted: %s\n\n',predict_label);
+%fprintf(fileID,'Variable that was predicted: %s\n\n',predict_label);
 
 %Calculate RMSEP (root mean square error of prediction) and q^2
 %First, calculate TSS (total sum of squares) and
@@ -113,18 +113,17 @@ end
 rmsep = sqrt(press/ncases);
 q_squared = 1 - press/tss;
 
-%% Print rmseq and q^2
-fprintf(fileID,'RMS error of predictions: %6.4f\n',rmsep);
-fprintf(fileID,'Q^2 of predictions: %6.4f\n\n',q_squared);
 
 
 %%Print the predictions
-fprintf(fileID,'Predicted mean and standard deviation for each case:\n');
+%%fprintf(fileID,'Predicted mean and standard deviation for each case:\n');
 fprintf(fileID,'CaseRow\tActualValue\tPredictionMean\tPredictionStDev\n');
 for i = 1:ncases
      fprintf(fileID,'%i\t%6.4f\t',i,case_adj(i));
      fprintf(fileID,'%6.4f\t%6.4f\n',loopredictions(i,:));
 end
+%% Print rmse and q^2
+fprintf(fileID,'LOOCV predictions of %s; RMSE= %6.4f; Q^2= %6.4f\n',predict_label,rmsep,q_squared);
 
 fflush(fileID);
 fclose(fileID);
@@ -232,14 +231,13 @@ accuracy = correct/ncases;
 filename = strcat(pre,'looCV.txt');
 fileID = fopen(filename,'w');
 
-fprintf(fileID,'Variable that was predicted: %s\n\n',predict_label);
+%fprintf(fileID,'Variable that was predicted: %s\n\n',predict_label);
 
 
 %%Print the accuracy
-fprintf(fileID,'Fraction of accurate predictions: %6.4f\n\n',accuracy);
+%fprintf(fileID,'Fraction of accurate predictions: %6.4f\n\n',accuracy);
 
 %%Print the predictions
-fprintf(fileID,'Predicted likelihood of each state for each case:\n');
 fprintf(fileID,'%s\t%s\t','CaseRow','ActualState');
 fprintf(fileID,'%s\t',pred_levels{1:end-1});
 fprintf(fileID,'%s\n',pred_levels{end});
@@ -250,6 +248,8 @@ for i = 1:ncases
      fprintf(fileID,'%6.4f\t',loopredictions(i,1:end-1));
      fprintf(fileID,'%6.4f\n',loopredictions(i,end));
 end
+
+fprintf(fileID,'LOOCV predictions of %s; Fraction of accurate predictions= %6.4f\n',predict_label,accuracy);
 
 fflush(fileID);
 fclose(fileID);

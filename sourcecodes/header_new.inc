@@ -13,9 +13,9 @@
 <script type="text/javascript">
                 document.body.innerHTML = '';
 </script>
-<table align=center width="100%" bordercolor=#33339F border=1 cellspacing=0 cellpadding=0>
+<table align=center width="100%" cellspacing=0 cellpadding=0>
 <tr>
-<td width="100%" height=60 class="td_title">Bayesian Network Webserver for Biological Network Modeling</td>
+<td width="100%" height=32 class="td_title">&nbsp;&nbsp;Bayesian Network Webserver for Biological Network Modeling</td>
 </tr>
 </table>
 

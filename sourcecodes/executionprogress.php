@@ -6,7 +6,8 @@ include("runtime_check.php");
 include("input_validate.php");
 
 $keyval=valid_keyval($_GET["My_key"]);
-$dir="./data/";
+//$dir="./data/";
+$dir="/tmp/bnw/";
 
 //number of parents
 $pfile=$dir.$keyval."parent.txt";
@@ -26,13 +27,13 @@ $runtime=exe_time($keyval,$parent_number,$k_number);
 
 ?>
 
-<div>
+<div id='execute_div'>
+<br>
 <p><h3><?php 
 print("Network ID: $keyval<br/>");
 print("Estimated run time: $runtime seconds");
 ?>
-<br><br></h3>
-<br>
+<br></h3>
 <table align="center"><tr><td><b></br></br></br>Computing ....</b>
 <div style="font-size:20pt;padding:6px;border:solid black 4px">
 <span id="progress1">&nbsp; &nbsp;</span>

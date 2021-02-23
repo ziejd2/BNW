@@ -1,6 +1,6 @@
 <html>
 <head>
-<LINK REL=StyleSheet HREF="./my_style.css" TYPE="text/css">
+<LINK REL=StyleSheet HREF="./my_new_style.css" TYPE="text/css">
 <script language="JavaScript">
 <!-- hide
 
@@ -107,7 +107,7 @@ searchkey.value="Sex\tDrug\tW1\tW2\nM\tD1\t5.00\t6.00\nM\tD1\t7.00\t6.00\nM\tD1\
 }
 }
 
-
+ 
 function Upload()
 {
         
@@ -116,6 +116,8 @@ function Upload()
 		MyUpload.value="YES";            
         }
 }
+
+
 
 
 function SearchCheck()

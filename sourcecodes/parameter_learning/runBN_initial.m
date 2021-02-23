@@ -63,7 +63,7 @@ end
 
 filename=strcat(pre,'net_figure.txt');
 
-drawFigure(nnodes,bnet,labels,filename,cases,stdevs,means);
+drawFigure(nnodes,bnet,labels,filename,cases,stdevs,means,pre);
 
 writeParameters(pre,nnodes,bnet,labels,cases,labelsold,s,m);
 

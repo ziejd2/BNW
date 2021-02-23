@@ -34,7 +34,8 @@ foreach($leve_l as $l)
 function mapid($name,$keyval)
 {
 
-$dir="./data/";
+  //$dir="./data/";
+$dir="/tmp/bnw/";
 
 $nm=$dir."$keyval"."mapdata.txt";
 $namelist=file_get_contents("$nm");
@@ -61,7 +62,8 @@ return $val;
 }
 
 
-$dir="./data/";
+//$dir="./data/";
+$dir="/tmp/bnw/";
 
 $lfile=$dir.$keyval."nlevels.txt";
 $dmapdata=file_get_contents($lfile);
@@ -218,12 +220,13 @@ $dataname=array();
 $dataname=explode("\t",$str_arrmat[0]);
 $n=count($dataname);
 
-$initialstring="digraph G {\n"."size=\"10,10\";  ratio = fill;\n"."node [shape=square,width=1.5];\n";
+$initialstring="digraph G {\n"."size=\"6,8\";  ratio = fill;\n"."node [shape=square,width=1.5];\n";
 $endstring="}";
 fwrite($fout,"$initialstring");
 
 
-$g_file_name="./data/".$keyval."grviz_name_file_new.txt";
+//$g_file_name="./data/".$keyval."grviz_name_file_new.txt";
+$g_file_name=$dir.$keyval."grviz_name_file_new.txt";
 $grviz_name_file=fopen($g_file_name,"w");
 
 for($i=0;$i<$n;$i++)

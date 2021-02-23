@@ -1,0 +1,4 @@
+#!/usr/bin/octave -qf
+source("./run_scripts/path_cd.m");
+arg_list = argv();
+writeSettings(arg_list{1});

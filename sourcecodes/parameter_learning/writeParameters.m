@@ -5,7 +5,7 @@ function [] = writeParameters(pre,nnodes,bnet,labels,cases,labelsold,s,m)
 %    for the network.
 %
 % writeParameters is called by runBN_intial.m
-
+% Simplifying output to read in and make table on webpage.
 
 %%Get the types of the nodes.
 typefile = strcat(pre,'type.txt');
@@ -76,15 +76,32 @@ for i = 1:nnodes
     fprintf(fileID,'%s\n',labels{nodeid});
     %%%Print the type of node
     if bnet.node_sizes(nodeid) == 1;
-        line = 'Continuous node\n';
-        fprintf(fileID,line);
         %%% 'i' in the line below is correct: m and s are had original node labeling
-        adj_mu = predict.mu*s(i)+m(i);
-        adj_sigma = s(i)*predict.Sigma;
-	fprintf(fileID,'%6.4f\t%6.4f\n\n',adj_mu,adj_sigma);
+	CPD=struct(bnet.CPD{nodeid});
+	no_gaussians = size(CPD.Wsum)(1);
+	if no_gaussians == 1
+            %%%line = 'Continuous node\n';
+            %%%fprintf(fileID,line);
+            adj_mu = CPD.mean*s(i)+m(i);
+            adj_sigma = s(i)*sqrt(CPD.cov);
+	    fprintf(fileID,'Mean\tSt Dev\n');
+	    fprintf(fileID,'%6.4f\t%6.4f\n\n',adj_mu,adj_sigma);
+	else
+        %%%%line = 'Continuous node modeled as a mixture of %i Gaussian distributions\n';
+        %%%%fprintf(fileID,line,no_gaussians);
+	fprintf(fileID,'Mean\tSt Dev\tWeight\n');
+	Wsum = sum(CPD.Wsum);
+	for j=1:no_gaussians
+            adj_mu = CPD.mean(j)*s(i)+m(i);
+            adj_sigma = s(i)*sqrt(CPD.cov(j));
+	    weight = CPD.Wsum(j)/Wsum;
+	    fprintf(fileID,'%6.4f\t%6.4f\t%6.4f\n',adj_mu,adj_sigma,weight);
+	end
+        fprintf(fileID,'\n');
+        end
     else
-        line = 'Discrete node with %i states\n';
-        fprintf(fileID,line,bnet.node_sizes(nodeid));
+        %%line = 'Discrete node with %i states\n';
+        %%fprintf(fileID,line,bnet.node_sizes(nodeid));
         %line = 'Probability of each state\n';
         %fprintf(fileID,line);
         nodeid2 = 0;
@@ -94,6 +111,7 @@ for i = 1:nnodes
               break
            end
         end
+	fprintf(fileID,'State\tProbability\n');
         for j = 1:bnet.node_sizes(nodeid),
             %%%For discrete nodes, the state and the percent of that state
 %		  fprintf(fileID,'%i\t%6.4f\n',levels{nodeid2,j+1},predict.T(j));

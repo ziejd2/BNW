@@ -1,0 +1,10 @@
+#!/usr/bin/octave -qf
+source("./run_scripts/path_cd.m");
+arg_list = argv(); 
+
+#command=strcat({"/home/jziebart/python/Python-2.7.15/python ../violin_plotly.py "},arg_list{1});
+#test=system(command);
+#command=strcat({"/home/jziebart/python/Python-2.7.15/python ../violin_ev_plotly.py "},arg_list{1});
+#test=system(command);
+#command=strcat({"/home/jziebart/python/Python-2.7.15/python ../violin_int_plotly.py "},arg_list{1});
+#test=system(command);

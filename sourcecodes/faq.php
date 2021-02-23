@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="./scripts/font-awesome.css">
+<script src="./scripts/jquery.min.js"></script>
+<script src="./scripts/accordion.js"></script>
 <?php
 include("input_validate.php");
 $key=$_POST["My_key"];
@@ -8,13 +11,26 @@ $key=valid_keyval("$key");
 include("header_new.inc");
 ?>
 
-<!-- Site navigation menu -->
-<ul class="navbar">
-  <li><a href="bn_file_load_gom.php">Learn a network model from data</a>
-  <li><a href="home_upload.php">Make predictions using a known structure</a>  
+<ul class="navbar2">
+  <li><a href="bn_file_load_gom.php">Load data and begin modeling</a>
+</ul>
+   <button class="accordion">Return to a network&nbsp;<i class="fa fa-angle-down" style="font-size: 18px;"></i></button>
+  <div class="panel">
+  <ul class="navbar_ac">
+  <li><a href="enter_netID.php">Use a network ID to return to a network</a>
+  <li><a href="home_upload.php">Load data for a known structure</a>  
+  </ul>
+  </div>  
+  <button class="accordion">Other help resources&nbsp;<i class="fa fa-angle-down" style="font-size: 18px;"></i></button>
+  <div class="panel">
+  <ul class="navbar_ac">
+  <li><a href="getting_started.php">Getting started</a>
   <li><a href="workflow.php">Tutorials and examples</a>
   <li><a href="help.php">Help</a>
-  <li><a href="faq.php">FAQ</a>
+  </ul>
+  </div>  
+</ul>
+<ul class="navbar2">
   <li><a href="home.php">Home</a>
 </ul>
 
@@ -26,7 +42,7 @@ include("header_new.inc");
 <tr>
 <td>
 <h2>Frequently Asked Questions</h2>
-<ol>
+<ol class="help">
 <li><a href="#default_setting">What are the default settings for structure learning in BNW?</a>
 <li><a href="#size_limits">Are there limits on network sizes in BNW?</a>
 <li><a href="#input_files">What input files do I need to use BNW?</a>

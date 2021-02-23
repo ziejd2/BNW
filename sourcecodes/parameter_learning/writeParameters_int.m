@@ -5,6 +5,7 @@ function [] = writeParameters_int(pre,bnet,nnodes,labels,cases,stdevs,means,sele
 %    for the network.
 %
 % writeParameters is called by Predictmultipleintervention.m
+% Modifying to simplify output to make a table on webpage.
 
 %First read input file to get node labels to get node IDs.
 infile = strcat(pre,'continuous_input.txt');
@@ -129,21 +130,22 @@ for i = 1:nnodes
     %check to see if this is a node impacted by intervention
     if int_nodes(nodeid) == 1
     %%%Print the name of the node
-    fprintf(fileID,'%s\n',labels{nodeid});
+    fprintf(fileID,'%s considering intervention\n',labels{nodeid});
     predict = marginal_nodes(engine,nodeid);
     if isempty(evidence{nodeid})
        %%%Print the type of node
        if bnet.node_sizes(nodeid) == 1;
-           line = 'Continuous parameters considering intervention:\n';
-           fprintf(fileID,line);
+           %line = 'Continuous parameters considering intervention:\n';
+           %fprintf(fileID,line);
            %line = 'Mean and standard deviation of Gaussian distribution\n';
            %fprintf(fileID,line);
 	   adj_mu = predict.mu*stdevs{nodeid}+means{nodeid};
-           adj_sigma = stdevs{nodeid}*predict.Sigma;
+           adj_sigma = stdevs{nodeid}*sqrt(predict.Sigma);
+	   fprintf(fileID,"Mean\tSt Dev\n");
            fprintf(fileID,'%6.4f\t%6.4f\n\n',adj_mu,adj_sigma);
        else
-           line = 'Probability of states considering intervention:\n';
-           fprintf(fileID,line);
+           %line = 'Probability of states considering intervention:\n';
+           %fprintf(fileID,line);
            nodeid2 = 0;
            for k = 1:ndisc_nodes,
 	     if strcmp(levels{k,1},labels{nodeid}),
@@ -151,6 +153,7 @@ for i = 1:nnodes
                 break
              end
             end
+	    fprintf(fileID,"State\tProbability\n")
 	    for j = 1:bnet.node_sizes(nodeid),
 		%%%For discrete nodes, the state and the percent of that state
 %		fprintf(fileID,'%i\t%6.4f\n',levels{nodeid2,j+1},predict.T(j));
@@ -160,10 +163,11 @@ for i = 1:nnodes
        end
    else
        if bnet.node_sizes(nodeid) == 1;
-          line = 'Intervention on this node assigned the following value:\n';
-          fprintf(fileID,line);  
+          %line = 'Intervention on this node assigned the following value:\n';
+          %fprintf(fileID,line);  
           adj_mu = ev_dat(nodeid)*stdevs{nodeid}+means{nodeid};
-          fprintf(fileID,'%6.4f\n\n',adj_mu);
+	  fprintf(fileID,"Fixed by\tValue\n");
+          fprintf(fileID,'Intervention\t%6.4f\n\n',adj_mu);
        else
           nodeid2 = 0;
           for k = 1:ndisc_nodes,
@@ -172,11 +176,12 @@ for i = 1:nnodes
                break
             end
           end
-	 line = 'Intervention on this node assigned the following state:\n';
-         fprintf(fileID,line);
+	 %line = 'Intervention on this node assigned the following state:\n';
+         %fprintf(fileID,line);
          state_ev =   uint16(ev_dat(nodeid));
 %         fprintf(fileID,'%i\n\n',levels{nodeid2,state_ev+1});
-         fprintf(fileID,'%s\n\n',levels{nodeid2,state_ev+1});
+	 fprintf(fileID,"Fixed by\tValue\n");
+         fprintf(fileID,'Intervention\t%s\n\n',levels{nodeid2,state_ev+1});
        end
    end
    end

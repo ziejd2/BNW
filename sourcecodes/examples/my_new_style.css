@@ -8,44 +8,102 @@ height: 100%;
 
 body {
   margin:0px;
-  font-family: Georgia, "Times New Roman",
-        Times, serif;
-  color: #33339F;
+  font-family: Arial;
+/*  color: #33339F; */
   background-color: white;
-  padding-bottom:0px; 
+  padding-bottom:10px; 
 
 }
-
-
 
 .td_title
 {
         padding: 0;
         margin: 0;
+	display: inline-block;
         font-family:Arial;
-        font-size:24pt;
-        HRIZONTAL-ALIGN: center;
-        color:#FFFFFF;
-        font-weight:bold;
+        font-size:20pt;
+        HORIZONTAL-ALIGN: center;
+        color:#FFFFFF; 
+        background-color: #3071a9;
+        //font-weight:bold;
         //FONT-STYLE: italic;
-        background-color: #33339F;
-        text-align:center
+        text-align:left;
+	white-space: nowrap;
+	overflow: hidden;
 
 }
 
+.td_title_home
+{
+        padding: 0;
+        margin: 0;
+        font-family:Arial;
+        font-size:24pt;
+        HORIZONTAL-ALIGN: center;
+        color:#FFFFFF; 
+        background-color: #3071a9;
+        font-weight:bold;
+        //FONT-STYLE: italic;
+        text-align:center;
+	white-space: nowrap;
+	overflow: hidden;
 
+}
 
 #outer {
   padding: 0;
   margin: 0;
   position: absolute;
-  top: 9em;
-  left: 12em;
+  top: 2em;
+  left: 8.5em;
   text-align:left;
   background:white;
   min-width:50%;
-  min-hieght:50%;
+  min-height:50%;
   max-width:70%;
+
+}
+
+#outer_home {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 4em;
+  left: 8.5em;
+  text-align:left;
+  background:white;
+  min-width:50%;
+  min-height:50%;
+  max-width:70%;
+}
+
+#svg_div {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 2.5em;
+  left: 8.2em;
+  text-align:left;
+  background:white;
+  min-width:50%;
+  min-height:50%;
+  max-width:70%;
+
+}
+
+
+
+#violin_div {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 2em;
+  left: 8.1em;
+  text-align:left;
+  background:white;
+  min-width:70%;
+  min-height:50%;
+  max-width:80%;
 
 }
 
@@ -53,52 +111,93 @@ body {
   padding: 0;
   margin: 0;
   position: absolute;
-  top: 9em;
-  left: 12em;
+  top: 2.5em;
+  left: 9em;
   text-align:left;
   background:white;
   min-width:50%;
-  min-hieght:50%;
+  min-height:50%;
   max-width:60%;
 
 }
 
-#outernewnew {
+#outernew_load {
   padding: 0;
   margin: 0;
   position: absolute;
-  top: 12em;
-  left: 25em;
+  top: 2em;
+  left: 9em;
+  text-align:left;
+  background:white;
+  width:70%;
+}
+
+#outernew_sci {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 2em;
+  left: 9em;
   text-align:left;
   background:white;
   min-width:50%;
-  min-hieght:50%;
-  max-width:60%;
+  min-height:50%;
+  max-width:80%;
 
 }
 
 
+ol.help {
+    margin: 0px 0;
+    padding: 0;
+    list-style: decimal;
+    list-style-position: inside;
+}    
+
+ol.help li
+{
+    margin: 0px;
+    padding: 0px;
+    text-indent: -2.2em;
+    margin-left: 3.4em;
+}
 
 ul.navbar {
   list-style-type: none;
+  display: block;
   padding: 0;
-  margin: 0;
+  margin-top: 0;
   /*position: relative;*/
   float: top;
   /*margin-top: 20px;*/
   top: 9em;
   left: 1em;
-  width: 9em }
+  width: 8em; }
+
+ul.navbar_ac {
+  list-style-type: none;
+  display: inline-block;
+  padding: 0;
+  margin-top: 0;
+  /*position: relative;*/
+  float: top;
+  /*margin-top: 20px;*/
+  top: 9em;
+  left: 1em;
+  width: 7.7em;
+ }
 
 ul.navbar2 {
   list-style-type: none;
+  display: block;
   padding: 0;
   margin: 0;
   /*position: absolute;*/
   float:top;
   top: 9em;
   left: 1em;
-  width: 9em }
+  width: 8em;
+  }
 
 ul.listbar {
   list-style-type: none;
@@ -113,26 +212,90 @@ h1 {
   font-family: Helvetica, Geneva, Arial,
         SunSans-Regular, sans-serif }
 ul.navbar li {
-/*  background: #D0A9F5; */
-  background: #33339F;
-  margin: 0.5em 0;
-  padding: 0.3em;
-  border-right: 1em solid black }
+/*  background: #D0A9F5; 
+  background: #33339F;*/
+  background: LightGrey;
+  margin-top: 0.2em;
+  margin-left: 0.1em;
+  padding: 0.2em;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+ul.navbar li:focus,
+ul.navbar li:hover {
+    background: #E5E8E8;
+    outline: 1px solid black;
+    outline: -webkit-focus-ring-color auto 5px;
+    cursor: pointer;
+}
 ul.navbar a {
   text-decoration: none 
 }
 ul.navbar a:link {
- color: white; }
+ color: black; }
 ul.navbar a:visited {
- color: white; }
+ color: black; }
+ul.navbar p {
+  text-decoration: none;
+  color: black;
+}
+
+ul.navbar_ac li {
+/*  background: #D0A9F5; 
+  display: inline-block; 
+  background: #33339F; */
+  background: LightGrey;
+  color: black; 
+  margin-top: 0.2em;
+  padding: 0.1em;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+ul.navbar_ac li:focus,
+ul.navbar_ac li:hover {
+    background: #E5E8E8;
+    outline: 1px solid black;
+    outline: -webkit-focus-ring-color auto 5px;
+    cursor: pointer;
+}
+ul.navbar_ac a {
+  text-decoration: none 
+}
+ul.navbar_ac a:link {
+ color: black; }
+ul.navbar_ac a:visited {
+ color: black; }
+ul.navbar_ac p {
+  text-decoration: none;
+  color: black;
+}
+
+
 
 ul.navbar2 li {
-/*  background: #D0A9F5; */
-  background: black;
-  margin: 0.5em 0;
-  padding: 0.3em;
-  border-right: 1em solid #33339F;
-  color: white }
+/*  background: #D0A9F5; 
+  display: inline-block; */
+  background: #3071a9;
+  margin-top: 0.2em;
+  margin-left: 0.1em;
+  padding: 0.2em;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  color:white;
+ }
+ul.navbar2 li:focus,
+ul.navbar2 li:hover {
+    background: #488AC7;
+    outline: 1px solid black;
+    outline: -webkit-focus-ring-color auto 5px;
+    cursor: pointer;
+}
 ul.navbar2 a {
   text-decoration: none 
 }
@@ -152,4 +315,245 @@ address {
   margin-top: 1em;
   padding-top: 1em;
   border-top: thin dotted }
+
+
+
+.accordion {
+  font-family: Arial;
+  font-size: 12pt;
+  color: white;
+  display: block;
+  background: #3071a9;
+  margin-top: 0.2em;
+  margin-left: 0.1em;
+  border: none;
+  padding: 0.2em;
+  float:top;
+  top: 9em;
+  width: 8em;
+  text-align: left;
+  cursor: pointer;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.accordion:hover {
+    background: #488AC7;
+    outline: 1px black;
+    outline: -webkit-focus-ring-color auto 5px;
+    cursor: pointer;
+}
+
+
+div.panel {
+    padding: 0.2em;
+//  margin-top: 3.3em 0;
+  display: none;
+  overflow: hidden;
+ }
+
+
+div.panel.show {
+    display: inline-block ;
+    margin: 0em 0;
+}
+
+
+.button1 {
+  font-family: Arial;
+  font-size: 12pt;
+  display: inline-block;
+  color: black;
+  text-align: left;
+  width: 7.7em;
+  background: LightGrey;
+  margin-top: 0.2em;
+  padding: 0.2em;
+  border: none;
+  cursor: pointer;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.button1:focus,
+.button1:hover {
+    background: #E5E8E8;
+    outline: 1px black;
+    outline: -webkit-focus-ring-color auto 5px;
+    cursor: pointer;
+}
+
+
+
+.button2 {
+  font-size: 12pt;
+  display: inline-block;
+  text-align: center;
+  background: LightGrey;
+  color:black;
+  margin-top: 0.2em;
+  padding: 0.2em 0.5em;
+  border: none;
+  cursor: pointer;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+.button2:focus,
+.button2:hover {
+    background: #E5E8E8;
+    outline: 1px black;
+    outline: -webkit-focus-ring-color auto 5px;
+    cursor: pointer;
+}
+
+.button3 {
+  font-size: 12pt;
+  display: inline-block;
+  text-align: center;
+  background: LightGrey;
+  color:black;
+  margin-top: 0.4em;
+  padding: 0.2em 0.5em;
+  border: none;
+  cursor: pointer;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  width:30em;
+}
+.button3:focus,
+.button3:hover {
+    background: #E5E8E8;
+    outline: 1px black;
+    outline: -webkit-focus-ring-color auto 5px;
+    cursor: pointer;
+}
+
+a.button3 a {
+  text-decoration: none; 
+}
+a.button3:link {
+ text-decoration: none; 
+ color: black; }
+a.button3:visited {
+ text-decoration: none; 
+ color: black; }
+
+
+.no-bullet{
+    list-style-type: none
+}
+
+
+
+.new-button {
+    display: inline-block;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: LightGrey;
+    font-size: 16px;
+    color: black;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.button-wrap {
+    position: relative;
+}
+
+.inputfile + label {
+    font: 12pt;
+    padding: 8px 12px;
+    color: black;
+    background-color: LightGrey;
+    display: inline-block;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background: #E5E8E8;
+    outline: 1px black;
+    outline: -webkit-focus-ring-color auto 5px;
+    cursor: pointer;
+}
+
+
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+}
+input[type=range]:focus {
+outline: none;
+}
+
+
+
+.table_div {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 3em;
+  left: 8.1em;
+  text-align:left;
+  background:white;
+  min-width:50%;
+  min-height:70%;
+  max-width:70%;
+}
+
+.d3_table table {
+width: 100%;
+  border-collapse: collapse;
+  margin: 6;
+}
+.d3_table caption {
+  font-size: 14pt;
+  text-align: left;
+}
+/* Zebra striping */
+.d3_table tr:nth-of-type(even) {
+background: LightGrey;
+}
+.d3_table th {
+background: #3071a9;
+color: white;
+font-size: 12pt;
+font-weight: normal;
+}
+
+.d3_table td, th {
+padding: 6px;
+border: 1px solid #ccc;
+    text-align: center;
+}
+.horizontal-header {
+background: #3071a9;
+color: white;
+  font-size: 12pt;
+}
+th.corner-header {
+background: LightGrey;
+color: black;
+  font-size: 12pt;
+}
+
+
 

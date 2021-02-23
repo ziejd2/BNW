@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^\.html$ /BNW_1.3/sourcecodes/home.php [L]

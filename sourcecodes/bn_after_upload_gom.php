@@ -1,8 +1,16 @@
+<meta charset="utf-8">
+<script src="./scripts/d3.v4.min.js"></script>
+<script src="./scripts/create_table.js"></script>
+
 <?php
+   // This file is copied form bn_file_load_gom.php with some lines commented out.
+   //It is used by modify_structure_learning.php to copy the input file over
+   // and begin structure learning.
+
   //Going to modify this so it just writes the uploaded data to a file.
   //Standardization and determining other factors will be performed in
   //  a Matlab/Octave script.
-
+//<link rel="stylesheet" href="./scripts/table.css" type="text/css">
 include("header_new.inc");
 include("header_batchsearch.inc");
 include("runtime_check.php");
@@ -30,7 +38,9 @@ $TextFile=$HTTP_POST_FILES["MyFile"]["name"];
 //  $keyval=valid_keyval($keyval);
 
 //$sid=$keyval."continuous_input";
-//$dir="./data/";
+////$dir="./data/";
+//$dir="/tmp/bnw/";
+//$input_table_file="./data/".$keyval."input_table.txt";
 
 //$TextinFile=$dir.$sid."_orig.txt";
 
@@ -46,8 +56,10 @@ if($searchID=="")
 ?>
 
 <!-- Site navigation menu -->
-<ul class="navbar">
+<ul class="navbar2">
+  <li><a href="sample_input.php" target="_blank">View sample input file</a> 
   <li><a href="help.php#file_format" target="_blank">Data formatting guidelines</a> 
+  <li><a href="about_this_page.php#file_upload" target="_blank">About this page</a>
   <li><a href="help.php" target="_blank">Help</a>
   <li><a href="home.php">Home</a>
 </ul>
@@ -88,56 +100,28 @@ if(isset($HTTP_POST_VARS["MyUpload"]))
 
 ?>
 <div id="outernew">
-<h2><font color=#33339f>Upload data file for structure learning search</font></h2>
-<FORM name="key_search" enctype="multipart/form-data" ACTION="bn_file_load_gom.php" METHOD=POST>
+  <h3>Upload data file for structure learning search:</h3>
+<br>
+<FORM name="key_search" id="in_form" enctype="multipart/form-data" ACTION="bn_file_load_gom.php" METHOD=POST>
 
-<table align="left" cellspacing="3" cellpadding="1" border="0"  width="60%">
-<tr>
-<td>
-<INPUT style="background-color:#FFFFFF;color:#0000FF" type="file" name="MyFile" size=45 > 
-<INPUT TYPE="submit" value="  Upload  " onclick="return Upload();">
+<INPUT style="background-color:#FFFFFF;" type="file" name="MyFile" id="MyFile_id" class="inputfile" onchange="upload_submit()" >
+<label for="MyFile_id">Choose a file. . .</label> 
 <INPUT TYPE="hidden" NAME="My_key" value=<?php print($keyval) ?> >
 <INPUT TYPE="hidden" name="MyUpload" value="NO"> 
-</td>
-</tr>
-<tr>
-<td align="left"><font color=#33339f><br>Content of uploaded data file:</font><br>
-          <textarea name="searchkey" rows="8" cols="100"><?PHP print($searchID)?> </textarea>
-</td>
-</tr>
-<tr>
-<td>
-<INPUT TYPE="submit" value="  Load example data of immune responses to infection with Chlamydia psittaci  " onclick="return demochl();">&nbsp&nbsp&nbsp
-<INPUT TYPE="hidden" NAME="My_key" value=<?php print($keyval) ?> >
-</td>
-</tr>
-<tr>
-<td>
-<INPUT TYPE="submit" value="  Load example data of a synthetic genetic network with 2 genotypes and 6 traits  " onclick="return demo8nodes();">&nbsp&nbsp&nbsp
-<INPUT TYPE="hidden" NAME="My_key" value=<?php print($keyval) ?> >
-</td>
-</tr>
-<tr>
-<td>
-<INPUT TYPE="submit" value="  Load example data of immune-related gene in the spleens of BXD mice  " onclick="return demospnl();">&nbsp&nbsp&nbsp
-<INPUT TYPE="hidden" NAME="My_key" value=<?php print($keyval) ?> >
-</td>
-</tr>
-<tr>
-<td>
-<INPUT TYPE="submit" value="  Load the ksl dataset from deal  " onclick="return demoksl();">&nbsp&nbsp&nbsp
-<INPUT TYPE="hidden" NAME="My_key" value=<?php print($keyval) ?> >
-</td>
-</tr>
-<tr>
-<td>
-<INPUT TYPE="submit" value="  Load the rat dataset from deal  " onclick="return demorat();">&nbsp&nbsp&nbsp
-<INPUT TYPE="hidden" NAME="My_key" value=<?php print($keyval) ?> >
-</td>
-</tr>
-</table>
+<textarea name="searchkey" style="display:none;"><?PHP print($searchID)?> </textarea>
+<br>
+<br>
+<br>
 </FORM>
 </div>
+
+<script>
+  function upload_submit() {
+    Upload();
+    document.getElementById("in_form").submit();
+  }
+</script>
+
 
 <?php
 
@@ -151,28 +135,52 @@ if($searchID!="")
   //$keyval = valid_keyval($keyval);
   //shell_exec('./run_scripts/run_prep_input '.$keyval);
   $keyval=valid_keyval($_GET["My_key"]);
+  $input_table_file="./data/".$keyval."input_table.txt";
   $parent_number=4;
   $k_number=1;
   $runtime=exe_time($keyval,$parent_number,$k_number);
 ?>
 <ul class="navbar2">
-  <li><a href="executionprogress.php?My_key=<?php print($keyval);?>">Perform Bayesian network modeling using default settings</a>
-  <li><a href="create_tiers_gom.php?My_key=<?php print($keyval);?>">Go to structure learning settings and the BNW structural constraint interface</a>  
-  <li><a href="remove_variables.php?My_key=<?php print($keyval);?>">Remove variables from data set</a>  
-  <li><a href="javascript:void(0);"
-NAME="InputCheck" title="InputCheck"
-    onClick=window.open("input_check.php?My_key=<?php print($keyval);?>","Rat//ting","width=950,height=270,0,status=0,");>View uploaded variables and data</a>
-</ul>
-<ul class="navbar">
+<li><a href="about_this_page.php#file_upload" target="_blank">About this page</a>
 <li><a href="help.php" target="_blank">Help</a>
 <li><a href="home.php">Home</a>
 </ul>
-<div id="outernew">
-<p><h3><?php 
-print("Estimated run time for current dataset using default settings: $runtime seconds");
-?>
-<br><br><br><br></h3>
+<div id="outernew_load">
+<br>
+   <a class=button3 href="executionprogress_default.php?My_key=<?php print($keyval);?>">Perform Bayesian network modeling using default settings. Estimated runtime: <?php print($runtime);?> seconds</a>
+<br>
+<a class=button3 href="create_tiers_gom_part1.php?My_key=<?php print($keyval);?>">Go to structure learning settings and the BNW structural constraint interface</a>
+<br>
+<a class=button3 href="remove_variables.php?My_key=<?php print($keyval);?>">Remove variables from data set</a>  
+<br>
+<br>
+<p><h3>The uploaded data file has the following properties:
+<br></h3>
+  <div class="d3_table" id="table_div1">
+  <script type="text/javascript">
+   d3.text("<?php print($input_table_file);?>", function(error, raw){
+       var dsv = d3.dsvFormat("\t")
+	 var data = dsv.parse(raw)
+	 var caption_text = data.pop();
+       if (error) throw error;
+       tabulate_caption("#table_div1",data,caption_text.Variable);
+     });
+</script>
+</div>
+<br><br><br></h3>
 </p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>

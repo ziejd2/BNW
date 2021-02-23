@@ -97,21 +97,22 @@ for i = 1:nnodes
         end
     end
     %%%Print the name of the node
-    fprintf(fileID,'%s\n',labels{nodeid});
+    fprintf(fileID,'%s considering evidence\n',labels{nodeid});
     predict = marginal_nodes(engine,nodeid);
     if isempty(evidence{nodeid})
        %%%Print the type of node
        if bnet.node_sizes(nodeid) == 1;
-           line = 'Continuous parameters considering evidence:\n';
-           fprintf(fileID,line);
+           %%%line = 'Continuous parameters considering evidence:\n';
+           %%%fprintf(fileID,line);
            %line = 'Mean and standard deviation of Gaussian distribution\n';
            %fprintf(fileID,line);
 	     adj_mu = predict.mu*stdevs{nodeid}+means{nodeid};
-             adj_sigma = stdevs{nodeid}*predict.Sigma;
+             adj_sigma = stdevs{nodeid}*sqrt(predict.Sigma);
+	    fprintf(fileID,'Mean\tSt Dev\n');
              fprintf(fileID,'%6.4f\t%6.4f\n\n',adj_mu,adj_sigma);
        else
-           line = 'Probability of states considering evidence:\n';
-           fprintf(fileID,line);
+           %line = 'Probability of states considering evidence:\n';
+           %fprintf(fileID,line);
            nodeid2 = 0;
            for k = 1:ndisc_nodes,
 	     if strcmp(levels{k,1},labels{nodeid}),
@@ -119,6 +120,7 @@ for i = 1:nnodes
                 break
              end
             end
+	    fprintf(fileID,'State\tProbability\n');
 	    for j = 1:bnet.node_sizes(nodeid),
 		%%%For discrete nodes, the state and the percent of that state
 %		fprintf(fileID,'%i\t%6.4f\n',levels{nodeid2,j+1},predict.T(j));
@@ -128,10 +130,11 @@ for i = 1:nnodes
        end
    else
        if bnet.node_sizes(nodeid) == 1;
-          line = 'Evidence was observed for this node. The observed value was:\n';
-          fprintf(fileID,line);  
+          %%line = 'Evidence was observed for this node. The observed value was:\n';
+          %%fprintf(fileID,line);  
           adj_mu = ev_dat(nodeid)*stdevs{nodeid}+means{nodeid};
-          fprintf(fileID,'%6.4f\n\n',adj_mu);
+	  fprintf(fileID,'Observed as\tValue\n');
+          fprintf(fileID,'Evidence\t%6.4f\n\n',adj_mu);
        else
           nodeid2 = 0;
           for k = 1:ndisc_nodes,
@@ -140,11 +143,12 @@ for i = 1:nnodes
                break
             end
           end
-	 line = 'Evidence was observed for this node. The observed state was:\n';
-         fprintf(fileID,line);
+	 %%line = 'Evidence was observed for this node. The observed state was:\n';
+         %%fprintf(fileID,line);
          state_ev =   uint16(ev_dat(nodeid));
 %         fprintf(fileID,'%i\n\n',levels{nodeid2,state_ev+1});
-         fprintf(fileID,'%s\n\n',levels{nodeid2,state_ev+1});
+	  fprintf(fileID,'Observed as\tValue\n');
+         fprintf(fileID,'Evidence\t %s\n\n',levels{nodeid2,state_ev+1});
        end
    end
 end

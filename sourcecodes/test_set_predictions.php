@@ -1,3 +1,10 @@
+<head>
+<meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
+<script src="./scripts/d3.v4.min.js"></script>
+<script src="./scripts/create_table.js"></script>
+
 <?php 
 include("header_new.inc");
 include("header_batchsearch.inc");
@@ -9,8 +16,10 @@ if($_POST["My_key"]!="")
 $searchID="";
 $UploadValue="NO";
 $TextFile=$HTTP_POST_FILES["MyFile"]["name"];
-$TextinFile="./data/".$keyval."ts_upload.txt";
+//$TextinFile="./data/".$keyval."ts_upload.txt";
+$TextinFile="/tmp/bnw/".$keyval."ts_upload.txt";
 ?>
+</header>
 
 <?php
 if(isset($HTTP_POST_VARS["searchkey"]))
@@ -55,9 +64,7 @@ if(isset($HTTP_POST_VARS["MyUpload"]))
 
 <!-- Site navigation menu -->
 <ul class="navbar2">
-  <li><p>Network ID:<br><?php print($keyval);?></p></li>
-</ul>
-<ul class="navbar">
+  <li class="noHover"><p>Network ID:<br><?php print($keyval);?></p></li>
   <li><a href="javascript:void(0);"
   NAME="Network" title="Network" onClick=window.open("layout.php?My_key=<?php print($keyval);?>","_self");>Return to network</a>
   <li><a href="javascript:void(0);"
@@ -70,39 +77,51 @@ if(isset($HTTP_POST_VARS["MyUpload"]))
 <!-- Main content -->
 
 <?php
-  $filename1="./data/".$keyval."ts_upload.txt";
-  $filename2="./data/".$keyval."ts_output.txt";
+  //  $filename1="./data/".$keyval."ts_upload.txt";
+  //$filename2="./data/".$keyval."ts_output.txt";
+  $dir="/tmp/bnw/";
+  $filename1=$dir.$keyval."ts_upload.txt";
+  $filename2=$dir.$keyval."ts_output.txt";
+$plotly_file=$dir.$keyval."ts_plotly.html";
+$plotly_file_local="./data/".$keyval."ts_plotly.html";
+$pred_file_local="./data/".$keyval."ts_output.txt";
+
+
 if(file_exists($filename1))
   {?>
 <br>
-Calculation submitted.
-<br>
-<a href="cv_predictions.php?My_key=<?php print($keyval);?>">Click to return to cross-validation and predictions menu</a>
+<a class=button3 href="cv_predictions.php?My_key=<?php print($keyval);?>">Calculation submitted. Click here to return to cross-validation and predictions menu.</a>
 <br>
 <?php
   }
 else if(file_exists($filename2))
   {?>
-  <br>
-  <h2> <a href=<?php $d="./data/".$keyval."ts_output.txt"; print($d);?>>View predictions</a></h2>
-<?php
-   $plotly_file="./data/".$keyval."ts_plotly.html";
-   if(file_exists($plotly_file))
-     {?>
-     <div>
-	 <object type="text/html" data=<?php print($plotly_file);?> width="800" height="500" >
+<div>
+	 <object type="text/html" data=<?php print($plotly_file_local);?> width="800" height="500" >
          </object>
      </div>
- <?php
-      }?>    
-  <br>
+     <div class="d3_table" id="table_div1">
+     <script type="text/javascript">
+       d3.text("<?php print($pred_file_local);?>", function(error,raw) {
+ 	var dsv=d3.dsvFormat("\t")
+        var data=dsv.parse(raw)
+        var caption_text=data.pop()
+        if (error) throw error;
+	tabulate_caption("#table_div1",data,caption_text.CaseRow);
+      });
+</script>
+</div>
+  <a class=button2 href=<?php $d="./data/".$keyval."ts_output.txt"; print($d);?>>View and download predictions</a>
+<br>
+<br>
+
 <h3>Make a new set of predictions by submitting data file below</h3>
-<FORM name="key_search" enctype="multipart/form-data" ACTION="test_set_predictions.php" METHOD=POST>
+<FORM name="key_search" id="in_form" enctype="multipart/form-data" ACTION="test_set_predictions.php" METHOD=POST>
 <table>
 <tr>
 <td>
-<INPUT style="background-color:#FFFFFF;color:#0000FF" type="file" name="MyFile" size=45 >
-<INPUT TYPE="submit" value="  Submit  " onclick="return Upload();">
+<INPUT style="background-color:#FFFFFF;color:#0000FF" type="file" name="MyFile" id="MyFile_id" class="inputfile" onchange="upload_submit()">
+<label for="MyFile_id">Choose a file. . .</label>
 <INPUT TYPE="hidden" NAME="My_key" value=<?php print($keyval) ?> >
 <INPUT TYPE="hidden" name="MyUpload" value="NO">
 </td>
@@ -116,7 +135,18 @@ else if(file_exists($filename2))
 </tr>
 </table>
 </FORM>
+<br>
+<br>
 </div>
+<script>
+ function upload_submit() {
+       Upload();
+       document.getElementById("in_form").submit();
+     }
+</script>
+  <br>
+
+
   <?php
    } else {
 ?>
@@ -124,12 +154,9 @@ else if(file_exists($filename2))
   To make prediction for several test cases, upload a file containing the test cases.
 <br>
 <br>
-    <FORM name="key_search" enctype="multipart/form-data" ACTION="test_set_predictions.php" METHOD=POST>
-<table>
-<tr>
-<td>
-<INPUT style="background-color:#FFFFFF;color:#0000FF" type="file" name="MyFile" size=45 >
-<INPUT TYPE="submit" value="  Submit  " onclick="return Upload();">
+    <FORM name="key_search" id="in_form2" enctype="multipart/form-data" ACTION="test_set_predictions.php" METHOD=POST>
+<INPUT style="background-color:#FFFFFF;color:#0000FF" type="file" name="MyFile" id="MyFile_id2" class="inputfile" onchange="upload_submit2()">
+<label for="MyFile_id2">Choose a file . . .</label>
 <INPUT TYPE="hidden" NAME="My_key" value=<?php print($keyval) ?> >
 <INPUT TYPE="hidden" name="MyUpload" value="NO">
 </td>
@@ -144,6 +171,13 @@ else if(file_exists($filename2))
 </table>
 </FORM>
 </div>
+<script>
+   function upload_submit2() {
+      Upload();
+      document.getElementById("in_form2").submit();
+    }
+</script>
+
 <br>
 
 <?php
@@ -153,7 +187,8 @@ if($searchID!="")
 {
   if($UploadValue=="NO")
     {
-      $fpdata = fopen("./data/".$keyval."ts_input.txt","w");
+      //      $fpdata = fopen("./data/".$keyval."ts_input.txt","w");
+      $fpdata = fopen($dir.$keyval."ts_upload.txt","w");
       fwrite($fpdata,$searchID);
     }
   $command = './run_scripts/run_test_set '.$keyval;

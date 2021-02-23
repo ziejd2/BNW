@@ -17,11 +17,15 @@ outfile = netID+"kfold_plotly.html"
 filename=netID+"kfoldCV.txt"
 f=open(filename,"r")
 #Read the first line to get the variable name
-line=f.readline()
+lines=f.readlines()
+line = lines.pop()
 line = map(string.strip,line.strip().split(" "))
-print line
-varName = line[-1]
-print varName
+#print line
+varName = line[3][:-1]
+#print varName
+plot_title = '<br>'+varName+' k-fold validation'
+#print plot_title
+header = lines.pop(0)
 
 #Read type file to determine if it is continuous or discrete
 typefile = netID+"type.txt"
@@ -37,20 +41,27 @@ cd_type = int(vartypes[varindex])
 if cd_type == 1:
     #Make scatterplot for continuous_data
     #Read introductory lines from file
-    for i in range(6):
-        line = f.readline()
+#    for i in range(6):
+#        line = f.readline()
     #Read the data
     x = []
     y = []
-    line = f.readline()
-    while line:
+#    line = f.readline()
+#    while line:
+    for line in lines:
         line = map(string.strip,line.strip().split("\t"))
         x.append(float(line[2]))
         y.append(float(line[3]))
-        line=f.readline()
+#        line=f.readline()
 
     data = [go.Scatter(x=x,y=y,mode='markers')]
     layout = go.Layout(
+        title=plot_title,
+        titlefont=dict(
+            family='Arial, sans-serif',
+            size=24,
+            color='black'
+            ),
         xaxis=dict(
             autorange=True,
             title='Actual values',
@@ -68,7 +79,8 @@ if cd_type == 1:
                 size=18,
                 color='black'
                 ),
-            )
+            ),
+        margin=dict(t=30,l=50,b=40)
         )
     fig = go.Figure(data=data, layout = layout)
     plotly.offline.plot(fig,filename=outfile)
@@ -76,16 +88,17 @@ if cd_type == 1:
 else:
     #Make bar chart for discrete data
     #Read introductory lines from file
-    for i in range(5):
-        line = f.readline()
+#    for i in range(5):
+#        line = f.readline()
     #Get names of states
-    line = map(string.strip,line.strip().split("\t"))
-    states = line[3:]
+    header = map(string.strip,header.strip().split("\t"))
+    states = header[3:]
     #Read the data
     actual = []
     predicted = []
-    line = f.readline()
-    while line:
+#    line = f.readline()
+#    while line:
+    for line in lines:
         line = map(string.strip,line.strip().split("\t"))
         actual.append(line[2])
         predict_x = line[3:]
@@ -99,7 +112,7 @@ else:
         if len(max_items) > 1:
             predicted.pop()
             actual.pop()
-        line=f.readline()
+#        line=f.readline()
     
     #Go through states and get number of true positives, false positives, and false negatives
     tp_all = []
@@ -128,6 +141,12 @@ else:
     data = [trace1,trace2,trace3]
     layout = go.Layout(
         barmode='group',
+        title=plot_title,
+        titlefont=dict(
+            family='Arial, sans-serif',
+            size=24,
+            color='black'
+            ),
         xaxis=dict(
             autorange=True,
             title='State',
@@ -145,7 +164,8 @@ else:
                 size=18,
                 color='black'
                 ),
-            )
+            ),
+        margin=dict(t=30,l=50,b=40),
     )
     fig = go.Figure(data=data, layout = layout)
     plotly.offline.plot(fig,filename=outfile)

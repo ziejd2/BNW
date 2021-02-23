@@ -40,8 +40,14 @@ for i = 1:nnodes
 end
 
 
-% open file to read in model averaging scores
+
+%Check to see if a file with model averaging scores exists
 dfile2=strcat(pre,'structure_input_temp.txt');
+%if it does not exist, then just open the other structure file again
+if exist(dfile2, 'file') != 2
+   dfile2 = dfile;
+   frewind(dfile2);
+end
 
 fin2 = fopen(dfile2,'r');
 if fin2 < 0
