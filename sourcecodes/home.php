@@ -1,38 +1,74 @@
-<?php 
+<head>
+<link rel="stylesheet" href="./scripts/font-awesome.css">
+<script src="./scripts/jquery.min.js"></script>
+<script src="./scripts/accordion.js"></script>
 
-include("header_new.inc");
-?>
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="0">
+
+  <title>Bayesian Network Webserver</title>
+  <link rel="stylesheet" href="my_new_style.css">
+
+</head>
+
+<body>
+<script type="text/javascript">
+   document.body.innerHTML = '';
+</script>
+<table align=center width="100%" bordercolor=#3071a9 border=1 cellspacing=0 cellpadding=0>
+<tr>
+   <td width="100%" height=60 class="td_title_home">&nbsp;&nbsp;Bayesian Network Webserver for Biological Network Modeling</td>
+</tr>
+</table>
+
+
+
+</head>
+
 
 <!-- Site navigation menu -->
-<ul class="navbar">
-  <li><a href="bn_file_load_gom.php">Learn a network model from data</a>
-  <li><a href="home_upload.php">Make predictions using a known structure</a>  
-  <li><a href="enter_netID.php">Use a network ID to return to a network</a>  
-  <li><a href="getting_started.php">Getting started with BNW</a>
-  <li><a href="help.php">Help</a>
+<ul class="navbar2">
+  <li><a href="bn_file_load_gom.php">Load data and begin modeling</a>
+</ul>
+   <button class="accordion">Return to a network&nbsp;&nbsp;<i class="fa fa-angle-down" style="font-size: 18px;"></i></button>
+  <div class="panel">
+  <ul class="navbar_ac">
+  <li><a href="enter_netID.php">Use a network ID to return to a network</a>
+  <li><a href="home_upload.php">Load data for a known structure</a>  
+  </ul>
+  </div>  
+   <button class="accordion">New to BNW?&nbsp;<i class="fa fa-angle-down" style="font-size: 18px;"></i></button>
+  <div class="panel">
+  <ul class="navbar_ac">
+  <li><a href="getting_started.php">Getting started</a>
   <li><a href="workflow.php">Tutorials and examples</a>
+  <li><a href="help.php">Main help page</a>
   <li><a href="faq.php">FAQ</a>
-  <li><a href="../downloads/BNW_src_files.tar">Download</a>
-  <li><a href="home.php">Home</a>
+  </ul>
+  </div>  
+<ul class="navbar2">
+  <li><a href="../downloads/BNW_src_files.tar">Download structure learning package</a>
+</ul>
 
 
 </ul>
 
 
+
 <!-- Main content -->
-<div id="outer">
-<h1>BNW: from data to predictions</h1>
-<IMG SRC="BNW_overview.png" ATL="" BORDER=0 WIDTH=812 HEIGHT=290><BR>
-<br>
-<br>
-<b>    <p align="justify"> BNW has recently been updated. Read more about these updates <a href="help.php#updates">here.</a></b>
-<br>
+<div id="outer_home">
 <br>
     <p align="justify"> The Bayesian Network Web Server (BNW) is a comprehensive web server for Bayesian network modeling of biological data sets. It is designed so that users can quickly and seamlessly upload a dataset, learn the structure of the network model that best explains the data, and use the model to understand and make predictions about relationships between the variables in the model. Many real world data sets, including those used to create genetic network models, contain both discrete (e.g., genotypes) and  continuous (e.g., gene expression traits) variables, and BNW allows for modeling of these hybrid data sets.
-<br>
+<br><br>
+<b>    <p align="justify"> BNW has recently been updated. Read more about these updates <a href="help.php#updates">here.</a>
+<br><br>
+An older version of BNW is available <a href="http://compbio.uthsc.edu/BNW_1.2">here.</a></b>
+<br><br>
+<img class="wide" SRC="BNW_overview_new.PNG" ATL="" BORDER=0 WIDTH=1197 HEIGHT=487><BR>
 <br>
 <b>
-How to cite the BNW:
+How to cite BNW:
 </b>
 <br>
 1. Ziebarth JD, Bhattacharya A, Cui Y (2013) <a href="http://bioinformatics.oxfordjournals.org/content/29/21/2801.abstract"  target="_blank">Bayesian Network Webserver: a comprehensive tool for biological network modeling.</a> Bioinformatics. 29(21): 2801-2803.

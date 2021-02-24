@@ -4,22 +4,24 @@ include("input_validate.php");
 $keyval=valid_keyval($_GET["My_key"]);
 
 //////////////execute c codes for local score///////////////////
-$dir="./data/";
+//$dir="./data/";
+//$dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
 
-$pfile="./data/".$keyval."parent.txt";
+$pfile=$dir.$keyval."parent.txt";
 $parentf=file_get_contents("$pfile");
 //$maxp=valid_input($parentf);
 $maxp=trim($parentf);
 
 
-$kfile="./data/".$keyval."k.txt";
+$kfile=$dir.$keyval."k.txt";
 $kf=file_get_contents("$kfile");
 //$maxk=valid_input($kf);
 $maxk=trim($kf);
 
 
 
-$thrfile="./data/".$keyval."thr.txt";
+$thrfile=$dir.$keyval."thr.txt";
 $thr=file_get_contents("$thrfile");
 //$thr=valid_input($thr);
 $thr=trim($thr);
@@ -45,11 +47,11 @@ $dataname=array();
 $dataname=explode("\t",$str_arrmat[0]);
 $n=count($dataname);
 
-$initialstring="digraph G {\n"."size=\"10,10\";  ratio = fill;\n"."node [shape=square,width=1.5];\n";
+$initialstring="digraph G {\n"."size=\"6,8\";  ratio = fill;\n"."node [shape=square,width=1.5];\n";
 $endstring="}";
 fwrite($fout,"$initialstring");
 
-$g_file_name="./data/".$keyval."grviz_name_file.txt";
+$g_file_name=$dir.$keyval."grviz_name_file.txt";
 $grviz_name_file=fopen($g_file_name,"w");
 
 for($i=0;$i<$n;$i++)
@@ -88,6 +90,6 @@ shell_exec('./run_scripts/run_octave '.$keyval);
 
 ?>
 <script>
-window.open("layout.php?My_key=<?php print($keyval);?>",'_self',false);
+window.open("layout_svg_no.php?My_key=<?php print($keyval);?>",'_self',false);
 </script>
 

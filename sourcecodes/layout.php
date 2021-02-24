@@ -1,10 +1,16 @@
+<link rel="stylesheet" href="./scripts/font-awesome.css">
+<script src="./scripts/jquery.min.js"></script>
+<script src="./scripts/accordion.js"></script>
+
 <?php
 
 include("header_new.inc");
 include("input_validate.php");
 $keyval=valid_keyval($_GET["My_key"]);
 
-$dir="./data/";
+//$dir="./data/";
+//$dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
 
 $vf1=$dir.$keyval."var.txt";
 $vf2=$dir.$keyval."varname.txt";
@@ -49,46 +55,51 @@ function calcHeight()
 }
 //-->
 </script>
-<form  method="post" name="form"> 
-<table width="100%" align="center" style="background-color:" bordercolor=white border=0.5 cellspacing="0" cellpadding="0">
- <tr valign=top>
-      <td colspan=4><hr size=3></td>
-  </tr>
-<tr >
-<th align=right> <h3>Prediction Mode:&nbsp</h3></th>
-  <td align=left>
-      <input name="Datatype" type="radio" value=<?php $radioval="Evidence"; echo $radioval; ?> checked <?php echo $S1; ?>" onClick="javascript:this.form.submit();">Evidence&nbsp;&nbsp;&nbsp;
-      <input name="Datatype" type="radio" value=<?php $radioval="Intervention"; echo $radioval; ?> <?php echo $S2; ?>" onClick="javascript:this.form.submit();"> Intervention
-      
-  </td>
-</tr>
-  <tr valign=top>
-      <td colspan=4><hr size=3></td>
-  </tr>
-
-</table>
-</form>
 
 <!-- Site navigation menu -->
 <ul class="navbar2">
-   <li><p>Selected mode:<br><?php print($radiovalue);?></p></li>
-   <li><p>Network ID:<br><?php print($keyval);?></p></li>
+   <li class="noHover"><p>Network ID:<br><?php print($keyval);?></p></li>
+   <li><p style="display:inline">Prediction mode</p>
+     <form  method="post" name="form"> 
+    <label><input name="Datatype" type="radio" value=<?php $radioval="Evidence"; echo $radioval; ?> checked <?php echo $S1; ?>" onClick="javascript:this.form.submit();"><p style="display:inline">Evidence<br></p></label>
+      <label><input name="Datatype" type="radio" value=<?php $radioval="Intervention"; echo $radioval; ?> <?php echo $S2; ?>" onClick="javascript:this.form.submit();"><p style="display:inline">Intervention</p></label>
+   </form></li>
+   <li><a href="clear.php?My_key=<?php print($keyval);?>" target='_blank'>Clear evidence</a>
 </ul>
-
-<ul class="navbar">
- <li><a href="clear.php?My_key=<?php print($keyval);?>" target='_blank'>Clear evidence</a>
-<li><a href="cv_predictions.php?My_key=<?php print($keyval);?>";>Cross validation and predictions</a>
-<li><a href="modify_edges.php?My_key=<?php print($keyval);?>" target='_blank'>Modify network structure</a>
-  <li><a href="javascript:void(0);"
-NAME="Model Averaging Matrix" title="Model Averaging Matrix"
-onClick=window.open("matrix.php?My_key=<?php print($keyval);?>","Ratting","width=950,height=270,0,status=0,");>Display structure matrix</a>  
-  <li><a href="javascript:void(0);"
-NAME="Parameters" title="Parameters"
-onClick=window.open("parameter_display.php?My_key=<?php print($keyval);?>","Ratting","width=950,height=270,0,status=0,");>View parameters</a>  
+<ul class="navbar2">
+   <li><a href="cv_predictions.php?My_key=<?php print($keyval);?>";>Cross validation and predictions</a>
+</ul>
+   <button class="accordion">More about network&nbsp;&nbsp;<i class="fa fa-angle-down" style="font-size: 18px;"></i></button>
+<div class="panel">
+<ul class="navbar_ac">
+<li><a href="parameter_display.php?My_key=<?php print($keyval);?>" target='_blank'>View parameters</a>
+<li><a href="violin.php?My_key=<?php print($keyval);?>" target='_blank'>View violin plots of distributions</a>
+  <li><a href="matrix_new.php?My_key=<?php print($keyval);?>" target="_blank">View structure matrix</a>  
+<?php
+$filename1="/var/lib/genenet/bnw/".$keyval."slsettings.txt";
+if(file_exists($filename1))  
+  {?>
+  <li><a href="review_settings.php?My_key=<?php print($keyval);?>" target="_blank">View structure learning settings</a>
+<?php
+}?>  
+  <li><a href="input_check.php?My_key=<?php print($keyval);?>" target="_blank">View input data and descriptions</a>
+ <li><a href="layout_svg_no.php?My_key=<?php print($keyval);?>">Return to simplified network structure</a>
+</ul>
+</div>
+<button class="accordion">Modify network structure&nbsp;&nbsp;<i class="fa fa-angle-down" style="font-size: 18px;"></i></button>
+<div class="panel">
+<ul class="navbar_ac">
+<li><a href="layout_cyto.php?My_key=<?php print($keyval);?>" target='_blank'>Add or remove network edges</a>
 <li><a href="modify_structure_learning.php?My_key=<?php print($keyval);?>" target='_blank';>Modify structure learning settings</a>
+<li><a href="remove_variables.php?My_key=<?php print($keyval);?>" target='_blank';>Select variables to remove and relearn structure</a>
+</ul>
+</div>
+<ul class="navbar2">
+ <li><a href="about_this_page.php#network_predictions" target='_blank'>About this page</a> 
  <li><a href="help.php" target='_blank'>Help</a> 
  <li><a href="../home.php">Home</a>
 </ul>
+
 
 <?php
     //echo "Selected mode:";
@@ -100,11 +111,9 @@ if($radiovalue==$valcompare)
 {
 ?>
 <div  id="outernew">
-
 <object type="text/html" data="network_layout_evd.php?My_key=<?php print($keyval);?>" style="width:3000; height:3000">
 <p>Error: Try again</p>
 </object>
-
 </div>
 <?php
 }

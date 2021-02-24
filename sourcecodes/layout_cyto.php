@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <head>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cytoscape-panzoom/2.5.3/cytoscape.js-panzoom.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+
+<link rel="stylesheet" href="./scripts/cytoscape.js-panzoom.css">
+<link rel="stylesheet" href="./scripts/font-awesome.css">
 
 
 <?php
@@ -11,35 +12,44 @@ include("header_new.inc");
 include("input_validate.php");
 $keyval=valid_keyval($_GET["My_key"]);
 
-$dir="./data/";
+//$dir="./data/";
+//In this case, $dir is used by the json command so it is interpreted and turned into /tmp/bnw/ automatically
+//$dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
 
-$input_json=$dir.$keyval."network.json";
+$input_json=$keyval."network.json";
 $output_png=$keyval."modified_network.png";
 
-
+//In this section, $dir is used by php, so we need to use /tmp/bnw
+//$thrfile="/tmp/bnw/".$keyval."thr.txt";
+$thrfile="/var/lib/genenet/bnw/".$keyval."thr.txt";
+if(file_exists($thrfile))
+  {
+    $thr=file_get_contents("$thrfile");
+    $thr=trim($thr);
+  } else {
+  $thr=0.5;
+}
 ?>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.7.1/cytoscape.min.js"></script>
-<script src="https://unpkg.com/dagre@0.7.4/dist/dagre.js"></script>
-<script src="http://spades.bioinf.spbau.ru/~alla/graph_viewer/js/cytoscape-dagre.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape-panzoom/2.5.3/cytoscape-panzoom.js"></script>
-<!---
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/2.7.29/cytoscape.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.7.1/cytoscape.min.js"></script>
--->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>
+<script src="./scripts/jquery.min.js"></script>
+<script src="./scripts/cytoscape.min.js"></script>
+<script src="./scripts/dagre.js"></script>
+<script src="./scripts/cytoscape-dagre.min.js"></script>
+<script src="./scripts/cytoscape-panzoom.js"></script>
+<script src="./scripts/lodash.js"></script>
 
 
 <style type = "text/css">
-   #cy {
+
+#cy {
    width: 80%;
    height: 80%;
 position: absolute;
 /*float: top;*/
-top: 5em;
-left: 10em;
+top: 3em;
+left: 9em;
 overflow: auto;
 border: 2px solid;
 border-radius: 0.5em;
@@ -61,10 +71,15 @@ display: none;
 }
 
 #filterOut {
-  color: white;
+  color: black;
 }
 
 </style>
+
+<?php
+$json_text = json_encode(file("file://".$dir.$input_json));
+?>
+
 
 <script>
 
@@ -82,11 +97,16 @@ var default_layout = { name: 'dagre',
 		       padding: 30,
 		       spacingFactor: 1.25
   }
+  
 
-  $.getJSON("<?php print($input_json);?>",function (data) {
-  //$.getJSON("./data/cwHnetwork.json",function (data) {
+  //$.getJSON("<?php print($input_json);?>",function (data) {
+  $.getJSON("./data/LRlnetwork.json",function (dumm) {
       //    console.log(data);
     //     document.addEventListener('DOMContentLoaded', function(){
+     var data1 = <?php echo $json_text?>;
+//    console.log(data1); 
+    var data2 = data1.join("");
+     var data = JSON.parse(data2);
       var cy = window.cy = cytoscape({
 	container: document.getElementById('cy'),
 	    elements: data,
@@ -247,7 +267,7 @@ $("#addEdge").click(function (e) {
       return;
     var edge = new Object();
     edge.group = 'edges';
-    edge.data = {source: cy.filter("node.selected1")[0].data('id'), target: cy.$("node.selected2")[0].data('id'), weight: 1};
+    edge.data = {source: cy.filter("node.selected1")[0].data('id'), target: cy.$("node.selected2")[0].data('id'), weight: 1.1};
     cy.add(edge);
     cy.filter("node.selected1").removeClass('selected1',false);
     cy.filter("node.selected2").removeClass('selected2',false);
@@ -268,6 +288,7 @@ $("#deleteEdge").click(function (e) {
       {
        cy.remove(tEdges[i]);
       }
+     eles = cy.filter();
   });
 
 
@@ -342,27 +363,37 @@ $('#pos_slide').change(function (e) {
 
 <body>
 <!-- Site navigation menu -->
-<ul class="navbar2">
-   <li><p>Network ID:<br><?php print($keyval);?></p></li>
-</ul>
-
 <ul class="navbar">
  <li><a id="addEdge" href="#">Add edge between selected nodes</a></li>
     <li><a id="deleteEdge" href="#">Remove selected edges</a></li>
+<?php
+    //$filename1="/tmp/bnw/".$keyval."structure_input_temp.txt";
+    $filename1="/var/lib/genenet/bnw/".$keyval."structure_input_temp.txt";
+if(file_exists($filename1))
+  {?>
  <li><a id="weightFilter" href="#">Filter edges by weight:</a>
   <form name="weightValue">
-  <output name="filterOut" id="filterOut">0.5</output><br>
-  <input type="range" name="weightOutputName" id= "pos_slide" min="0.5" max="1" value ="0.5" step="0.01" list="weight" style="display: inline; width: 120px" oninput="filterOut.value = pos_slide.value">
+    <output name="filterOut" id="filterOut" style="color:black"><?php print($thr);?></output><br>
+  <input type="range" name="weightOutputName" id= "pos_slide" min="<?php print($thr);?>" max="1" value ="<?php print($thr);?>" step="0.01" list="weight" style="display: inline; width: 120px" oninput="filterOut.value = pos_slide.value">
   </form>
   </li>
+<?php
+											}
+?>
  <li><a id="saveNetwork" href="#">Use modified network</a></li>
- <li><a id="downloadNetwork" href="#">Save network as png</a></li>
+</ul>
+<ul class="navbar2">
+   <li class="noHover"><p>Network ID:<br><?php print($keyval);?></p></li>
+ <li><a id="downloadNetwork" href="#">Save network as PNG</a></li>
+</ul>
+<ul class="navbar2">
+ <li><a href="add_remove_howto.htm" target='_blank'>About this page</a> 
  <li><a href="help.php" target='_blank'>Help</a> 
  <li><a href="../home.php">Home</a>
 </ul>
 
 <div id="cy"></div>
-<div = id="loading">
+<div id="loading">
     <span class="fa fa-refresh fa-spin"></spin>
 </div>
 

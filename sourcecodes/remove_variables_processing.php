@@ -6,7 +6,9 @@ function get_tier($keyval)
 {
 
 $tier=trim($_GET['tier']);
-$dir="./data/";
+//$dir="./data/";
+//$dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
 $tf=$dir.$keyval."del_var.txt";
 $fpvar = fopen("$tf","w");
 
@@ -47,7 +49,9 @@ function describe_tier($fpvar,$keyval)
 
 
 $tierdesc=trim($_GET['tierdesc']);
-$dir="./data/";
+//$dir="./data/";
+//$dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
 $tf=$dir.$keyval."tier.txt";
 $tier=file_get_contents("$tf");
 
@@ -190,7 +194,9 @@ if($d1!="" && $d2!="")
 
 
 
-$dir="./data/";
+//$dir="./data/";
+//$dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
 
 //$sid1=$dir.$keyval."ban";
 //$sid2=$dir.$keyval."white";
@@ -228,5 +234,5 @@ shell_exec('./run_scripts/run_del_var '.$oldkey.' '.$keyval);
 ////////////////////////////////////execute structurelearning/////////////////////////////////////////////////////////////////////////////////////////////
 ?>
 <script>
-window.open("create_tiers_gom.php?My_key=<?php print($keyval);?>",'_self',false);
+window.open("create_tiers_gom_part1.php?My_key=<?php print($keyval);?>",'_self',false);
 </script>

@@ -1,7 +1,6 @@
 #!/usr/bin/octave -qf
-cd ./data
-arg_list = argv(); 
-addpath("../bnt-master");
-addpath(genpathKPM("../bnt-master"));
-addpath("../parameter_learning");
+source("./run_scripts/path_cd.m")
+arg_list = argv();
 Predictmultiple(arg_list{1});
+command=cstrcat("/var/www/html/compbio/BNW_1.3/bnw-env/bin/python3 ",base_dir,"/violin_ev_plotly.py ",arg_list{1});
+test=system(command);

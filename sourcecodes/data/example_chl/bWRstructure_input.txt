@@ -1,7 +1,6 @@
-Ctrq3	MAS	Neutrophil	Load	Weight
-0	1	1	1	1
-0	0	1	1	0
-0	0	0	0	1
-0	0	0	0	0
-0	0	0	0	0
-
+Ctrq3	MAS	Neutrophil	Load	Weight	
+0	1	1	1	1	
+0	0	1	1	0	
+0	0	0	0	1	
+0	0	0	0	0	
+0	0	0	0	0	

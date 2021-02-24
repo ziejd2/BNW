@@ -79,7 +79,7 @@ end
 
 filename=strcat(pre,'net_figure_new.txt');
 
-drawFigureM(nnodes,bnet,labels,filename,cases,stdevs,means,select_var_new,select_var_data_new);
+drawFigureM(nnodes,bnet,labels,filename,cases,stdevs,means,select_var_new,select_var_data_new,pre);
 
 writeParameters_ev(pre,bnet,nnodes,labels,cases,stdevs,means,select_var_new,select_var_data_new);
 

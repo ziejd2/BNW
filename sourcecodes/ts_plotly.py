@@ -1,9 +1,6 @@
-#!/home/jziebart/python/Python-2.7.15/python
+#!/var/www/html/compbio/BNW_1.3/bnw-env/bin/python3
 import os
 import sys
-
-#sys.path.append('/home/jziebart/.local/bin')
-#sys.path.append('/home/jziebart/.local/lib')
 
 import plotly
 import plotly.graph_objs as go
@@ -16,21 +13,25 @@ outfile = netID+"ts_plotly.html"
  
 filename=netID+"ts_output.txt"
 f=open(filename,"r")
-#Read the first line to get the variable name
-line=f.readline()
-line = map(string.strip,line.strip().split(" "))
-varName = line[-1]
-
-print varName
+lines=f.readlines()
+#Read the last line to get the variable name
+line=lines.pop()
+#line = map(string.strip,line.strip().split(" "))
+line = line.strip().split(" ")
+varName = line[4][:-1]
+plot_title=varName+" Test Set Predictions"
+#print varName
+header=lines.pop(0)
 
 #Read type file to determine if it is continuous or discrete
 typefile = netID+"type.txt"
 tf=open(typefile,"r")
 line=tf.readline()
-varnames = map(string.strip,line.strip().split("\t"))
-print varnames
+#varnames = map(string.strip,line.strip().split("\t"))
+varnames = line.strip().split("\t")
 line=tf.readline()
-vartypes = map(string.strip,line.strip().split("\t"))
+#vartypes = map(string.strip,line.strip().split("\t"))
+vartypes = line.strip().split("\t")
 varindex = varnames.index(varName)
 cd_type = int(vartypes[varindex])
 
@@ -38,21 +39,33 @@ cd_type = int(vartypes[varindex])
 if cd_type == 1:
     #Make scatterplot for continuous_data
     #Read introductory lines from file
-    for i in range(6):
-        line = f.readline()
+#    for i in range(6):
+#        line = f.readline()
     #Read the data
     x = []
     y = []
-    line = f.readline()
-    while line:
-        line = map(string.strip,line.strip().split("\t"))
+#    line = f.readline()
+#    while line:
+    for line in lines:
+        #line = map(string.strip,line.strip().split("\t"))
+        line = line.strip().split("\t")
         if line[1] != 'NA':     
             x.append(float(line[1]))
             y.append(float(line[2]))
-        line=f.readline()
+#        line=f.readline()
 
     data = [go.Scatter(x=x,y=y,mode='markers')]
     layout = go.Layout(
+        title=plot_title,
+        titlefont=dict(
+            family='Arial, sans-serif',
+            size=24,
+            color='black'
+            ),
+	title_xref="paper",
+	title_x=0.5,
+	title_xanchor="center",
+	title_yanchor="middle",
         xaxis=dict(
             autorange=True,
             title='Actual values',
@@ -70,7 +83,8 @@ if cd_type == 1:
                 size=18,
                 color='black'
                 ),
-            )
+            ),
+        margin=dict(t=30,l=50,b=40)
         )
     fig = go.Figure(data=data, layout = layout)
     plotly.offline.plot(fig,filename=outfile)
@@ -78,17 +92,20 @@ if cd_type == 1:
 else:
     #Make bar chart for discrete data
     #Read introductory lines from file
-    for i in range(5):
-        line = f.readline()
+#    for i in range(5):
+#        line = f.readline()
     #Get names of states
-    line = map(string.strip,line.strip().split("\t"))
-    states = line[2:]
+    #header = map(string.strip,header.strip().split("\t"))
+    header = header.strip().split("\t")
+    states = header[2:]
     #Read the data
     actual = []
     predicted = []
-    line = f.readline()
-    while line:
-        line = map(string.strip,line.strip().split("\t"))
+#    line = f.readline()
+#    while line:
+    for line in lines:
+        #line = map(string.strip,line.strip().split("\t"))
+        line = line.strip().split("\t")
         if line[1] != 'NA':
             actual.append(line[1])
             predict_x = line[2:]
@@ -102,7 +119,7 @@ else:
             if len(max_items) > 1:
                 predicted.pop()
                 actual.pop()
-        line=f.readline()
+#        line=f.readline()
     
     #Go through states and get number of true positives, false positives, and false negatives
     tp_all = []
@@ -125,15 +142,22 @@ else:
         tp_all.append(tp)
         fn_all.append(fn)
         fp_all.append(fp)
-    print tp_all
-    print fn_all
-    print fp_all
     trace1 = go.Bar(x=states,y=tp_all,name="True Positives")
     trace2 = go.Bar(x=states,y=fn_all,name="False Negatives")
     trace3 = go.Bar(x=states,y=fp_all,name="False Positives")
     data = [trace1,trace2,trace3]
     layout = go.Layout(
         barmode='group',
+        title=plot_title,
+        titlefont=dict(
+            family='Arial, sans-serif',
+            size=24,
+            color='black'
+            ),
+	title_xref="paper",
+	title_x=0.5,
+	title_xanchor="center",
+	title_yanchor="middle",
         xaxis=dict(
             autorange=True,
             title='State',
@@ -151,7 +175,8 @@ else:
                 size=18,
                 color='black'
                 ),
-            )
+            ),
+        margin=dict(t=30,l=50,b=40)
     )
     fig = go.Figure(data=data, layout = layout)
     plotly.offline.plot(fig,filename=outfile)

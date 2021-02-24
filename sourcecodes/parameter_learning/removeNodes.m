@@ -59,27 +59,34 @@ if fin2 < 0
    dellabels = {};
    ndel = 0;
 else
-  buffer = fgetl(fin2);    %get header line as a string
-  ndel = numel(strfind(buffer," ")) + 1;
-  dellabels = cell(1,ndel);
-  for j=1:ndel
-    [next,buffer] = strtok(buffer);
-    dellabels{j} = next;
+  buffer = fgetl(fin2);    %get first line as a string
+  if buffer < 0
+    dellabels = {};
+    ndel = 0;
+  else
+    ndel = numel(strfind(buffer," ")) + 1;
+    dellabels = cell(1,ndel);
+    for j=1:ndel
+      [next,buffer] = strtok(buffer);
+      dellabels{j} = next;
+    end
   end
 end
 
 %get index of variables to delete
-delindex = [];
-for j=1:nnodes
-  for k = 1:ndel
-    if strcmp(labels{j},dellabels{k})
-      delindex = [delindex;j];
-    endif
-  end
-end
+if ndel > 0
+  delindex = [];
+  for j=1:nnodes
+    for k = 1:ndel
+      if strcmp(labels{j},dellabels{k})
+	delindex = [delindex;j];
+      endif
+    end
+   end
 
-labels(:,[delindex])=[];
-data(:,[delindex])=[];
+   labels(:,[delindex])=[];
+   data(:,[delindex])=[];
+end
 
 outfile = strcat(pre_new,'continuous_input_orig.txt');
 fout = fopen(outfile,'w');

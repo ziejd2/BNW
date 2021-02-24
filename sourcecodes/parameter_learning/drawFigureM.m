@@ -1,4 +1,4 @@
-function [] = drawFigureM(nnodes,bnet,labels,filename,cases,stdevs,means,selectvar,selectdata)
+function [] = drawFigureM(nnodes,bnet,labels,filename,cases,stdevs,means,selectvar,selectdata,pre)
 %drawFigureM writes the parameters and data that are needed to draw the
 %structure of a Bayesian network after adding evidence or intervention
 %It creates the net_figure_new file after evidence/intervetion.
@@ -50,6 +50,11 @@ x = x - min(x);
 y = 1 - y;
 y = y - min(y);
 [x_dim,y_dim] = canvasSize(nnodes,x,y);
+
+%Open file to write violin plot data
+violin_file = strcat(pre,'violin_evidence.txt');
+vfile = fopen(violin_file,'w');
+
 
 %%% The dimensions of the canvas for the javascript code
 fprintf(fileID,'%i\t%i\t\n',x_dim,y_dim);
@@ -141,7 +146,22 @@ for i = 1:nnodes,
             fprintf(fileID,'%i\t%6.4f\n',j,predict.T(j));
         end;
       else
-        [x_vals,y_vals] = calcGaussian(predict.mu,predict.Sigma,Amax(i),Amin(i));
+        %% The name of the node for the violin plot data
+        if bnet.node_sizes(i) == 1;
+            fprintf(vfile,'Data for new node\n');
+            fprintf(vfile,'%s\n',labels{i});
+        end
+
+        %Get random samples from normals to make violin plots
+        violin_data = normrnd(predict.mu,sqrt(predict.Sigma),1000,1);
+        %violin_data = normrnd(s.mean(j),sqrt(s.cov(j)),1000,1);
+        for k = 1:size(violin_data)
+            fprintf(vfile,'%6.4f\n',violin_data(k));
+        end
+
+
+
+        [x_vals,y_vals] = calcGaussian(predict.mu,sqrt(predict.Sigma),Amax(i),Amin(i));
         %%%For continuous nodes, print x and the pdf of a normal curve.
         for j = 1:101,
             %%Undo standardization
@@ -160,6 +180,7 @@ for i = 1:nnodes,
 end
 
 fclose(fileID);
+fclose(vfile);
 end
 
 

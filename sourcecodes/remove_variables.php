@@ -7,7 +7,9 @@ include("runtime_check.php");
 include("input_validate.php");
 $keyval=$_GET["My_key"];
 
-$dir="./data/";
+//$dir="./data/";
+//$dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
 
 $type_n=array();
 
@@ -89,14 +91,6 @@ $runtime=exe_time($keyval,$parent_number,$k_number);
 ?>
 <!-- Site navigation menu -->
 <ul class="navbar2">
-  <li><p onClick="getcombineDescriptionDefault(ntiers,'ban_from','ban_to','white_from','white_to','<?php print($keyval);?>')"><a href="javascript:void(0)" >Perform structure learning with default settings</a></p>
-  <li><p onClick="getcombineDescription(ntiers,'ban_from','ban_to','white_from','white_to','<?php print($keyval);?>')"><a href="javascript:void(0)" >Go to structural constraint interface</a></p>
-  <li><a href="javascript:void(0);"
-NAME="InputCheck" title="InputCheck"
-    onClick=window.open("input_check.php?My_key=<?php print($keyval);?>","Ratting","width=950,height=270,0,status=0,");>View uploaded variables and data</a>
-</ul>
-<ul class="navbar">
-  <li><a href="help.php#constraint_interface" target="_blank">How to use this page</a>
   <li><a href="help.php" target="_blank">Help</a>
   <li><a href="home.php">Home</a>
 
@@ -107,14 +101,14 @@ NAME="InputCheck" title="InputCheck"
 <?php
 
 
-if(isset($HTTP_POST_VARS["bantext"]))
+if(isset($_POST["bantext"]))
 {
-   $ban_search=$HTTP_POST_VARS["searchkey"];
+   $ban_search=$_POST["searchkey"];
 }
 
-if(isset($HTTP_POST_VARS["whitetext"]))
+if(isset($_POST["whitetext"]))
 {
-   $white_search=$HTTP_POST_VARS["searchkey"];
+   $white_search=$_POST["searchkey"];
 }
 
 ?>
@@ -133,7 +127,7 @@ if(isset($HTTP_POST_VARS["whitetext"]))
                 position:absolute;
                 left:215px;
                 white-space: nowrap; 
-                min-width: 3000px;
+                min-width: 80%;
                 float:top;
                 }
 
@@ -177,7 +171,7 @@ if(isset($HTTP_POST_VARS["whitetext"]))
                 left: 215px;
                 width:449px;
 		border: 2px solid;
-                background-color:#C0C0C0;
+                background-color:LightGrey;
 		font-weight:bold;
                 margin-left:15px;
 	}
@@ -196,7 +190,7 @@ if(isset($HTTP_POST_VARS["whitetext"]))
                 left:700px;
                 width:449px;
 		border: 2px solid;
-                background-color:#C0C0C0;
+                background-color:LightGrey;
 		font-weight:bold;
 	}
         #white_from {
@@ -243,7 +237,8 @@ if(isset($HTTP_POST_VARS["whitetext"]))
 		margin-left:10px;
 		margin-top:10px;
 		border: 2px dashed;
-                background-color:#C0C0C0;
+                background-color:LightGrey;
+		text-align:center;
 	}
 	.node2 {
 		width:150px;
@@ -838,7 +833,8 @@ function getcombineDescription(ntiers,ban_from,ban_to,white_from,white_to,keyv)
 {
   ntiers = 1;
   var tier=getNodesInTiers(ntiers);
-  var txtFile="./data/"+keyv+"del_var.txt";
+  //  var txtFile="./data/"+keyv+"del_var.txt";
+  var txtFile="/var/lib/genene/bnw/"+keyv+"del_var.txt";
   //var file = new File(txtFile);
   //file.open("w");
   //file.write(tier);
@@ -855,7 +851,8 @@ function getcombineDescriptionDefault(ntiers,ban_from,ban_to,white_from,white_to
 {
   ntiers = 1;
   var tier=getNodesInTiers(ntiers);
-  var txtFile="./data/"+keyv+"del_var.txt";
+  var txtFile="/tmp/bnw/"+keyv+"del_var.txt";
+  //var txtFile="./data/"+keyv+"del_var.txt";
   //var file = new File(txtFile);
   //file.open("w");
   //file.write(tier);
@@ -912,59 +909,18 @@ function clearBWLists()
 
 <body onload="loadFunction(nnodes,ntiers)">
 </br>
-        <p><h3>Select variables to remove:<br></h3>
+       <p><h3>Drag variables into appropriate boxes and select option below:<br></h3>
          </p>
         <br>
         <div id="tier_box">
         <div id="tiers"></div>
        
        </div>
+         <p onClick="getcombineDescriptionDefault(ntiers,'ban_from','ban_to','white_from','white_to','<?php print($keyval);?>')"><a class=button3 href="javascript:void(0)" >Perform structure learning with default settings</a></p>
+  <p onClick="getcombineDescription(ntiers,'ban_from','ban_to','white_from','white_to','<?php print($keyval);?>')"><a class=button3 href="javascript:void(0)" >Go to structural constraint interface</a></p>
 
-<!--
-           
-       <div id="outer_tier_desc1">
-       <p><h3>3. Define interactions allowed between tiers:<br></h3> 
-       </p>
-       <br>
-       <div id="int_box1">
-       </div>
-       <br>
-       <div id="int_box2">
-       </div>
-       <br>
-       <div id="int_box3">
-       </div>
-       <br>
-       <div id="int_box4">
-       </div>
-       </div>
-       <br>
-       <br>
-       <br>
 
-        <div id="outer_box_lists">
-       <p><h3>4. Specify additional constraints:<br></h3>
-       </p>         
-       <br>
-       <div><input type="button" value="Clear lists of banned and required edges" onClick="clearBWLists()"/></div><br>
-        <div id="nodelist2" ondrop="return false"
-        ondragcenter="return false" ondragover="return false" >Nodes<br>
-        </div>
-         
-        <div id="ban_outer">Banned edges<br>
-        <div id="ban_from" class="tier" ondrop="return dropCopy(event)"
-        ondragenter="return false" ondragover="return false">From<br></div>
-        <div id="ban_to" class="tier" ondrop="return dropCopy(event)"
-        ondragenter="return false" ondragover="return false">To<br></div>
-        </div>
-        <div id="white_outer">Required edges<br>
-        <div id="white_from" class="tier" ondrop="return dropCopy(event)"
-        ondragenter="return false" ondragover="return false">From<br></div>
-        <div id="white_to" class="tier" ondrop="return dropCopy(event)"
-        ondragenter="return false" ondragover="return false">To<br></div>
-        </div>
--->
-
+<br>
         </div>
        
         <br>

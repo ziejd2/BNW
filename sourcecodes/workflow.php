@@ -8,8 +8,8 @@ include("header_new.inc");
 ?>
 
 <!-- Site navigation menu -->
-<ul class="navbar">
-  <li><a href="bn_file_load_gom.php">Learn a network model from data</a>
+<ul class="navbar2">
+  <li><a href="bn_file_load_gom.php">Load data and begin modeling</a>
   <li><a href="home_upload.php">Make predictions using a known structure</a>  
   <li><a href="help.php">Help</a>
   <li><a href="faq.php">FAQ</a>
@@ -21,22 +21,20 @@ include("header_new.inc");
 <div id="outer">
 <!-- Main content -->
 <br>
-<h1>Tutorials and example networks</h1>
-<br>
+<h2>Tutorials and example networks</h2>
 <br>
 <h3>Tutorials<br></h3>
 <p align="justify"> 
 <ul class="listbar">
-  <li>Tutorial 1: Using BNW to learn a network structure and make predictions with the model. [<a href="BNW_workflow_net1.htm">View tutorial</a>] [<a href="example.php?My_key=example2|hQG" target="_blank">View network</a>]</li>
-  <li>Tutorial 2:</a> A more in-depth look at the BNW structural constraint interface. [<a href="BNW_workflow_sci.htm">View tutorial</a>] [<a href="example.php?My_key=example_sci|Llu" target="_blank">View network</a>]</li>
+  <li>Tutorial 1: Using BNW to learn a network structure and make predictions with the model. [<a href="BNW_workflow_net1.htm" target="_blank">View tutorial</a>] [<a href="example.php?My_key=example2|hQG" target="_blank">View network</a>]</li>
+  <li>Tutorial 2:</a> A more in-depth look at the BNW structural constraint interface. [<a href="BNW_workflow_sci.htm" target="_blank">View tutorial</a>] [<a href="example.php?My_key=example_sci|Llu" target="_blank">View network</a>]</li>
 <!--  <li><a href="structure_learning2.htm">Work flow diagram 2:</a> Global optimal search based structure learning.
   <li><a href="Prediction.htm">Work flow diagram 3:</a> Entering evidence data and predictions.
 --> 
 </ul>
 </p>
 <br>
-<br>
-<h3>Examples<br></h3>
+<h3>Example networks<br></h3>
 <p align="justify"> 
 <ul class="listbar">
   <li>Example 1: Genetic network of immune-related gene in the spleens of BXD mice. [<a href="examples/spleen_immune_example.php">Description</a>]  [<a href="example.php?My_key=example_chr2_spleen|cuL" target="_blank">View network</a>]</li>

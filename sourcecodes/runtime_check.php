@@ -3,7 +3,9 @@
 function exe_time($keyval,$parent_number,$k_number)
 {
 
-$dir="./data/";
+  //$dir="./data/";
+  //$dir="/tmp/bnw/";
+  $dir="/var/lib/genenet/bnw/";
 
 $nrf = $dir.$keyval."nrows.txt";
 $nrows=trim(file_get_contents("$nrf"));

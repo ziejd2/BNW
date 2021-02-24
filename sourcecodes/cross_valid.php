@@ -1,11 +1,19 @@
+<head>
+<meta http-equiv='cache-control' content='no-cache'> 
+<meta http-equiv='expires' content='0'> 
+<meta http-equiv='pragma' content='no-cache'> 
+<script src="./scripts/d3.v4.min.js"></script>
+<script src="./scripts/create_table.js"></script>
 <?php 
 include("header_new.inc");
+include("header_batchsearch.inc");
 include("input_validate.php");
 $keyval=$_GET["My_key"];
 if($keyval!='') {
   $keyval = valid_keyval($keyval);
 }
 ?>
+</head>
 
 <?php
 $varName = "";
@@ -38,12 +46,18 @@ function test_input($data) {
 }
 ?>
 
+<?php
+$varName_file = "/var/lib/genenet/bnw/".$keyval."name.txt";
+$varName_line = file_get_contents($varName_file);
+$varNamesArr = explode("\t",$varName_line);
+?>
+
+
+
 
 <!-- Site navigation menu -->
 <ul class="navbar2">
-  <li><p>Network ID:<br><?php print($keyval);?></p></li>
-</ul>
-<ul class="navbar">
+  <li class="noHover"><p>Network ID:<br><?php print($keyval);?></p></li>
   <li><a href="javascript:void(0);"
   NAME="Network" title="Network" onClick=window.open("layout.php?My_key=<?php print($keyval);?>","_self");>Return to network</a>
   <li><a href="javascript:void(0);"
@@ -52,14 +66,22 @@ function test_input($data) {
   <li><a href="home.php">Home</a>
 </ul>
 
+<body>
 
 <!-- Main content -->
 <div id="outer">
 
 <?php
-  $filename1="./data/".$keyval."looCV.txt";
-  $filename2="./data/".$keyval."looCV_temp.txt";
-if(file_exists($filename2))
+  //  $filename1="./data/".$keyval."looCV.txt";
+  //  $filename2="./data/".$keyval."looCV_temp.txt";
+//  $dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
+$filename1=$keyval."looCV.txt";
+$filename2=$keyval."looCV_temp.txt";
+   $plotly_file=$keyval."loo_plotly.html";
+//   $plotly_file_local = "./data/".$keyval."loo_plotly.html";
+//   $pred_file_local = "./data/".$keyval."looCV.txt";
+if(file_exists($dir.$filename2))
  {?>
 <br>
   <h2> Leave-one-out cross-validation results are being calculated</h2>
@@ -68,30 +90,48 @@ if(file_exists($filename2))
 <br>
 <?php
  }
- else if(file_exists($filename1))
- {?>
-    <h2> <a href=<?php $d="./data/".$keyval."looCV.txt"; print($d);?>>Download cross-validation results</a></h2>   
-<?php
-   $plotly_file="./data/".$keyval."loo_plotly.html";
-   if(file_exists($plotly_file))
-     {?>
+ else if(file_exists($dir.$filename1))
+ {
+ $file_data = file_get_contents($dir.$plotly_file);
+
+ ?>
      <div>
-	 <object type="text/html" data=<?php print($plotly_file);?> width="800" height="500" >
+	  <object width="800" height="500" data=<?=$file_data?>
          </object>
      </div>
- <?php
-      }?>    
+<?php
+$table_text = json_encode(file("file://".$dir.$filename1));
+?>
+     <div class="d3_table" id="table_div1">
+     <script type="text/javascript">
+	d3.text("", function(error,raw) {
+	    var dsv=d3.dsvFormat("\t")
+	      var data1 = <?php echo $table_text;?>;
+              var data2 = data1.join("");
+              var data=dsv.parse(data2)
+	      var caption_text=data.pop()
+	      if (error) throw error;
+	    tabulate_caption("#table_div1",data,caption_text.CaseRow);
+	  });
+</script>
+</div>
+<br>
+    <a class=button2 href=<?php print("reroute.php?".$filename1);?>>Download cross-validation results</a>
+<br>
 <br>
 <h3>Perform leave-one-out cross-validation of another network variable<br></h3>
-<p align="justify"> 
- Enter the name of another variable below to validate predictions of that variable.
-<br>
 <p><span class="error"></span></p>
-<FORM METHOD="post" ACTION="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    Variable Name:<INPUT TYPE="text" name="varName" value="<?php echo $varName;?>" style="padding: 2px 5px; border: 2px solid; border-color: black black black black; font-family: Georgia, ..., serif; font-size: 18px;
-display: block; height: 30px; width: 300px;"><span class="error"> <?php if($varNameErr!="1") {echo $varNameErr;};?></span>
+<FORM METHOD="post" id=form ACTION="<?php $location = htmlspecialchars($_SERVER["PHP_SELF"]); echo ''.$location.'#form';?>">
+<p style='font-size:18px'>Select variable name:</p>
+<select style='font-size:18px' Name="varName">
+ <?php foreach($varNamesArr as $entry){
+     echo "<option value='".$entry."'>$entry</option>";
+   }?>
+</select>
 <input type='hidden' name='My_key' value='<?php print($keyval)?>'>
-<br><input type="submit" name="submit" value="Submit" style="display: block; height: 30px; width:100px; font-family: Georgia, ..., serif; font-size: 16px;">
+<input class=button2 type="submit" name="submit" value="Submit" style="font-size:18px">
+<br><br>
+</FORM>
 </FORM>
 </p>
 <br>
@@ -99,15 +139,21 @@ display: block; height: 30px; width: 300px;"><span class="error"> <?php if($varN
      } else {
 ?>
 <h2>Perform leave-one-out cross-validation of network</h2>
-<p align="justify"> 
-  To perform cross-validation, enter the name of the variable that you want to test the predictions of below.
+
+<p align="justify" style='font-size:18px'>
+  Select the variable that you want to examine the predictions of below.
+<br>
 <br>
 <p><span class="error"></span></p>
 <FORM METHOD="post" ACTION="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    Variable Name:<INPUT TYPE="text" name="varName" value="<?php echo $varName;?>" style="padding: 2px 5px; border: 2px solid; border-color: black black black black; font-family: Georgia, ..., serif; font-size: 18px;
-display: block; height: 30px; width: 300px;"><span class="error"> <?php if($varNameErr!="1") {echo $varNameErr;};?></span>
+<p style='font-size:18px'> Select variable name:</p><br>
+<select style='font-size:18px' Name="varName">
+ <?php foreach($varNamesArr as $entry){
+     echo "<option value='".$entry."'>$entry</option>";
+   }?>
+</select>
 <input type='hidden' name='My_key' value='<?php print($keyval)?>'>
-<br><input type="submit" name="submit" value="Submit" style="display: block; height: 30px; width:100px; font-family: Georgia, ..., serif; font-size: 16px;">
+<input class=button2 type="submit" name="submit" value="Submit" style="font-size:18px">
 </FORM>
 </p>
 <br>
@@ -123,9 +169,7 @@ if($varNameErr=="1")
   $pred_link='cv_predictions.php?My_key='.$keyval;
   sleep(1);
   echo "<br>";
-  echo "Calculation submitted";
-  echo "<br>";
-  echo "<a href=$pred_link>Click to return to cross-validation and predictions menu</a>";
+  echo "<a class=button3 href=$pred_link>Calculation submitted. Click here to return to cross-validation and predictions menu.</a><br><br>";
 }
 ?>
 

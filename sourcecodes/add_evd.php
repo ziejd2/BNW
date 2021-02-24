@@ -39,7 +39,9 @@ foreach($leve_l as $l)
 function mapid($name,$keyval)
 {
 
-$dir="./data/";
+  //$dir="./data/";
+//$dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
 $nm=$dir.$keyval."mapdata.txt";
 $namelist=file_get_contents("$nm");
 
@@ -65,7 +67,9 @@ return $val;
 }
 
 
-$dir="./data/";
+//$dir="./data/";
+//$dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
 
 $lfile=$dir.$keyval."nlevels.txt";
 $dmapdata=file_get_contents($lfile);   

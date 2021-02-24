@@ -6,12 +6,33 @@ function get_tier($keyval)
 {
 
 $tier=trim($_GET['tier']);
-$dir="./data/";
+//$dir="./data/";
+//$dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
 $tf=$dir.$keyval."tier.txt";
 $fpvar = fopen("$tf","w");
-
 fwrite($fpvar,"$tier");
 fclose($fpvar);
+
+$tierdesc=trim($_GET['tierdesc']);
+$tdf=$dir.$keyval."tierdesc.txt";
+$fpvard = fopen("$tdf","w");
+fwrite($fpvard,"$tierdesc");
+fclose($fpvard);
+
+$ban=trim($_GET['ban']);
+$banf=$dir.$keyval."ban.txt";
+$fpvarban = fopen("$banf","w");
+fwrite($fpvarban,"$ban");
+fclose($fpvarban);
+
+$white=trim($_GET['white']);
+$whitef=$dir.$keyval."white.txt";
+$fpvarwhite = fopen("$whitef","w");
+fwrite($fpvarwhite,"$white");
+fclose($fpvarwhite);
+
+
 }
 
 
@@ -47,7 +68,9 @@ function describe_tier($fpvar,$keyval)
 
 
 $tierdesc=trim($_GET['tierdesc']);
-$dir="./data/";
+//$dir="./data/";
+//$dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
 $tf=$dir.$keyval."tier.txt";
 $tier=file_get_contents("$tf");
 
@@ -135,9 +158,8 @@ $di++;
 }
 
 
-function banlist($fpvar)
+function banlist($fpvar,$ban)
 {
-$ban=trim($_GET['ban']);
 $data=array();
 $data=explode(",",$ban);
 $n=count($data);
@@ -158,10 +180,9 @@ for ($i=0;$i<$n;$i+=2)
 
 }
 
-function whitelist($fpvar)
+function whitelist($fpvar,$white)
 {
 
-$white=trim($_GET['white']);
 
 
 
@@ -189,11 +210,19 @@ if($d1!="" && $d2!="")
 /////////////////////Call functions//////////////////////
 
 
+$white=trim($_GET['white']);
+$ban=trim($_GET['ban']);
 
-$dir="./data/";
+get_tier($keyval);
+shell_exec('./run_scripts/run_settings '.$keyval);
+
+//$dir="./data/";
+//$dir="/tmp/bnw/";
+$dir="/var/lib/genenet/bnw/";
 
 $sid1=$dir.$keyval."ban";
 $sid2=$dir.$keyval."white";
+
 
 $Textban=$sid1.".txt";
 $Textwhite=$sid2.".txt";
@@ -203,10 +232,9 @@ $datpost="From\tTo\n";
 fwrite($fpb,"$datpost");
 fwrite($fpw,"$datpost");
 
-get_tier($keyval);
 describe_tier($fpb,$keyval);
-banlist($fpb);
-whitelist($fpw);
+banlist($fpb,$ban);
+whitelist($fpw,$white);
 
 
 ////////////////////////////////////execute structurelearning/////////////////////////////////////////////////////////////////////////////////////////////

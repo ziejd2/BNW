@@ -5,9 +5,6 @@ include("header_new.inc");
 
 <!-- Site navigation menu -->
 <ul class="navbar2">
-<li><a href="upload_structure_file.php">Upload data and structure files</a>
-</ul>
-<ul class="navbar">
   <li><a href="help.php#file_format" target="_blank">Data formatting guidelines</a>
   <li><a href="help.php" target="_blank">Help</a>
   <li><a href="home.php">Home</a>
@@ -16,16 +13,14 @@ include("header_new.inc");
 <div id="outer">
 <!-- Main content -->
 <br>
-<br>
-<h1>Investigate networks with a known structure</h1>
+<h2>Investigate networks with a known structure</h2>
 <br>
 <p align="justify"> 
   BNW can be used to study and make predictions for models with a known structure. To use this feature, click the "Upload data and structure files" button below to upload the file containing the data for each of the variables in the network. Then, upload a file containing the network structure. Guidelines for formatting the data and structure data files can be found <a href="help.php#file_format">here</a>.
 <br>
 <br>
 <FORM METHOD="LINK" ACTION="upload_structure_file.php">
-<INPUT TYPE="submit" VALUE="Upload data and structure files" style="color: #fff; padding: 2px 5px; border: 2px solid; border-color: black black black black; background-color: #33339f; font-family: Georgia, ..., serif; font-size: 18px;
-display: block; height: 30px; width: 300px;">
+<INPUT TYPE="submit" class=button2 VALUE="Upload data and structure files">
 </FORM>
 </p>
 <br>

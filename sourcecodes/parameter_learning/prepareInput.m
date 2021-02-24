@@ -1,6 +1,5 @@
 function  [ ] = prepareInput( pre )
-   % Jan. 2019: Modifying to allow for missing data.
-   %   
+   % 
    %  This function takes files that are uploaded to BNW and creates output
    %    files that can be used for structure and parameter learning.
    %  It replaces php code that was previously in bn_file_load_gom.php.
@@ -32,12 +31,13 @@ function  [ ] = prepareInput( pre )
    %           of states), and the rest is the data.
    %    2) A new output file is ???input_desc.txt, a file that describes the
    %        data so users can check that it has been parsed correctly.
-   %    3) ???nlevels.txt: The states of discrete variables.
-   %    4) ???name.txt: The names of the variables as uploaded.
-   %    5) ???type.txt: The number of states for each variables
+   %    3) ???input_table.txt Similar to above file, but in tabular format.
+   %    4) ???nlevels.txt: The states of discrete variables.
+   %    5) ???name.txt: The names of the variables as uploaded.
+   %    6) ???type.txt: The number of states for each variables
    %            (1 indicates a continuous variable.)
-   %    6/7) ???nnode.txt and ???nrows.txt: number of nodes and cases
-   %    8-12) ???ban.txt, ???white.txt, ???k.txt, ???thr.txt, and
+   %    7/8) ???nnode.txt and ???nrows.txt: number of nodes and cases
+   %    9-13) ???ban.txt, ???white.txt, ???k.txt, ???thr.txt, and
    %          ???parent.txt: Files with default values for structure learning. 
    %
    % It is called by the run_prep_input script in the 'sourcecodes' directory.
@@ -54,6 +54,7 @@ end
 % Get the number of cases (the number of rows in the file excluding the header)
 ncases = fskipl(fin,Inf) - 1;
 
+
 frewind(fin);
 
 % Read in first line to get the number of nodes and the node labels.
@@ -65,6 +66,8 @@ for j=1:nnodes
     labels{j} = next;
 end
 
+
+
 % Read in the data
 data = cell(ncases,nnodes);
 for i = 1:ncases
@@ -75,10 +78,24 @@ for i = 1:ncases
     end
 end
 
+%Read one more line of the file to make sure that
+% it does not contain a final line of data
+buffer = fgetl(fin);
+if length(buffer) > 1
+    ncases = ncases + 1;
+    for j = 1:nnodes
+         [next,buffer] = strtok(buffer);
+         data{ncases,j} = next;
+    end
+end
+  
+
+
 % Remove all rows that have missing data from data file
 remove_count = sum(any(strcmp(data,"NA"),2));
 data(any(strcmp(data,"NA"),2),:)=[];
 ncases = ncases - remove_count;
+
 
 % Determine whether or not the nodes are continuous or discrete.
 % First, treat them as all discrete and get the states and number of stats(levels).
@@ -89,36 +106,54 @@ for j = 1:nnodes
    levels{j} = size(states{j},1);
 end
 
+
+
+% Remove any variables that have a single variable
+remove_labels = cell(1,nnodes);
+remove = [];
+for j = 1:nnodes
+  if levels{j} == 1
+    remove_labels{j} = labels{j};
+    remove(end+1) = j;
+  end
+end
+
+nnodes = nnodes - size(remove,2);
+data(:,remove)=[];
+labels(remove) = [];
+levels(remove) = [];
+states(:,remove) = [];
+
 reason = cell(1,nnodes);
 %Now do some checks to see if nodes are discrete or continuous
 for j = 1:nnodes
     % If there are 3 or less unique values, I will assume that the node is discrete.
     if levels{j} < 4;
-        reason{j} = "It was determined to be discrete because there are a small number (<4) of possible values.";
+        reason{j} = "Small number (<4) of possible values";
         continue
     % If there are as many unique values as a third of the number of cases,
     %      I will assume that the node is continuous.
     elseif levels{j} > ncases/3;
        levels{j} = 1;
-       reason{j} = "It was determined to be continuous because there are a large number of possible values compared to the number of cases.";
+       reason{j} = "Large number of possible values compared to the number of cases";
        continue
     % If there are more than twenty unique values,
     %      I will assume that the node is continuous.
     elseif levels{j} > 20;
        levels{j} = 1;
-       reason{j} = "It was determined to be continuous because there are many (>20) possible values.";
+       reason{j} = "Many (>20) possible values";
        continue
     % Otherwise, I will scan through the individual values.
     % If any of the values contain a '.', I will assume it is continuous.
     else
-       reason{j} = "It was determined to be discrete by default.";
+       reason{j} = "Default classification";
        period_test = 0;
        column = data(:,j);
        k = 1;
        while period_test == 0 
            period_test = sum(cell2mat(strfind(column(k),".")));
            if period_test != 0;
-              reason{j} = "This variable was determined to be continuous because there were several possible values and at least one value contained a period(.).";
+              reason{j} = "At least one value contained a period(.).";
               levels{j} = 1;
            end
            k++;
@@ -128,6 +163,8 @@ for j = 1:nnodes
         end
     end
 end
+
+
 
 %I need to check if any discrete nodes are listed after continuous nodes.
 %If so, I need to rearrange the columns.
@@ -174,7 +211,6 @@ if max_disc > min_cont
   end
   
 endif
-
 
 %Write other files that are used by BNW for this key.
 %The first group of files establish default settings for structure learning.
@@ -241,14 +277,24 @@ for i = 1:nnodes
 end
 fclose(fout);
 
-
 %Print a file with a short description of the input.
 descfile = strcat(pre,'input_desc.txt');
 dout = fopen(descfile,'w');
+tablefile = strcat(pre,'input_table.txt');
+dout_table = fopen(tablefile,'w');
 fprintf(dout,['As loaded, the input file had the following properties:\n\n']);
-dout = fopen(descfile,'a');
+if size(remove,1) > 0
+	fprintf(dout,['The following variables were removed because they contained only one value:\n']);
+	for j = 1:size(remove_labels,2)
+		if remove_labels{j}!= 1
+		  fprintf(dout,'%s\n',remove_labels{j});
+		end
+	end
+	fprintf(dout,['\n']);
+end
 fprintf(dout,'There are %i variables and %i cases(rows).\n',size(labels,2),ncases);
 fprintf(dout,'%i cases(rows) have been removed because they contained NA (missing data).\n',remove_count);
+fprintf(dout_table,'Variable\tType\tStates/Mean (St Dev)\tReason for classification\n');
 fprintf(dout,'The variable names are:\n');
 fprintf(dout,'%s\t',labels{1:end-1});
 fprintf(dout,'%s\n\n',labels{end});
@@ -259,16 +305,20 @@ for i=1:nnodes
        column = str2double(data(:,i));
        colmean = mean(column);
        colstd = std(column);
-       fprintf(dout,'It has a mean of %6.3f and a standard deviation of %6.3f\n\n',mean(column),std(column))
+       fprintf(dout,'It has a mean of %6.3f and a standard deviation of %6.3f\n\n',mean(column),std(column));
+       fprintf(dout_table,'%s\tContinuous\t%6.3f (%6.3f)\t%s\n',labels{i},mean(column),std(column),reason{i});
     else 
        fprintf(dout,'%s is a discrete variable with %i states.\n',labels{i},levels{i});
        fprintf(dout,'%s\n',reason{i});
        fprintf(dout,'The states are: ');
        fprintf(dout,'%s ',states{i}{1:end-1});
        fprintf(dout,'%s\n\n',states{i}{end});
+       fprintf(dout_table,'%s\tDiscrete\t%i\t%s\n',labels{i},levels{i},reason{i});
     end
 end
-fclose(fout);
+fprintf(dout_table,'There are %i variables and %i cases; %i variables and %i rows were removed.\n',size(labels,2),ncases,size(remove,1),remove_count);
+fclose(dout);
+fclose(dout_table);
 
 outfile = strcat(pre,'continuous_input.txt');
 fout = fopen(outfile,'w');

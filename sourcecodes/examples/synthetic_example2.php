@@ -7,8 +7,8 @@ if($key=="")
 include("../header_new.inc");
 ?>
 <!-- Site navigation menu -->
-<ul class="navbar">
-  <li><a href="../bn_file_load_gom.php">Learn a network model from data</a>
+<ul class="navbar2">
+  <li><a href="../bn_file_load_gom.php">Load data and begin modeling</a>
   <li><a href="../home_upload.php">Make predictions using a known structure</a>  
   <li><a href="../help.php">Help</a>
   <li><a href="../faq.php">FAQ</a>

@@ -23,8 +23,12 @@ $keyval=valid_keyval($_GET["My_key"]);
 /////////////////////////////////structure matrix//////////////////////////////////////////////////////////
 
 
-$matfile="./data/".$keyval."structure_input.txt";
-$fout=fopen("./data/".$keyval."graphviz.txt","w");
+//$matfile="./data/".$keyval."structure_input.txt";
+//$fout=fopen("./data/".$keyval."graphviz.txt","w");
+//$matfile="/tmp/bnw/".$keyval."structure_input.txt";
+//$fout=fopen("/tmp/bnw/".$keyval."graphviz.txt","w");
+$matfile="/var/lib/genenet/bnw/".$keyval."structure_input.txt";
+$fout=fopen("/var/lib/genenet/bnw/".$keyval."graphviz.txt","w");
 
 $matrix1=file_get_contents("$matfile");           
 $str_arrmat=array();
@@ -36,13 +40,15 @@ $dataname=array();
 $dataname=explode("\t",$str_arrmat[0]);
 $n=count($dataname);
 
-$initialstring="digraph G {\n"."size=\"10,10\";  ratio = fill;\n"."node [shape=square,width=1.5];\n";
+$initialstring="digraph G {\n"."size=\"6,8\";\n"."node [shape=square,width=1.5];\n";
 $endstring="}";
 fwrite($fout,"$initialstring");
 //fwrite($fouttemp,"$initialstring_temp");
 
 
-$g_file_name="./data/".$keyval."grviz_name_file.txt";
+//$g_file_name="./data/".$keyval."grviz_name_file.txt";
+//$g_file_name="/tmp/bnw/".$keyval."grviz_name_file.txt";
+$g_file_name="/var/lib/genenet/bnw/".$keyval."grviz_name_file.txt";
 $grviz_name_file=fopen($g_file_name,"w");
 
 for($i=0;$i<$n;$i++)
@@ -75,23 +81,12 @@ for($i=1;$i<=$n;$i++)
      
 } 
 fwrite($fout,"$endstring");   
-//fwrite($fouttemp,"$endstring");
- 
-//shell_exec('/usr/bin/dot -Tpng -o /var/www/html/compbio/BNW/graphviz.jpg /var/www/html/compbio/BNW/graphviztemp.txt');
 
-$file1="./data/".$keyval."run_initialstructure.sh";
-$initiallines=file_get_contents("./data/temp_shell_file_initial_structure");
-$all_lines="$initiallines"."$keyval\nfi\nexit";
-$fp = fopen($file1,"w"); 
-fwrite($fp, "$all_lines\n");
-fclose($fp);
-//prepare and execute shell script for matlab with a write lock
-//$cmd="./runmat.sh $keyval";
-//system($cmd);
 shell_exec('./run_scripts/run_octave '.$keyval);
+ 
 ?>
 <script>
-window.open("layout.php?My_key=<?php print($keyval);?>",'_self',false);
+window.open("layout_svg_no.php?My_key=<?php print($keyval);?>",'_self',false);
 </script>
 
 

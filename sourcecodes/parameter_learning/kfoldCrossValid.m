@@ -117,7 +117,7 @@ end
 filename = strcat(pre,'kfoldCV.txt');
 fileID = fopen(filename,'w');
 
-fprintf(fileID,'Variable that was predicted: %s\n\n',predict_label);
+%fprintf(fileID,'Variable that was predicted: %s\n\n',predict_label);
 
 %Calculate RMSEP (root mean square error of prediction) and q^2
 %First, calculate TSS (total sum of squares) and
@@ -136,18 +136,21 @@ end
 rmsep = sqrt(press/ncases);
 q_squared = 1 - press/tss;
 
-%% Print rmseq and q^2
-fprintf(fileID,'RMS error of predictions: %6.4f\n',rmsep);
-fprintf(fileID,'Q^2 of predictions: %6.4f\n\n',q_squared);
+%% Print rmsep and q^2
+%fprintf(fileID,'RMS error of predictions: %6.4f\n',rmsep);
+%fprintf(fileID,'Q^2 of predictions: %6.4f\n\n',q_squared);
 
 
 %%Print the predictions
-fprintf(fileID,'Predicted mean and standard deviation for each case:\n');
+%%fprintf(fileID,'Predicted mean and standard deviation for each case:\n');
 fprintf(fileID,'CaseRow\tFoldNumber\tActualValue\tPredictionMean\tPredictionStDev\n');
 for i = 1:ncases
      fprintf(fileID,'%i\t%i\t%6.4f\t',i,kfold_index(i),case_adj(i));
      fprintf(fileID,'%6.4f\t%6.4f\n',kfoldPredictions(i,:));
 end
+
+%%Print rmse and q^2
+fprintf(fileID,'k-fold CV for %s; RMSE= %6.4f; Q^2= %6.4f\n',predict_label,rmsep,q_squared);
 
 fflush(fileID);
 fclose(fileID);
@@ -267,14 +270,14 @@ accuracy = correct/ncases;
 filename = strcat(pre,'kfoldCV.txt');
 fileID = fopen(filename,'w');
 
-fprintf(fileID,'Variable that was predicted: %s\n\n',predict_label);
+%fprintf(fileID,'Variable that was predicted: %s\n\n',predict_label);
 
 
 %%Print the accuracy
-fprintf(fileID,'Fraction of accurate predictions: %6.4f\n\n',accuracy);
+%fprintf(fileID,'Fraction of accurate predictions: %6.4f\n\n',accuracy);
 
 %%Print the predictions
-fprintf(fileID,'Predicted likelihood of each state for each case:\n');
+%fprintf(fileID,'Predicted likelihood of each state for each case:\n');
 fprintf(fileID,'%s\t%s\t%s\t','CaseRow','FoldNumber','ActualState');
 fprintf(fileID,'%s\t',pred_levels{1:end-1});
 fprintf(fileID,'%s\n',pred_levels{end});
@@ -285,6 +288,8 @@ for i = 1:ncases
      fprintf(fileID,'%6.4f\t',kfoldPredictions(i,1:end-1));
      fprintf(fileID,'%6.4f\n',kfoldPredictions(i,end));
 end
+
+fprintf(fileID,'k-fold CV for %s; Fraction of accurate predictions= %6.4f\n',predict_label,accuracy);
 
 fflush(fileID);
 fclose(fileID);

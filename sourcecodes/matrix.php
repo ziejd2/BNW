@@ -1,7 +1,8 @@
 <?php 
 include("input_validate.php");
 $keyval=valid_keyval($_GET["My_key"]);
-$dir="./data/";
+//$dir="./data/";
+$dir="/tmp/bnw/";
 
 $matfile=$dir.$keyval."structure_input_temp.txt";
 $fpw=fopen($dir.$keyval."Model_Averaging_Scores.txt","w");
