@@ -4,7 +4,7 @@ function kfoldCrossValid(pre,predict_label,nfolds)
 %   that you want to predict and the number of folds that the
 %   data should be divided into.
 
-nfolds = uint8(str2num(nfolds));
+nfolds = uint16(str2num(nfolds));
 
 sfile=strcat(pre,'structure_input.txt');
 dfile=strcat(pre,'continuous_input.txt');

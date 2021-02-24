@@ -13,10 +13,9 @@ include("header_new.inc");
 include("input_validate.php");
 $keyval=valid_keyval($_GET["My_key"]);
 
-//$dir="./data/";
-$dir="/var/lib/genenet/bnw/";
+$dir="./data/";
 
-$svg_file=$keyval."network.svg";
+$svg_file=$dir.$keyval."network.svg";
 $png_file=$keyval."network.png";
 
 
@@ -37,6 +36,12 @@ function calcHeight()
 //-->
 </script>
 
+<!--
+<script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+<script src="http://d3js.org/d3-selection-multi.v1.js"></script>
+<script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
+<script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
+-->
 <script src="./scripts/d3.v4.min.js" charset="utf-8"></script>
 <script src="./scripts/d3-selection-multi.v1.js"></script>
 <script src="./scripts/canvas-toBlob.js"></script>
@@ -53,14 +58,14 @@ function calcHeight()
 <ul class="navbar_ac">
 <li><a href="layout_svg_no.php?My_key=<?php print($keyval);?>">Hide edge weights</a></li>
 </li>
-<button id='saveButton' class="button1">Save network as PNG</button>
-<button id='saveButton_svg' class="button1">Save network as SVG</button>
+<button id='saveButton' class="button1">Save network image as PNG</button>
+<a href="<?php print($svg_file);?>" download><button type="submit" class="button1">Save network image as SVG</button></a>
 </ul>
 </div>
    <button class="accordion">More about network&nbsp;&nbsp;<i class="fa fa-angle-down" style="font-size: 18px;"></i></button>
 <div class="panel">
 <ul class="navbar_ac">
-  <li><a href="matrix_new.php?My_key=<?php print($keyval);?>" target="_blank">View structure matrix</a>  
+  <li><a href="matrix.php?My_key=<?php print($keyval);?>" target="_blank">View structure matrix</a>  
   <li><a href="parameter_display.php?My_key=<?php print($keyval);?>" target="_blank">View network parameters</a>  
   <li><a href="review_settings.php?My_key=<?php print($keyval);?>" target="_blank">View structure learning settings</a>  
   <li><a href="input_check.php?My_key=<?php print($keyval);?>" target="_blank">View input data and descriptions</a>  
@@ -91,21 +96,55 @@ function calcHeight()
 <script>
 
 
-<?php
-$svg_xml = json_encode(file("file://".$dir.$svg_file));
-?>
-d3.xml("", function(dumm){
- var data1 = <?php echo $svg_xml;?>;
- var data2 = data1.join("");
- parser = new DOMParser();
- documentFragment = parser.parseFromString(data2,"text/xml");
+
+
+d3.xml("<?php print($svg_file);?>", function(error, documentFragment){
+  if (error) {console.log(error); return;}
+
+  
  var svgNode = documentFragment
     .getElementsByTagName("svg")[0];
 
   d3.select("#svg_div").node().appendChild(svgNode);
+  //nodes = d3.selectAll('.node');
+  //links = d3.selectAll('.edge');
 
   width = svgNode.getBBox().width*5;
   height = svgNode.getBBox().height*5;
+
+  //  nodes
+  //  .call(d3.drag()
+  //	  .on("start",dragstarted)
+  //	  .on("drag",dragged)
+  //	  .on("end",dragended));
+
+  //  links
+  //  .call(d3.drag()
+  //	  .on("start",dragstarted)
+  //	  .on("drag",dragged)
+  //	  .on("end",dragended));
+
+
+  //function dragstarted(d) {
+  //  d3.select(this).raise().classed("active", true);
+  //}
+
+  //function dragged(d) {
+  //  this.x = this.x || 0;
+  //  this.y = this.y || 0;
+  //  this.x += d3.event.dx;
+  //  this.y += d3.event.dy;
+  //  d3.select(this)
+  //    .attr("transform","translate(" + this.x + "," + this.y + ")");
+  //}
+
+  //function dragended(d) {
+  //  d3.select(this).classed("active", false);
+  //}
+
+//console.log(svgNode);
+//console.log(nodes);
+//console.log(links);
 
   });
 
@@ -114,12 +153,6 @@ d3.xml("", function(dumm){
 
 
 <script>
-    d3.select('#saveButton_svg').on('click',function() {
-        var svgString = getSVGString(d3.select("#svg_div").select('svg').node());
-   var svgBlob = new Blob([svgString],{type:"image/svg+xml;charset=utf-8"});
-   saveAs(svgBlob,"<?php echo $svg_file;?>");
-});
-
 
     d3.select('#saveButton').on('click', function(){
 	 var svgString = getSVGString(d3.select("#svg_div").select('svg').node());

@@ -28,8 +28,7 @@ if($_POST["My_key"]!="")
 
 
 //$filename = "./data/".$old_key."modify_edge.txt";
-//$filename = "/tmp/bnw/".$old_key."modify_edge.txt";
-$filename = "/var/lib/genenet/bnw/".$old_key."modify_edge.txt";
+$filename = "/tmp/bnw/".$old_key."modify_edge.txt";
 
 $file = fopen($filename,'w');
 //fwrite($file,$json);

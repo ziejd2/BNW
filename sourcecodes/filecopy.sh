@@ -1,7 +1,6 @@
 #!/bin/bash
 #cd ./data/
-#cd /tmp/bnw/
-cd /var/lib/genenet/bnw/
+cd /tmp/bnw/
 FILES=$1*
 for f in $FILES
 do

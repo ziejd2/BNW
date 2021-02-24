@@ -32,8 +32,7 @@ $keyval=valid_keyval($_GET["My_key"]);
 <li>This feature has recently been added to BNW and is still being tested. Please inform us of any issues.<br>
   Its use is briefly described <a href="help.php#crossvalid" target="_blank">here</a>.<br><br></li>
 <?php
-//  $dir="/tmp/bnw/";
-  $dir="/var/lib/genenet/bnw/";
+  $dir="/tmp/bnw/";
   $loo_file1=$dir.$keyval."looCV_temp.txt";
   $loo_file2=$dir.$keyval."looCV.txt";
 if(file_exists($loo_file1))
@@ -54,7 +53,7 @@ if(file_exists($loo_file1))
    ?>
 <?php
   $kfold_file1=$dir.$keyval."kfoldCV_temp.txt";
-  $kfold_file2=$dir.$keyval."kfold_plotly.html";
+  $kfold_file2=$dir.$keyval."kfoldCV.txt";
 if(file_exists($kfold_file1))
   {?>
 <li> <a class=button3 href="cv_predictions.php?My_key=<?php print($keyval);?>">k-fold cross-validation predictions are being calculated.<br>Click here to update status.</a>

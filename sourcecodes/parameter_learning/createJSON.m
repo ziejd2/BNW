@@ -12,10 +12,6 @@ function  [ ] = createJSON( pre )
    %
 
 
-nnodefile=strcat(pre,'nnode.txt');
-fnnode = fopen(nnodefile,'r');
-nnodes = fscanf(fnnode,'%d');
-
 %  open file for input, include error handling
 dfile=strcat(pre,'structure_input.txt');
 
@@ -26,6 +22,7 @@ end
 
 % Read in first line to get the number of nodes and the node labels.
 buffer = strtrim(fgetl(fin));    %get header line as a string
+nnodes = numel(strfind(buffer,"\t"))+1;
 labels = cell(1,nnodes);
 for j=1:nnodes
     [next,buffer] = strtok(buffer);

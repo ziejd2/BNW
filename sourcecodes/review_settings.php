@@ -5,11 +5,10 @@
 include("header_new.inc");
 include("input_validate.php");
 $keyval=valid_keyval($_GET["My_key"]);
-//$dir="./data/";
+$dir="./data/";
 //$dir="/tmp/bnw/";
-$dir = "/var/lib/genenet/bnw/";
 
-$settings_file = $keyval."slsettings.txt";
+$settings_file = $dir.$keyval."slsettings.txt";
 
 ?>
 
@@ -25,24 +24,10 @@ $settings_file = $keyval."slsettings.txt";
 </ul>
 
 <body>
-
-<?php 
-if(!file_exists($dir.$settings_file))
-	{
-?>
-       <div class='table_div'>
-	<h3> No structure learning settings file found. </h3>
-       </div>
-<?php
-} else {
-$table_text = json_encode(file("file://".$dir.$settings_file));
-?>
   <div class='table_div' id='parameter_div'>
   <script type="text/javascript">
-  d3.text("", function(error, raw){
-      var data1 = <?php echo $table_text;?>;
-      var data2 = data1.join("")
-      var data = data2.split("\n\n");
+  d3.text("<?php print($settings_file);?>", function(error, raw){
+      var data = raw.split("\n\n");
       var dsv = d3.dsvFormat("\t");
    var i;
    for (i = 0; i < data.length; i++) {
@@ -66,15 +51,13 @@ $table_text = json_encode(file("file://".$dir.$settings_file));
 <div id="table_header">
 </div>
 <div id="download">
-&nbsp;&nbsp;&nbsp;&nbsp;<a class=button2 href="<?php print("reroute.php?".$settings_file);?>">Download structure learning settings file</a><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class=button2 href="<?php print($settings_file);?>">Download structure learning settings file</a><br><br>
 </div>
-<?php
-}
-?>
   <script type="text/javascript">
   function add_header() {
   var element = document.getElementById("table_header");
   var parentNode = document.getElementById("parameter_div");
+  console.log(parentNode);
   parentNode.insertBefore(element,parentNode.firstChild);
   var element = document.getElementById("download");
   parentNode.appendChild(element);

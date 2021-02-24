@@ -8,8 +8,7 @@ include("input_validate.php");
 $keyval=$_GET["My_key"];
 
 //$dir="./data/";
-//$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/";
 
 $type_n=array();
 

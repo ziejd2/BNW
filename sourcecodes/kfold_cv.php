@@ -1,10 +1,10 @@
 <head>
-<meta http-equiv='cache-control' content='no-cache'>
-<meta http-equiv='expires' content='0'>
+<meta http-equiv='cache-control' content='no-cache'> 
+<meta http-equiv='expires' content='0'> 
 <meta http-equiv='pragma' content='no-cache'>
 <script src="./scripts/d3.v4.min.js"></script>
 <script src="./scripts/create_table.js"></script>
-<?php
+<?php 
 include("header_new.inc");
 include("header_batchsearch.inc");
 include("input_validate.php");
@@ -47,7 +47,7 @@ function test_input($data) {
 ?>
 
 <?php
-$varName_file = "/var/lib/genenet/bnw/".$keyval."name.txt";
+$varName_file = "/tmp/bnw/".$keyval."name.txt";
 $varName_line = file_get_contents($varName_file);
 $varNamesArr = explode("\t",$varName_line);
 ?>
@@ -76,44 +76,39 @@ $varNamesArr = explode("\t",$varName_line);
 <?php
   //  $filename1="./data/".$keyval."kfoldCV.txt";
   //  $filename2="./data/".$keyval."kfoldCV_temp.txt";
-  $dir="/var/lib/genenet/bnw/";
-  $filename1=$keyval."kfoldCV.txt";
-  $filename2=$keyval."kfoldCV_temp.txt";
-$plotly_file=$keyval."kfold_plotly.html";
-//$plotly_file_local="./data/".$keyval."kfold_plotly.html";
-//$pred_file_local="./data/".$keyval."kfoldCV.txt";
+  $dir="/tmp/bnw/";
+  $filename1=$dir.$keyval."kfoldCV.txt";
+  $filename2=$dir.$keyval."kfoldCV_temp.txt";
+$plotly_file=$dir.$keyval."kfold_plotly.html";
+$plotly_file_local="./data/".$keyval."kfold_plotly.html";
+$pred_file_local="./data/".$keyval."kfoldCV.txt";
 
-if(file_exists($dir.$filename2))
+if(file_exists($filename2))
  {?>
 <br>
   <h2> k-fold cross-validation results are being calculated</h2>
 <br>
 <?php
  }
- else if(file_exists($dir.$plotly_file))
- {
- $table_text = json_encode(file("file://".$dir.$filename1));
- //$plotly_data=file_get_contents("file://".$dir.$plotly_file);
-?>
+ else if(file_exists($filename1))
+ {?>
  <div>
-         <object width="800" height="500" data=<?php include($dir.$plotly_file)?> 
+	 <object type="text/html" data=<?php print($plotly_file_local);?> width="800" height="500" >
          </object>
      </div>
      <div class="d3_table" id="table_div1">
      <script type="text/javascript">
-        d3.text("", function(error,raw) {
+      d3.text("<?php print($pred_file_local);?>", function(error,raw) {
         var dsv=d3.dsvFormat("\t")
-	var data1 = <?php echo $table_text;?>;
-        var data2 = data1.join("");
-        var data=dsv.parse(data2)
-        var caption_text=data.pop()
-        if (error) throw error;
-           tabulate_caption("#table_div1",data,caption_text.CaseRow);
-        });
+	var data=dsv.parse(raw)
+	var caption_text=data.pop()
+	if (error) throw error;
+	   tabulate_caption("#table_div1",data,caption_text.CaseRow);
+	});
 </script>
 </div>
 <br>
-    <a class=button2 href=<?php print("reroute.php?".$filename1);?>>Download cross-validation results</a>
+    <a class=button2 href=<?php print($pred_file_local);?>>Download cross-validation results</a>
 <br>
 <br>
 <h3>Perform k-fold cross-validation of another network variable</h3><br>
@@ -146,8 +141,9 @@ if(file_exists($dir.$filename2))
      } else {
 ?>
 <h2>Perform k-fold cross-validation of network</h2>
-<p align="justify">
-  To perform cross-validation, select the name of the variable that you want to test <br>the predictions of and the number of folds below. <br><br>
+<p align="justify"> 
+  To perform cross-validation, select the name of the variable that you want to test <br>the predictions of and the number of folds below.
+<br><br>
 <FORM METHOD="post" ACTION="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
      <p style='font-size:18px'>Select variable name:</p>
 <select style='font-size:18px' Name="varName">

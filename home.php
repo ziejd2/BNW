@@ -21,7 +21,7 @@ else
 {
 ?>    
 <script>
-window.open("http://compbio.genenet8.uthsc.edu/BNW_1.3/sourcecodes/home.php",'_self',false);
+window.open("http://compbio.uthsc.edu/BNW_1.31/sourcecodes/home.php",'_self',false);
 </script>
 
 <?php

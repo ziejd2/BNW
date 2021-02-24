@@ -1,4 +1,4 @@
-#!/var/www/html/compbio/BNW_1.3/bnw-env/bin/python3
+#!/home/jziebart/python/Python-2.7.15/python
 import os
 import sys
 import math
@@ -37,12 +37,10 @@ filename=netID+"continuous_input.txt"
 f=open(filename,"r")
 #Read the first line to get the variable names
 line=f.readline()
-#line = map(string.strip,line.strip().split("\t"))
-varNames = line.strip().split("\t")
-#varNames = line
+line = map(string.strip,line.strip().split("\t"))
+varNames = line
 line=f.readline()
-#line = map(string.strip,line.strip().split("\t"))
-line = line.strip().split("\t")
+line = map(string.strip,line.strip().split("\t"))
 for i in range(len(line)):
     line[i] = int(line[i])
 cd_types = line
@@ -55,8 +53,7 @@ for i in range(len(varNames)):
 evfile=netID+"varname.txt"
 evf=open(evfile,"r")
 line=evf.readline()
-#ev_vars = map(string.strip,line.strip().split("\t"))
-ev_vars = line.strip().split("\t")
+ev_vars = map(string.strip,line.strip().split("\t"))
 keepVars = []
 for i in cNames:
     if i not in ev_vars:
@@ -66,8 +63,7 @@ for i in cNames:
 data = []
 line = f.readline()
 while line:
-    #line = map(string.strip,line.strip().split("\t"))
-    line = line.strip().split("\t")
+    line = map(string.strip,line.strip().split("\t"))
     temp = []
     for i in range(len(varNames)):
        if cd_types[i] == 1:
@@ -93,19 +89,16 @@ while line:
     line = f2.readline()
 
 layout = go.Layout(
-    title="Distributions considering evidence",
+    title="<br>Distributions considering evidence",
     titlefont=dict(
         family='Arial, sans-serif',
         size=24,
         color='black'
         ),
-    title_xref="paper",
-    title_x=0.5,
-    title_xanchor="center",
-    title_yanchor="middle",
+
     yaxis=dict(title="Distributions of standardized data"),
     legend=dict(orientation='h'),
-    margin=dict(t=40,l=70,b=40)
+    margin=dict(t=10,l=70,b=40)
 )
 fig = go.Figure(layout=layout)
 

@@ -13,7 +13,7 @@ include("input_validate.php");
 
 $searchID="";
 $UploadValue="NO";
-$TextFile=$_FILES["MyFile"]["name"];
+$TextFile=$HTTP_POST_FILES["MyFile"]["name"];
 
 
 /////////////Generate a random key/////////////////////
@@ -35,18 +35,17 @@ $keyval=valid_keyval($keyval);
 
 $sid=$keyval."continuous_input";
 //$dir="./data/";
-//$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/";
 
-//$input_table_file="./data/".$keyval."input_table.txt";
-$input_table_file=$dir.$keyval."input_table.txt";
+$input_table_file="./data/".$keyval."input_table.txt";
+
 
 $TextinFile=$dir.$sid."_orig.txt";
 
 
-if(isset($_POST["searchkey"]))
+if(isset($HTTP_POST_VARS["searchkey"]))
 {
-   $searchID=$_POST["searchkey"];
+   $searchID=$HTTP_POST_VARS["searchkey"];
 
 }
 
@@ -63,9 +62,9 @@ if($searchID=="")
 <?php
 }
 
-if(isset($_POST["MyUpload"]))
+if(isset($HTTP_POST_VARS["MyUpload"]))
 {
-   $UploadValue=$_POST["MyUpload"];
+   $UploadValue=$HTTP_POST_VARS["MyUpload"];
    if ($UploadValue=="YES")
    {
         if($TextFile!="")
@@ -139,16 +138,11 @@ if($searchID!="")
 <br>
 <p><h3>The variables in the data file have the following properties:
 <br></h3>
-<?php
-$table_text = json_encode(file("file://".$input_table_file));
-?>
   <div class="d3_table" id="table_div1">
   <script type="text/javascript">
-   d3.text("", function(error, raw_temp){
-       var dsv = d3.dsvFormat("\t");
-       var data1 = <?php echo $table_text?>;
-	var data2 = data1.join("");
-	 var data = dsv.parse(data2);
+   d3.text("<?php print($input_table_file);?>", function(error, raw){
+       var dsv = d3.dsvFormat("\t")
+	 var data = dsv.parse(raw)
 	 var caption_text = data.pop();
        if (error) throw error;
        tabulate_caption("#table_div1",data,caption_text.Variable);

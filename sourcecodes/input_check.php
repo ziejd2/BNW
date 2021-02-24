@@ -10,10 +10,8 @@ if($_GET["My_key"]!="")
 if($_POST["My_key"]!="")
   $keyval=valid_keyval($_POST["My_key"]);
 
-$dir = "/var/lib/genenet/bnw/";
-
-$input_table_file=$keyval."input_table.txt";
-$input_data_file=$keyval."continuous_input_orig.txt";
+$input_table_file="./data/".$keyval."input_table.txt";
+$input_data_file="./data/".$keyval."continuous_input_orig.txt";
 
 
 ?>
@@ -34,15 +32,10 @@ $input_data_file=$keyval."continuous_input_orig.txt";
   <div class="table_div">
   <p class=basic_header>Description of network variables:</p>
   <div class="d3_table" id="table_div1">
-  <?php
-   $table_text = json_encode(file("file://".$dir.$input_table_file)); 
-  ?> 
-<script type="text/javascript">
-  d3.text("", function(error, raw){
+  <script type="text/javascript">
+  d3.text("<?php print($input_table_file);?>", function(error, raw){
   var dsv = d3.dsvFormat("\t")
-  var data1 = <?php echo $table_text?>;
-  var data2 = data1.join("")
-  var data = dsv.parse(data2)
+  var data = dsv.parse(raw)
   var caption_text = data.pop();
   if (error) throw error;
       tabulate_caption("#table_div1",data,caption_text.Variable);
@@ -52,16 +45,11 @@ $input_data_file=$keyval."continuous_input_orig.txt";
 <br>
   <div class="d3_table" id="table_div2">
 
-  <?php
-   $table_text = json_encode(file("file://".$dir.$input_data_file)); 
-  ?>
   <script type="text/javascript">
 
-  d3.text("", function(error, raw){
+  d3.text("<?php print($input_data_file);?>", function(error, raw){
   var dsv = d3.dsvFormat("\t")
-  var data1 = <?php echo $table_text?>;
-  var data2 = data1.join("")
-  var data = dsv.parse(data2)
+  var data = dsv.parse(raw)
   var caption_text = "Input data file:";
       if (error) throw error;
       tabulate_caption("#table_div2",data,caption_text);
@@ -72,7 +60,7 @@ $input_data_file=$keyval."continuous_input_orig.txt";
 
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;<a class=button2 href="<?php print("reroute.php?".$input_data_file);?>">Download original input file<br></a>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class=button2 href="<?php print($input_data_file);?>">Download original input file<br></a>
 <br>
 <br><br>
 </div>

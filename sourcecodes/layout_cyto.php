@@ -2,6 +2,11 @@
 <head>
 
 
+<!--
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cytoscape-panzoom/2.5.3/cytoscape.js-panzoom.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+-->
+
 <link rel="stylesheet" href="./scripts/cytoscape.js-panzoom.css">
 <link rel="stylesheet" href="./scripts/font-awesome.css">
 
@@ -12,17 +17,15 @@ include("header_new.inc");
 include("input_validate.php");
 $keyval=valid_keyval($_GET["My_key"]);
 
-//$dir="./data/";
+$dir="./data/";
 //In this case, $dir is used by the json command so it is interpreted and turned into /tmp/bnw/ automatically
 //$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
 
-$input_json=$keyval."network.json";
+$input_json=$dir.$keyval."network.json";
 $output_png=$keyval."modified_network.png";
 
 //In this section, $dir is used by php, so we need to use /tmp/bnw
-//$thrfile="/tmp/bnw/".$keyval."thr.txt";
-$thrfile="/var/lib/genenet/bnw/".$keyval."thr.txt";
+$thrfile="/tmp/bnw/".$keyval."thr.txt";
 if(file_exists($thrfile))
   {
     $thr=file_get_contents("$thrfile");
@@ -33,6 +36,14 @@ if(file_exists($thrfile))
 ?>
 
 
+<!--
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.7.1/cytoscape.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape-panzoom/2.5.3/cytoscape-panzoom.js"></script>
+<script src="https://unpkg.com/dagre@0.7.4/dist/dagre.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape-dagre@2.2.2/cytoscape-dagre.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>
+-->
 <script src="./scripts/jquery.min.js"></script>
 <script src="./scripts/cytoscape.min.js"></script>
 <script src="./scripts/dagre.js"></script>
@@ -76,11 +87,6 @@ display: none;
 
 </style>
 
-<?php
-$json_text = json_encode(file("file://".$dir.$input_json));
-?>
-
-
 <script>
 
   //  var default_layout = { name: 'breadthfirst',
@@ -97,16 +103,11 @@ var default_layout = { name: 'dagre',
 		       padding: 30,
 		       spacingFactor: 1.25
   }
-  
 
-  //$.getJSON("<?php print($input_json);?>",function (data) {
-  $.getJSON("./data/LRlnetwork.json",function (dumm) {
+  $.getJSON("<?php print($input_json);?>",function (data) {
+  //$.getJSON("./data/cwHnetwork.json",function (data) {
       //    console.log(data);
     //     document.addEventListener('DOMContentLoaded', function(){
-     var data1 = <?php echo $json_text?>;
-//    console.log(data1); 
-    var data2 = data1.join("");
-     var data = JSON.parse(data2);
       var cy = window.cy = cytoscape({
 	container: document.getElementById('cy'),
 	    elements: data,
@@ -367,8 +368,7 @@ $('#pos_slide').change(function (e) {
  <li><a id="addEdge" href="#">Add edge between selected nodes</a></li>
     <li><a id="deleteEdge" href="#">Remove selected edges</a></li>
 <?php
-    //$filename1="/tmp/bnw/".$keyval."structure_input_temp.txt";
-    $filename1="/var/lib/genenet/bnw/".$keyval."structure_input_temp.txt";
+    $filename1="/tmp/bnw/".$keyval."structure_input_temp.txt";
 if(file_exists($filename1))
   {?>
  <li><a id="weightFilter" href="#">Filter edges by weight:</a>

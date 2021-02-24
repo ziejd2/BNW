@@ -9,30 +9,29 @@ include("input_validate.php");
 
 $searchID="";
 $UploadValue="NO";
-$TextFile=$_FILES["MyFile"]["name"];
-
-if($_GET["My_key"]!="")
-  $keyval=$_GET["My_key"];
+$TextFile=$HTTP_POST_FILES["MyFile"]["name"];
 
 if($_POST["My_key"]!="")
   $keyval=$_POST["My_key"];
+
+if($_GET["My_key"]!="")
+  $keyval=$_GET["My_key"];
 
 $keyval=valid_keyval($keyval);
 
 $sid="structure_input";
 //$dir="./data/";
-//$dir="/tmp/bnw/".$keyval;
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/".$keyval;
 
-$TextinFile=$dir.$keyval.$sid.".txt";
+$TextinFile=$dir.$sid.".txt";
 
 //$TextinFileFinal=$dir.$sid.".txt";
 
 //$TextinFile=$dir.$sid."_temp.txt";
 
-if(isset($_POST["searchkey"]))
+if(isset($HTTP_POST_VARS["searchkey"]))
 {
-   $searchID=$_POST["searchkey"];
+   $searchID=$HTTP_POST_VARS["searchkey"];
 
 }
 
@@ -49,14 +48,14 @@ if($searchID=="")
 <?php
 }
 
-if(isset($_POST["MyUpload"]))
+if(isset($HTTP_POST_VARS["MyUpload"]))
 {
-   $UploadValue=$_POST["MyUpload"];
+   $UploadValue=$HTTP_POST_VARS["MyUpload"];
    if ($UploadValue=="YES")
    {
         if($TextFile!="")
         {
-            $sta=move_uploaded_file($_FILES['MyFile']['tmp_name'],$TextinFile);
+            $sta=move_uploaded_file($HTTP_POST_FILES['MyFile']['tmp_name'],$TextinFile);
             if(!$sta)
             {
                  echo "<script type='text/javascript'> window.alert ('Sorry, error uploading $TextFile.')</script>";

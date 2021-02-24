@@ -8,8 +8,7 @@ include("input_validate.php");
 $keyval=$_GET["My_key"];
 
 //$dir="./data/";
-//$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/";
 
 $type_n=array();
 
@@ -101,14 +100,14 @@ $runtime=exe_time($keyval,$parent_number,$k_number);
 <?php
 
 
-if(isset($_POST["bantext"]))
+if(isset($HTTP_POST_VARS["bantext"]))
 {
-   $ban_search=$_POST["searchkey"];
+   $ban_search=$HTTP_POST_VARS["searchkey"];
 }
 
-if(isset($_POST["whitetext"]))
+if(isset($HTTP_POST_VARS["whitetext"]))
 {
-   $white_search=$_POST["searchkey"];
+   $white_search=$HTTP_POST_VARS["searchkey"];
 }
 
 ?>
@@ -834,7 +833,7 @@ function getcombineDescription(ntiers,ban_from,ban_to,white_from,white_to,keyv)
   ntiers = 1;
   var tier=getNodesInTiers(ntiers);
   //  var txtFile="./data/"+keyv+"del_var.txt";
-  var txtFile="/var/lib/genene/bnw/"+keyv+"del_var.txt";
+  var txtFile="/tmp/bnw/"+keyv+"del_var.txt";
   //var file = new File(txtFile);
   //file.open("w");
   //file.write(tier);

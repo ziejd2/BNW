@@ -58,7 +58,6 @@ for j=1:nedges
     sources{j} = str2num(next);
 end
 
-
 buffer = fgetl(fin2);
 buffer = buffer(2:end-1);
 buffer = strrep(buffer,"\"","");
@@ -75,7 +74,6 @@ for j=1:nedges
     [next,buffer] = strtok(buffer,",");
     weights{j} = next;
 end
-
 
 %label_map is the index in "labels" that corresponds to each label in "labels2"
 label_map = cell(1,nnodes);
@@ -99,6 +97,8 @@ for i = 1:nedges
   edges_out(source_i,target_i) = "1";
 end
 
+%scores_out
+
 
 tf = cellfun('isempty',edges_out);
 edges_out(tf) = {"0"};
@@ -113,28 +113,25 @@ for i=1:nnodes
   end
 end
 
-
 if test_score == 1
 outfile = strcat(pre_new,'structure_input_temp.txt');
 fout = fopen(outfile,'w');
 fprintf(fout,'%s\t',labels{1:end-1});
-fprintf(fout,'%s\t\n',labels{end});
+fprintf(fout,'%s\n',labels{end});
 for i = 1:nnodes
       fprintf(fout,'%s\t',scores_out{i,1:end-1});
-      fprintf(fout,'%s\t\n',scores_out{i,end});
+      fprintf(fout,'%s\n',scores_out{i,end});
 end
 fclose(fout);
 end
 
-
-
 outfile2 = strcat(pre_new,'structure_input.txt');
 fout2 = fopen(outfile2,'w');
 fprintf(fout2,'%s\t',labels{1:end-1});
-fprintf(fout2,'%s\t\n',labels{end});
+fprintf(fout2,'%s\n',labels{end});
 for i = 1:nnodes
       fprintf(fout2,'%s\t',edges_out{i,1:end-1});
-      fprintf(fout2,'%s\t\n',edges_out{i,end});
+      fprintf(fout2,'%s\n',edges_out{i,end});
 end
 fclose(fout2);
 

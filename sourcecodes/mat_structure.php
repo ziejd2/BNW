@@ -2,8 +2,7 @@
 function structure_change($keyval)
 {
   //$dir="./data/";
-//$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/";
 $matfile=$dir.$keyval."varname.txt";
 $namelist=file_get_contents("$matfile");
 $matfilestruct=$dir.$keyval."structure_input.txt";

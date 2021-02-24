@@ -28,8 +28,7 @@ foreach($leve_l as $l)
 /////////////Read data from net_figure file/////////////
 
 //$dir="./data/";
-//$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/";
 
 $keyval=valid_keyval($_GET["My_key"]);
 
@@ -240,7 +239,7 @@ $nedges=$ii;
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script type="text/javascript">
 google.load('visualization', '1', {packages: ['corechart']});
 </script>

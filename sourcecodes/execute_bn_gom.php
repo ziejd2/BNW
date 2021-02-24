@@ -5,8 +5,7 @@ $keyval=valid_keyval($_GET["My_key"]);
 
 //////////////execute c codes for local score///////////////////
 //$dir="./data/";
-//$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/";
 
 $pfile=$dir.$keyval."parent.txt";
 $parentf=file_get_contents("$pfile");

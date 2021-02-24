@@ -1,8 +1,7 @@
 #!/usr/bin/octave -qf
 source("./run_scripts/path_cd.m");
 arg_list = argv(); 
-command(cstrcat("/var/www/html/compbio/BNW_1.3/bnw-env/bin/python3 ",base_dir,"violin.py ",arg_list{1});
-test=system(command);
+
 #command=strcat({"/home/jziebart/python/Python-2.7.15/python ../violin_plotly.py "},arg_list{1});
 #test=system(command);
 #command=strcat({"/home/jziebart/python/Python-2.7.15/python ../violin_ev_plotly.py "},arg_list{1});

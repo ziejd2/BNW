@@ -1,10 +1,9 @@
-#!/var/www/html/compbio/BNW_1.3/bnw-env/bin/python3
+#!/home/jziebart/python/Python-2.7.15/python
 import os
 import sys
 import math
 #sys.path.append('/home/jziebart/.local/bin')
 #sys.path.append('/home/jziebart/.local/lib')
-
 
 import plotly
 import plotly.graph_objs as go
@@ -38,11 +37,10 @@ filename=netID+"continuous_input.txt"
 f=open(filename,"r")
 #Read the first line to get the variable names
 line=f.readline()
-#line = map(string.strip,line.strip().split("\t"))
-varNames = line.strip().split("\t")
+line = map(string.strip,line.strip().split("\t"))
+varNames = line
 line=f.readline()
-#line = map(string.strip,line.strip().split("\t"))
-line = line.strip().split("\t")
+line = map(string.strip,line.strip().split("\t"))
 for i in range(len(line)):
     line[i] = int(line[i])
 cd_types = line
@@ -55,8 +53,7 @@ for i in range(len(varNames)):
 data = []
 line = f.readline()
 while line:
-    #line = map(string.strip,line.strip().split("\t"))
-    line = line.strip().split("\t")
+    line = map(string.strip,line.strip().split("\t"))
     temp = []
     for i in range(len(varNames)):
         if cd_types[i] == 1:
@@ -87,19 +84,15 @@ for i in range(len(cNames)):
 del pdf_data
 
 layout = go.Layout(
-    title="Original distributions",
+    title="<br>Original distributions",
     titlefont=dict(
         family='Arial, sans-serif',
         size=24,
         color='black'
         ),
-    title_xref="paper",
-    title_x=0.5,
-    title_xanchor="center",
-    title_yanchor="middle",
     yaxis=dict(title="Distributions of standardized data"),
     legend=dict(orientation='h'),
-    margin=dict(t=40,l=70,b=40)
+    margin=dict(t=10,l=70,b=40)
 )
 fig = go.Figure(layout=layout)
 
@@ -116,8 +109,6 @@ for i in range(len(cNames)):
         fig.add_trace(go.Violin(y=y_stand,x0=cNames[i],side='negative',legendgroup='Data',name='Data',fillcolor='blue',line=dict(color='blue'),showlegend=False,hoverinfo='none',points='all',scalegroup=cNames[i]))
         fig.add_trace(go.Violin(y=pdf_data2[i],x0=cNames[i],side='positive',legendgroup='Network parameters',name='Network parameters',fillcolor='orange',line=dict(color='orange'),showlegend=False,hoverinfo='none',points=False,scalegroup=cNames[i]))
 
-
-fig.update_layout(title_xanchor="center")
 
 plotly.offline.plot(fig,filename=outfile)
 

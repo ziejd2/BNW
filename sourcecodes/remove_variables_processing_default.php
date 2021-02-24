@@ -7,8 +7,7 @@ function get_tier($keyval)
 
 $tier=trim($_GET['tier']);
 //$dir="./data/";
-//$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/";
 $tf=$dir.$keyval."del_var.txt";
 $fpvar = fopen("$tf","w");
 
@@ -50,8 +49,7 @@ function describe_tier($fpvar,$keyval)
 
 $tierdesc=trim($_GET['tierdesc']);
 //$dir="./data/";
-//$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw";
+$dir="/tmp/bnw/";
 $tf=$dir.$keyval."tier.txt";
 $tier=file_get_contents("$tf");
 
@@ -195,8 +193,7 @@ if($d1!="" && $d2!="")
 
 
 //$dir="./data/";
-//$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/";
 
 //$sid1=$dir.$keyval."ban";
 //$sid2=$dir.$keyval."white";

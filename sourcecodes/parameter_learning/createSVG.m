@@ -16,10 +16,6 @@ function  [ ] = createSVG( pre )
    %
 
 
-nnodefile=strcat(pre,'nnode.txt');
-fnnode = fopen(nnodefile,'r');
-nnodes = fscanf(fnnode,'%d');
-
 %  open file for input, include error handling
 dfile=strcat(pre,'structure_input.txt');
 
@@ -30,20 +26,19 @@ end
 
 % Read in first line to get the number of nodes and the node labels.
 buffer = fgetl(fin);    %get header line as a string
-
+nnodes = numel(strfind(buffer,"\t")) + 1;
 labels = cell(1,nnodes);
 for j=1:nnodes
-    j, buffer
     [next,buffer] = strtok(buffer);
     labels{j} = next;
 end
+
 
 % Read in the edges
 edges = cell(nnodes,nnodes);
 for i = 1:nnodes
     buffer = fgetl(fin);
     for j = 1:nnodes
-	 i, j, buffer
          [next,buffer] = strtok(buffer);
          edges{i,j} = next;
     end

@@ -9,8 +9,7 @@ include("input_validate.php");
 $keyval=valid_keyval($_GET["My_key"]);
 
 //$dir="./data/";
-//$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/";
 
 $vf1=$dir.$keyval."var.txt";
 $vf2=$dir.$keyval."varname.txt";
@@ -74,9 +73,9 @@ function calcHeight()
 <ul class="navbar_ac">
 <li><a href="parameter_display.php?My_key=<?php print($keyval);?>" target='_blank'>View parameters</a>
 <li><a href="violin.php?My_key=<?php print($keyval);?>" target='_blank'>View violin plots of distributions</a>
-  <li><a href="matrix_new.php?My_key=<?php print($keyval);?>" target="_blank">View structure matrix</a>  
+  <li><a href="matrix.php?My_key=<?php print($keyval);?>" target="_blank">View structure matrix</a>  
 <?php
-$filename1="/var/lib/genenet/bnw/".$keyval."slsettings.txt";
+$filename1="/tmp/bnw/".$keyval."slsettings.txt";
 if(file_exists($filename1))  
   {?>
   <li><a href="review_settings.php?My_key=<?php print($keyval);?>" target="_blank">View structure learning settings</a>

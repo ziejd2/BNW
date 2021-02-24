@@ -1,8 +1,8 @@
 <?php
 include("input_validate.php");
 $oldkeyval=$_GET["My_key"];
-//$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/";
+
 
 $type_n=array();
 

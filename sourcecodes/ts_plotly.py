@@ -1,6 +1,9 @@
-#!/var/www/html/compbio/BNW_1.3/bnw-env/bin/python3
+#!/home/jziebart/python/Python-2.7.15/python
 import os
 import sys
+
+#sys.path.append('/home/jziebart/.local/bin')
+#sys.path.append('/home/jziebart/.local/lib')
 
 import plotly
 import plotly.graph_objs as go
@@ -16,10 +19,9 @@ f=open(filename,"r")
 lines=f.readlines()
 #Read the last line to get the variable name
 line=lines.pop()
-#line = map(string.strip,line.strip().split(" "))
-line = line.strip().split(" ")
+line = map(string.strip,line.strip().split(" "))
 varName = line[4][:-1]
-plot_title=varName+" Test Set Predictions"
+plot_title="<br>"+varName+" Test Set Predictions"
 #print varName
 header=lines.pop(0)
 
@@ -27,11 +29,9 @@ header=lines.pop(0)
 typefile = netID+"type.txt"
 tf=open(typefile,"r")
 line=tf.readline()
-#varnames = map(string.strip,line.strip().split("\t"))
-varnames = line.strip().split("\t")
+varnames = map(string.strip,line.strip().split("\t"))
 line=tf.readline()
-#vartypes = map(string.strip,line.strip().split("\t"))
-vartypes = line.strip().split("\t")
+vartypes = map(string.strip,line.strip().split("\t"))
 varindex = varnames.index(varName)
 cd_type = int(vartypes[varindex])
 
@@ -47,8 +47,7 @@ if cd_type == 1:
 #    line = f.readline()
 #    while line:
     for line in lines:
-        #line = map(string.strip,line.strip().split("\t"))
-        line = line.strip().split("\t")
+        line = map(string.strip,line.strip().split("\t"))
         if line[1] != 'NA':     
             x.append(float(line[1]))
             y.append(float(line[2]))
@@ -62,10 +61,6 @@ if cd_type == 1:
             size=24,
             color='black'
             ),
-	title_xref="paper",
-	title_x=0.5,
-	title_xanchor="center",
-	title_yanchor="middle",
         xaxis=dict(
             autorange=True,
             title='Actual values',
@@ -95,8 +90,7 @@ else:
 #    for i in range(5):
 #        line = f.readline()
     #Get names of states
-    #header = map(string.strip,header.strip().split("\t"))
-    header = header.strip().split("\t")
+    header = map(string.strip,header.strip().split("\t"))
     states = header[2:]
     #Read the data
     actual = []
@@ -104,8 +98,7 @@ else:
 #    line = f.readline()
 #    while line:
     for line in lines:
-        #line = map(string.strip,line.strip().split("\t"))
-        line = line.strip().split("\t")
+        line = map(string.strip,line.strip().split("\t"))
         if line[1] != 'NA':
             actual.append(line[1])
             predict_x = line[2:]
@@ -154,10 +147,6 @@ else:
             size=24,
             color='black'
             ),
-	title_xref="paper",
-	title_x=0.5,
-	title_xanchor="center",
-	title_yanchor="middle",
         xaxis=dict(
             autorange=True,
             title='State',

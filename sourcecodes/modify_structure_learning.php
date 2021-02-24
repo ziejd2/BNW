@@ -7,9 +7,7 @@ function get_tier($keyval)
 
 $tier=trim($_GET['tier']);
 //$dir="./data/";
-//$dir="/tmp/bnw/";
-
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/";
 $tf=$dir.$keyval."del_var.txt";
 $fpvar = fopen("$tf","w");
 

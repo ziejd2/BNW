@@ -1,1 +1,0 @@
-4,Tier1,5,aquatic,airborne,venomous,predator,domestic,Tier2,4,eggs,milk,backbone,breathes,Tier3,7,catsize,tail,toothed,hair,feathers,fins,legs,Tier4,1,type,

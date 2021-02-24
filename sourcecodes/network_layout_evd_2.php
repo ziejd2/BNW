@@ -27,8 +27,7 @@ foreach($leve_l as $l)
 $keyval=valid_keyval($_GET["My_key"]);
 //////////////////////////Entered evidences//////////////////////////////////////////
 //$dir="./data/";
-//$dir ="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
+$dir ="/tmp/bnw/";
 
 $lfile=$dir.$keyval."nlevels.txt";
 $levelmap=file_get_contents($lfile);   
@@ -378,7 +377,7 @@ $nedges=$ii;
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
  <script type="text/javascript">
   google.load('visualization', '1', {packages: ['corechart']});
  </script>

@@ -25,10 +25,8 @@ $keyval=valid_keyval($_GET["My_key"]);
 
 //$matfile="./data/".$keyval."structure_input.txt";
 //$fout=fopen("./data/".$keyval."graphviz.txt","w");
-//$matfile="/tmp/bnw/".$keyval."structure_input.txt";
-//$fout=fopen("/tmp/bnw/".$keyval."graphviz.txt","w");
-$matfile="/var/lib/genenet/bnw/".$keyval."structure_input.txt";
-$fout=fopen("/var/lib/genenet/bnw/".$keyval."graphviz.txt","w");
+$matfile="/tmp/bnw/".$keyval."structure_input.txt";
+$fout=fopen("/tmp/bnw/".$keyval."graphviz.txt","w");
 
 $matrix1=file_get_contents("$matfile");           
 $str_arrmat=array();
@@ -47,8 +45,7 @@ fwrite($fout,"$initialstring");
 
 
 //$g_file_name="./data/".$keyval."grviz_name_file.txt";
-//$g_file_name="/tmp/bnw/".$keyval."grviz_name_file.txt";
-$g_file_name="/var/lib/genenet/bnw/".$keyval."grviz_name_file.txt";
+$g_file_name="/tmp/bnw/".$keyval."grviz_name_file.txt";
 $grviz_name_file=fopen($g_file_name,"w");
 
 for($i=0;$i<$n;$i++)
@@ -81,9 +78,30 @@ for($i=1;$i<=$n;$i++)
      
 } 
 fwrite($fout,"$endstring");   
-
-shell_exec('./run_scripts/run_octave '.$keyval);
+//fwrite($fouttemp,"$endstring");
  
+//shell_exec('/usr/bin/dot -Tpng -o /var/www/html/compbio/BNW/graphviz.jpg /var/www/html/compbio/BNW/graphviztemp.txt');
+
+//$file1="./data/".$keyval."run_initialstructure.sh";
+//$initiallines=file_get_contents("./data/temp_shell_file_initial_structure");
+$file1="/tmp/bnw/".$keyval."run_initialstructure.sh";
+$initiallines=file_get_contents("/tmp/bnw/temp_shell_file_initial_structure");
+$all_lines="$initiallines"."$keyval\nfi\nexit";
+$fp = fopen($file1,"w"); 
+fwrite($fp, "$all_lines\n");
+fclose($fp);
+//prepare and execute shell script for matlab with a write lock
+//$cmd="./runmat.sh $keyval";
+//system($cmd);
+//$str_temp="./data/".$keyval."structure_input_temp.txt";
+//$str_temp="/tmp/bnw/".$keyval."structure_input_temp.txt";
+//if (file_exists($str_temp)) {
+  shell_exec('./run_scripts/run_octave '.$keyval);
+//} else {
+  //  shell_exec('cp ./data/'.$keyval.'structure_input.txt ./data/'.$keyval.'structure_input_temp.txt');
+//  shell_exec('cp /tmp/bnw/'.$keyval.'structure_input.txt /tmp/bnw/'.$keyval.'structure_input_temp.txt');
+//  shell_exec('./run_scripts/run_octave '.$keyval);
+//}
 ?>
 <script>
 window.open("layout_svg_no.php?My_key=<?php print($keyval);?>",'_self',false);

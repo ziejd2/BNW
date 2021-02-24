@@ -7,8 +7,7 @@ include("input_validate.php");
 
 $keyval=valid_keyval($_GET["My_key"]);
 //$dir="./data/";
-//$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
+$dir="/tmp/bnw/";
 
 //number of parents
 $pfile=$dir.$keyval."parent.txt";

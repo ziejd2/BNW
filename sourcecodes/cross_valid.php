@@ -46,11 +46,13 @@ function test_input($data) {
 }
 ?>
 
+
 <?php
-$varName_file = "/var/lib/genenet/bnw/".$keyval."name.txt";
+$varName_file = "/tmp/bnw/".$keyval."name.txt";
 $varName_line = file_get_contents($varName_file);
 $varNamesArr = explode("\t",$varName_line);
 ?>
+
 
 
 
@@ -74,14 +76,13 @@ $varNamesArr = explode("\t",$varName_line);
 <?php
   //  $filename1="./data/".$keyval."looCV.txt";
   //  $filename2="./data/".$keyval."looCV_temp.txt";
-//  $dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
-$filename1=$keyval."looCV.txt";
-$filename2=$keyval."looCV_temp.txt";
-   $plotly_file=$keyval."loo_plotly.html";
-//   $plotly_file_local = "./data/".$keyval."loo_plotly.html";
-//   $pred_file_local = "./data/".$keyval."looCV.txt";
-if(file_exists($dir.$filename2))
+  $dir="/tmp/bnw/";
+$filename1=$dir.$keyval."looCV.txt";
+$filename2=$dir.$keyval."looCV_temp.txt";
+   $plotly_file=$dir.$keyval."loo_plotly.html";
+   $plotly_file_local = "./data/".$keyval."loo_plotly.html";
+   $pred_file_local = "./data/".$keyval."looCV.txt";
+if(file_exists($filename2))
  {?>
 <br>
   <h2> Leave-one-out cross-validation results are being calculated</h2>
@@ -90,25 +91,17 @@ if(file_exists($dir.$filename2))
 <br>
 <?php
  }
- else if(file_exists($dir.$filename1))
- {
- $file_data = file_get_contents($dir.$plotly_file);
-
- ?>
+ else if(file_exists($filename1))
+ {?>
      <div>
-	  <object width="800" height="500" data=<?=$file_data?>
+	  <object type="text/html" data=<?php print($plotly_file_local);?> width="800" height="500" >
          </object>
      </div>
-<?php
-$table_text = json_encode(file("file://".$dir.$filename1));
-?>
      <div class="d3_table" id="table_div1">
      <script type="text/javascript">
-	d3.text("", function(error,raw) {
+	d3.text("<?php print($pred_file_local);?>", function(error,raw) {
 	    var dsv=d3.dsvFormat("\t")
-	      var data1 = <?php echo $table_text;?>;
-              var data2 = data1.join("");
-              var data=dsv.parse(data2)
+	    var data=dsv.parse(raw)
 	      var caption_text=data.pop()
 	      if (error) throw error;
 	    tabulate_caption("#table_div1",data,caption_text.CaseRow);
@@ -116,7 +109,7 @@ $table_text = json_encode(file("file://".$dir.$filename1));
 </script>
 </div>
 <br>
-    <a class=button2 href=<?php print("reroute.php?".$filename1);?>>Download cross-validation results</a>
+    <a class=button2 href=<?php print($pred_file_local);?>>Download cross-validation results</a>
 <br>
 <br>
 <h3>Perform leave-one-out cross-validation of another network variable<br></h3>
@@ -139,8 +132,7 @@ $table_text = json_encode(file("file://".$dir.$filename1));
      } else {
 ?>
 <h2>Perform leave-one-out cross-validation of network</h2>
-
-<p align="justify" style='font-size:18px'>
+<p align="justify" style='font-size:18px'> 
   Select the variable that you want to examine the predictions of below.
 <br>
 <br>

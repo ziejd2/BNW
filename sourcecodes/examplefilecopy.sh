@@ -7,5 +7,5 @@ do
   new=${f//$2/$3} 
   # take action on each file. $f store current file name
   # echo "new Processing $new file..."
-  cp $f /var/lib/genenet/bnw/$new
+  cp $f /tmp/bnw/$new
 done

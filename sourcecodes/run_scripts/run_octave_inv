@@ -2,5 +2,5 @@
 source("./run_scripts/path_cd.m")
 arg_list = argv();
 Predictmultipleintervention(arg_list{1});
-command=cstrcat("/var/www/html/compbio/BNW_1.3/bnw-env/bin/python3 ",base_dir,"/violin_int_plotly.py ",arg_list{1});
+command=cstrcat("/home/jziebart/python/Python-2.7.15/python ",base_dir,"/violin_int_plotly.py ",arg_list{1});
 test=system(command);

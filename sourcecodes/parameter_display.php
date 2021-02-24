@@ -5,12 +5,11 @@
 include("header_new.inc");
 include("input_validate.php");
 $keyval=valid_keyval($_GET["My_key"]);
-//$dir="./data/";
+$dir="./data/";
 //$dir="/tmp/bnw/";
-$dir="/var/lib/genenet/bnw/";
 
-$param_file = $keyval."parameters.txt";
-$param_ev_file = $keyval."parameters_ev.txt";
+$param_file = $dir.$keyval."parameters.txt";
+$param_ev_file = $dir.$keyval."parameters_ev.txt";
 
 ?>
 
@@ -27,14 +26,9 @@ $param_ev_file = $keyval."parameters_ev.txt";
 
 <body>
   <div class='table_div' id='parameter_div'>
-  <?php 
-  $table_text = json_encode(file("file://".$dir.$param_file));
-  ?>
   <script type="text/javascript">
-  d3.text("", function(error, raw){
-      var data1 = <?php echo $table_text;?>;
-      var data2 = data1.join("");
-      var data = data2.split("\n\n");
+  d3.text("<?php print($param_file);?>", function(error, raw){
+      var data = raw.split("\n\n");
       var dsv = d3.dsvFormat("\t");
    var i;
    for (i = 0; i < data.length; i++) {
@@ -55,15 +49,12 @@ $param_ev_file = $keyval."parameters_ev.txt";
     });
 </script>
 <?php
-if(file_exists($dir.$param_ev_file)) 
-{
-$table_text = json_encode(file("file://".$dir.$param_ev_file));
-?>
+$filename="/tmp/bnw/".$keyval."parameters_ev.txt";
+if(file_exists($filename)) 
+{?>
   <script type="text/javascript">
-  d3.text("", function(error, raw){
-      var data1 = <?php echo $table_text;?>;
-      var data2 = data1.join("");
-      var data = data2.split("\n\n");
+  d3.text("<?php print($param_ev_file);?>", function(error, raw){
+      var data = raw.split("\n\n");
       var dsv = d3.dsvFormat("\t");
    var i;
    for (i = 1000; i < data.length + 1000; i++) {
@@ -91,9 +82,10 @@ $table_text = json_encode(file("file://".$dir.$param_ev_file));
 <h3 id="header">Original network parameters</h3>
 </div>
 <div id="download">
-&nbsp;&nbsp;&nbsp;&nbsp;<a class=button2 target="_blank" href="<?php print("reroute.php?".$param_file);?>">Download original parameters</a><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class=button2 href="<?php print($param_file);?>">Download original parameters</a><br><br>
 <?php
-if(file_exists($dir.$param_ev_file)) 
+$filename="/tmp/bnw/".$keyval."parameters_ev.txt";
+if(file_exists($filename)) 
 {?>
 <h3> Network parameters considering evidence/intervention</h3>
 <?php
@@ -111,10 +103,11 @@ if(file_exists($dir.$param_ev_file))
 }
 </script>
 <?php
-if(file_exists($dir.$param_ev_file)) 
+$filename="/tmp/bnw/".$keyval."parameters_ev.txt";
+if(file_exists($filename)) 
 {?>
 <div id="download2">
-&nbsp;&nbsp;&nbsp;&nbsp;<a class=button2 href="<?php print("reroute.php?".$param_ev_file);?>">Download parameters considering evidence/intervention</a><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a class=button2 href="<?php print($param_ev_file);?>">Download parameters considering evidence/intervention</a><br><br>
 </div>
 <?php
 }

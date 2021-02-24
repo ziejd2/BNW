@@ -5,7 +5,7 @@
 <script src="./scripts/d3.v4.min.js"></script>
 <script src="./scripts/create_table.js"></script>
 
-<?php
+<?php 
 include("header_new.inc");
 include("header_batchsearch.inc");
 include("input_validate.php");
@@ -13,50 +13,49 @@ if($_GET["My_key"]!="")
   $keyval=valid_keyval($_GET["My_key"]);
 if($_POST["My_key"]!="")
   $keyval=valid_keyval($_POST["My_key"]);
-?>
-</head>
-
-<?php
 $searchID="";
 $UploadValue="NO";
-$TextFile=$_FILES["MyFile"]["name"];
+$TextFile=$HTTP_POST_FILES["MyFile"]["name"];
 //$TextinFile="./data/".$keyval."ts_upload.txt";
-$TextinFile="/var/lib/genenet/bnw/".$keyval."ts_upload.txt";
+$TextinFile="/tmp/bnw/".$keyval."ts_upload.txt";
+?>
+</header>
 
-if(isset($_POST["searchkey"]))
+<?php
+if(isset($HTTP_POST_VARS["searchkey"]))
   {
-    $searchID=$_POST["searchkey"];
+    $searchID=$HTTP_POST_VARS["searchkey"];
 
   }
 
-if(isset($_POST["MyUpload"]))
+if(isset($HTTP_POST_VARS["MyUpload"]))
   {
-    $UploadValue=$_POST["MyUpload"];
+    $UploadValue=$HTTP_POST_VARS["MyUpload"];
     if ($UploadValue=="YES")
       {
         if($TextFile!="")
-          {
-            $sta=move_uploaded_file($_FILES['MyFile']['tmp_name'],$TextinFile);
+	  {
+            $sta=move_uploaded_file($HTTP_POST_FILES['MyFile']['tmp_name'],$TextinFile);
             if(!$sta)
-              {
+	      {
                  echo "<script type='text/javascript'> window.alert ('Sorry, error uploading $TextFile.')</script>\
 ";
                  flush();
                  exit();
-              }
+	      }
             else
-              {
+	      {
                 $searchID=file_get_contents("$TextinFile");
                 //unlink($TextinFile);
 
-              }
+	      }
 
-          }
+	  }
 
        else
-         {
+	 {
            echo "<script type='text/javascript'> window.alert ('Sorry, please select upload file.')</script>";
-         }
+	 }
       }
   }
 
@@ -80,43 +79,39 @@ if(isset($_POST["MyUpload"]))
 <?php
   //  $filename1="./data/".$keyval."ts_upload.txt";
   //$filename2="./data/".$keyval."ts_output.txt";
-  $dir="/var/lib/genenet/bnw/";
-  $filename1=$keyval."ts_upload.txt";
-  $filename2=$keyval."ts_output.txt";
-$plotly_file=$keyval."ts_plotly.html";
-//$plotly_file_local="./data/".$keyval."ts_plotly.html";
-//$pred_file_local="./data/".$keyval."ts_output.txt";
+  $dir="/tmp/bnw/";
+  $filename1=$dir.$keyval."ts_upload.txt";
+  $filename2=$dir.$keyval."ts_output.txt";
+$plotly_file=$dir.$keyval."ts_plotly.html";
+$plotly_file_local="./data/".$keyval."ts_plotly.html";
+$pred_file_local="./data/".$keyval."ts_output.txt";
 
 
-if(file_exists($dir.$filename1))
+if(file_exists($filename1))
   {?>
 <br>
 <a class=button3 href="cv_predictions.php?My_key=<?php print($keyval);?>">Calculation submitted. Click here to return to cross-validation and predictions menu.</a>
 <br>
 <?php
   }
-else if(file_exists($dir.$plotly_file))
-  {
-  $table_text = json_encode(file("file://".$dir.$filename2));
-?>
+else if(file_exists($filename2))
+  {?>
 <div>
-         <object width="800" height="500" data=<?php include($dir.$plotly_file)?>
+	 <object type="text/html" data=<?php print($plotly_file_local);?> width="800" height="500" >
          </object>
      </div>
      <div class="d3_table" id="table_div1">
      <script type="text/javascript">
-       d3.text("", function(error,raw) {
-        var dsv=d3.dsvFormat("\t")
-	var data1 = <?php echo $table_text;?>;
-	var data2 = data1.join("");
-        var data=dsv.parse(data2)
+       d3.text("<?php print($pred_file_local);?>", function(error,raw) {
+ 	var dsv=d3.dsvFormat("\t")
+        var data=dsv.parse(raw)
         var caption_text=data.pop()
         if (error) throw error;
-        tabulate_caption("#table_div1",data,caption_text.CaseRow);
+	tabulate_caption("#table_div1",data,caption_text.CaseRow);
       });
 </script>
 </div>
-  <a class=button2 href=<?php print("reroute.php?".$filename2);?>>Download predictions</a>
+  <a class=button2 href=<?php $d="./data/".$keyval."ts_output.txt"; print($d);?>>View and download predictions</a>
 <br>
 <br>
 
