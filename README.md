@@ -6,8 +6,8 @@ The master branch will be the stable version of the code for running with GeneNe
 
 There are a couple of files in the info_files directory that provide descriptions of the BNW code and other information.
 
-There are six branches.
-1) master: This is the version of BNW that should be uploaded to GeneNetwork. Right now, it should be identical to the genenet6_final_1.3 branch.
+There are five branches.
+1) master: This is the version of BNW that should be loaded to GeneNetwork. Right now, it should be identical to the genenet6_final_1.3 branch.
 
 2) matlab_original (compbio.uthsc.edu/BNW_1.01): This is functionally identical to the original BNW code. The only difference is that unused files were removed.
 
@@ -15,5 +15,5 @@ There are six branches.
 
 4) genenet6_final_1.3: This is the final version of BNW on the GENENET6 server.
 
-5) genenet_initial_1.3: This is the working version of BNW on GENENET8 when we transitioned to that server.
+5) genenet8_initial_1.3: This is the working version of BNW on GENENET8 when we transitioned to that server.
 
