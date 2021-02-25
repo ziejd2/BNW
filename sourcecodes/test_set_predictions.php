@@ -15,27 +15,27 @@ if($_POST["My_key"]!="")
   $keyval=valid_keyval($_POST["My_key"]);
 $searchID="";
 $UploadValue="NO";
-$TextFile=$HTTP_POST_FILES["MyFile"]["name"];
+$TextFile=$_FILES["MyFile"]["name"];
 //$TextinFile="./data/".$keyval."ts_upload.txt";
 $TextinFile="/tmp/bnw/".$keyval."ts_upload.txt";
 ?>
 </header>
 
 <?php
-if(isset($HTTP_POST_VARS["searchkey"]))
+if(isset($_POST["searchkey"]))
   {
-    $searchID=$HTTP_POST_VARS["searchkey"];
+    $searchID=$_POST["searchkey"];
 
   }
 
-if(isset($HTTP_POST_VARS["MyUpload"]))
+if(isset($_POST["MyUpload"]))
   {
-    $UploadValue=$HTTP_POST_VARS["MyUpload"];
+    $UploadValue=$_POST["MyUpload"];
     if ($UploadValue=="YES")
       {
         if($TextFile!="")
 	  {
-            $sta=move_uploaded_file($HTTP_POST_FILES['MyFile']['tmp_name'],$TextinFile);
+            $sta=move_uploaded_file($_FILES['MyFile']['tmp_name'],$TextinFile);
             if(!$sta)
 	      {
                  echo "<script type='text/javascript'> window.alert ('Sorry, error uploading $TextFile.')</script>\
