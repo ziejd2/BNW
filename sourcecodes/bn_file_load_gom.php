@@ -62,9 +62,9 @@ if($searchID=="")
 }
 
 
-if(isset($HTTP_POST_VARS["MyUpload"]))
+if(isset($_POST["MyUpload"]))
 {
-   $UploadValue=$HTTP_POST_VARS["MyUpload"];
+   $UploadValue=$_POST["MyUpload"];
    if ($UploadValue=="YES")
    {
         if($TextFile!="")
