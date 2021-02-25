@@ -13,7 +13,7 @@ include("runtime_check.php");
 include("input_validate.php");
 $searchID="";
 $UploadValue="NO";
-$TextFile=$HTTP_POST_FILES["MyFile"]["name"];
+$TextFile=$_FILES["MyFile"]["name"];
 
 
 /////////////Generate a random key/////////////////////
@@ -40,9 +40,9 @@ $input_table_file="./data/".$keyval."input_table.txt";
 $TextinFile=$dir.$sid."_orig.txt";
 
 
-if(isset($HTTP_POST_VARS["searchkey"]))
+if(isset($_POST["searchkey"]))
 {
-   $searchID=$HTTP_POST_VARS["searchkey"];
+   $searchID=$_POST["searchkey"];
 
 }
 
@@ -70,7 +70,7 @@ if(isset($HTTP_POST_VARS["MyUpload"]))
         if($TextFile!="")
         {
 	  //	  $TextFile = valid_input($TextFile);
-            $sta=move_uploaded_file($HTTP_POST_FILES['MyFile']['tmp_name'],$TextinFile);
+            $sta=move_uploaded_file($_FILES['MyFile']['tmp_name'],$TextinFile);
             if(!$sta)
             {
                  echo "<script type='text/javascript'> window.alert ('Sorry, error uploading $TextFile.')</script>";
