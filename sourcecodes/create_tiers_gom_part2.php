@@ -79,14 +79,14 @@ $keyval=valid_keyval($keyval);
 <?php
 
 
-if(isset($HTTP_POST_VARS["bantext"]))
+if(isset($_POST["bantext"]))
 {
-   $ban_search=$HTTP_POST_VARS["searchkey"];
+   $ban_search=$_POST["searchkey"];
 }
 
-if(isset($HTTP_POST_VARS["whitetext"]))
+if(isset($_POST["whitetext"]))
 {
-   $white_search=$HTTP_POST_VARS["searchkey"];
+   $white_search=$_POST["searchkey"];
 }
 
 ?>
