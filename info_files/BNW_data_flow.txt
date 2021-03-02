@@ -1,5 +1,5 @@
 This file will provide an overview of data flow within BNW and describe the output files that are created for the network. 
-These files are written to the /sourcecodes/data/ directory.
+Files created by BNW are now written to /var/lib/genenet/bnw.
 This discusses what happens after clicking on "Learn network model from data" on homepage (home.php) and focuses on the core functions of BNW.
 
 Step 1: Upload data
@@ -15,7 +15,7 @@ One additional note:
 BNW assigns each network a randomly generated 3 letter prefix when the file is uploaded.
 I will use ??? to signify this prefix.
 
-The following 13 files are written to /sourcecodes/data directory during this step:
+This writes many files to /var/lib/genenet/bnw directory during this step:
 1) ???continuous_input_orig.txt: This is an exact copy of the input file uploaded by the user.
 2) ???continuous_input.txt: Input file after processing by prepareInput.m.
    -A couple of notable changes are made that differentiate input.txt from input_orig.txt.
@@ -49,7 +49,7 @@ This is a link to executionprogress.php which just displays a "progress bar" and
 To start structure learning, it runs execute_bn_gom.php.
 execute_bn_gom.php starts structure learning using run.sh and, then, run_octave in the run_scripts directory discussed in Step 3.
 
-Output files from structure learning that are written to /sourcecodes/data:
+Output files from structure learning that are written to /var/lib/genenet/bnw:
 1) ???structure_input.txt: The structure matrix, containing the edges included in the network model.
    The format of this file is a header line containing the variable names.
    The rest is the strucure matrix where 1 indicates an edge is included in the network and a 2 is not.
@@ -66,14 +66,15 @@ Before the process described in Step 2a, additional constraints or changes to de
   can be added using the structural constraint interface.
 
 This can be accessed by clicking on "Go to structure learning settings and the BNW
-     structural constraint interface" which links to create_tiers_gom.php
+     structural constraint interface" which links to create_tiers_gom_part1.php
 
-The top section of create_tiers_gom.php is "Global structure learning settings"
-  Modifying this section will change the values in ???parent.txt, ???k.txt, and ???thr.txt.
+This page allows for modifying "Global structure learning settings"
+  This will change the values in ???parent.txt, ???k.txt, and ???thr.txt.
 
-The remaining sections will modify the ???ban.txt and ???white.txt files.
+Clicking "Continue assign variables to tiers" will go to create_tiers_gom_part2.php.
+  This page will modify the ???ban.txt and ???white.txt files.
 
-Clicking on "Perform Bayesian network modeling" goes to executionprogress.php and Step 2a is followed.
+Clicking on "Click here to perform Bayesian network modeling after creating tiers" goes to tier_description_processing_gom.php and Step 2a is followed.
 
 
 Step 3: Parameter learning of the original network.
