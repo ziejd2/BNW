@@ -17,7 +17,7 @@ There are five branches.
 
 5) genenet8_initial_1.3: This is the working version of BNW on GENENET8 when we transitioned to that server. 
    A couple of notes about this version.
-   - This version writes files created by user running BNW to /var/lib/genenet/bnw. 
+   - This version writes files created by users running BNW to /var/lib/genenet/bnw. 
    - The structure learning package needs to be installed in /var/lib/genenet/bnw. The files in var_lib_genenet_bnw need to be copied to /var/lib/genenet/bnw and build.sh should be run there.
    - There is a python environment on GENENET8 that is used by BNW. This is in bnw-env, but I am not sure how well this will transition to other servers.
         
