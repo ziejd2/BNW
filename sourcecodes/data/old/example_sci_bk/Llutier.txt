@@ -1,1 +1,0 @@
-3,Tier1,1,Genotype,Tier2,3,Gene1,Gene2,Gene3,Tier3,1,Phenotype,
