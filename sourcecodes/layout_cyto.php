@@ -100,7 +100,7 @@ var default_layout = { name: 'dagre',
   
 
   //$.getJSON("<?php print($input_json);?>",function (data) {
-  $.getJSON("./data/LRlnetwork.json",function (dumm) {
+  $.getJSON("./data/sample_network.json",function (dumm) {
       //    console.log(data);
     //     document.addEventListener('DOMContentLoaded', function(){
      var data1 = <?php echo $json_text?>;
