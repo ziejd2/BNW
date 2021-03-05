@@ -1,3 +1,5 @@
+This is out of date, but I will leave it here until I can update it.
+
 This file will contain notes about changes that might need to be made on a new server:
 
 Required software:
