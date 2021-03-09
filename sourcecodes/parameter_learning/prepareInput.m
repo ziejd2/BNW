@@ -92,9 +92,26 @@ end
 
 
 % Remove all rows that have missing data from data file
+% Missing data could be NA or empty lines in the input file.
 remove_count = sum(any(strcmp(data,"NA"),2));
 data(any(strcmp(data,"NA"),2),:)=[];
 ncases = ncases - remove_count;
+remove_count_total = remove_count;
+
+remove_count = 0;
+ii = ncases;
+for i=1:ii
+    for j=1:nnodes
+       if isempty(data{i,j})
+               data(i,:) = [];
+               remove_count = remove_count + 1
+               i = i - 1
+               ii = ii -1
+      end
+   end
+end
+ncases = ncases - remove_count;
+remove_count_total=remove_count_total+remove_count;
 
 
 % Determine whether or not the nodes are continuous or discrete.
@@ -293,7 +310,7 @@ if size(remove,1) > 0
 	fprintf(dout,['\n']);
 end
 fprintf(dout,'There are %i variables and %i cases(rows).\n',size(labels,2),ncases);
-fprintf(dout,'%i cases(rows) have been removed because they contained NA (missing data).\n',remove_count);
+fprintf(dout,'%i cases(rows) have been removed because they contained NA (missing data).\n',remove_count_total);
 fprintf(dout_table,'Variable\tType\tStates/Mean (St Dev)\tReason for classification\n');
 fprintf(dout,'The variable names are:\n');
 fprintf(dout,'%s\t',labels{1:end-1});
@@ -316,7 +333,7 @@ for i=1:nnodes
        fprintf(dout_table,'%s\tDiscrete\t%i\t%s\n',labels{i},levels{i},reason{i});
     end
 end
-fprintf(dout_table,'There are %i variables and %i cases; %i variables and %i rows were removed.\n',size(labels,2),ncases,size(remove,1),remove_count);
+fprintf(dout_table,'There are %i variables and %i cases; %i variables and %i rows were removed.\n',size(labels,2),ncases,size(remove,1),remove_count_total);
 fclose(dout);
 fclose(dout_table);
 
