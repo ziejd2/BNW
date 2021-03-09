@@ -70,7 +70,7 @@ if(isset($_POST["MyUpload"]))
    {
         if($TextFile!="")
         {
-            $sta=move_uploaded_file($HTTP_POST_FILES['MyFile']['tmp_name'],$TextinFile);
+            $sta=move_uploaded_file($_FILES['MyFile']['tmp_name'],$TextinFile);
             if(!$sta)
             {
                  echo "<script type='text/javascript'> window.alert ('Sorry, error uploading $TextFile.')</script>";
