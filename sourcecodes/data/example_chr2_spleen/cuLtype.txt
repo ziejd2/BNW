@@ -1,2 +1,0 @@
-rs3664317	Oas1a	Parp9	Dhx58	Cd1d1	Irf7	Oas3	Pml	Mx1	Ifit1	Trim25	Oas1g	Pglyrp3	Ifih1
-2	1	1	1	1	1	1	1	1	1	1	1	1	1	

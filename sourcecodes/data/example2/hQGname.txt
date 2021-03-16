@@ -1,1 +1,0 @@
-Geno1	Geno2	Trait1	Trait2	Trait3	Trait4	Trait5	Trait6
