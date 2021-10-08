@@ -191,7 +191,7 @@ main(int argc, char *argv[])
 	    		network.node[i].prob=(double *)malloc(sizeof(double)*2); //probability array of size 2 for continuous node
 	    		network.node[i].prob[0]=0.0;  //initialization
 	    		network.node[i].prob[1]=0.0; 
-	    	       network.node[i].cdata=(double *)malloc(sizeof(double)*row); //data matrix for continuous node
+	    	       network.node[i].cdata=(double *)malloc(sizeof(double)*(row+1)); //data matrix for continuous node
 	  	}
 	  	else
 	  	{
@@ -199,7 +199,7 @@ main(int argc, char *argv[])
               	network.node[i].post_alpha=(double *)calloc(network.node[i].type,sizeof(double));  //prepare total count of each discrete data lebel initialize with zero by calloc which is used in learnnode
 			id++;
 	    		network.node[i].prob=(double *)malloc(sizeof(double)*c); //probability array of size equals to number of levels for discrete node 
-	    		network.node[i].ddata=(char **)malloc(sizeof(char *)*row); //data matrix for continuous node
+	    		network.node[i].ddata=(char **)malloc(sizeof(char *)*(row+1)); //data matrix for continuous node
 	    		network.node[i].label=(char **)malloc(sizeof(char *)*c);  //label array
 	    		for(j=0;j<c;j++)
 			   network.node[i].prob[j]=1.0/c;
