@@ -63,8 +63,6 @@
 <br><br>
 <b>    <p align="justify"> BNW has recently been updated. Read more about these updates <a href="help.php#updates">here.</a>
 <br><br>
-An older version of BNW is available <a href="http://compbio.uthsc.edu/BNW_1.2">here.</a></b>
-<br><br>
 <img class="wide" SRC="BNW_overview_new.PNG" ATL="" BORDER=0 WIDTH=1197 HEIGHT=487><BR>
 <br>
 <b>
