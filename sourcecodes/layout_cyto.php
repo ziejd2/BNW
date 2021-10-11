@@ -104,8 +104,8 @@ var default_layout = { name: 'dagre',
 		       spacingFactor: 1.25
   }
 
-  $.getJSON("<?php print($input_json);?>",function (data) {
-  //$.getJSON("./data/cwHnetwork.json",function (data) {
+  //$.getJSON("<?php print($input_json);?>",function (data) {
+  $.getJSON("./data/sample_network.json",function (dumm) {
       //    console.log(data);
     //     document.addEventListener('DOMContentLoaded', function(){
       var cy = window.cy = cytoscape({

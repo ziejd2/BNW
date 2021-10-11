@@ -8,14 +8,9 @@ function genenetwork_data()
 {
     with(window.document.key_search)
     {
-	//searchkey.value="<?php echo $_POST['My_Genenet'] ?>";
 	genenet_str = "<?php echo $_POST['My_Genenet'] ?>";
-	//genenet_str = genenet_str.slice(0,-1);
-	//console.log(genenet_str);
 	genenet_str = genenet_str.replace(/,/g, '\t');
 	genenet_str = genenet_str.replace(/;/g,'\n');
-	//console.log(genenet_str);
-	//genenet_str = genenet_str + "\n\n";
 	searchkey.value=genenet_str;
     }
 }

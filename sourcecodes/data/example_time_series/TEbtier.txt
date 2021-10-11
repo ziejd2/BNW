@@ -1,1 +1,0 @@
-4,Tier1,1,Genotype,Tier2,3,TraitA_T1,TraitB_T1,TraitC_T1,Tier3,3,TraitA_T2,TraitB_T2,TraitC_T2,Tier4,3,TraitA_T3,TraitB_T3,TraitC_T3,
