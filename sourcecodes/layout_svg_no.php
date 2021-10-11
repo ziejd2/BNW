@@ -112,12 +112,7 @@ if(file_exists($filename1))
 
 
   //onload = "makeDraggable(evt)";
-<<<<<<< HEAD
 
-d3.xml("<?php print($svg_file);?>", function(error, documentFragment){
-  if (error) {console.log(error); return;}
-  
-=======
 <?php
 $svg_xml = json_encode(file("file://".$dir.$svg_file));
 ?>
@@ -126,7 +121,6 @@ d3.xml("", function(dumm){
  var data2 = data1.join(""); 
  parser = new DOMParser();
  documentFragment = parser.parseFromString(data2,"text/xml");
->>>>>>> genenet8_initial_1.3
  var svgNode = documentFragment
     .getElementsByTagName("svg")[0];
 
